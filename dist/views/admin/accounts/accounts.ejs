@@ -1,0 +1,46 @@
+<%- include('../layout/header.ejs')%>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/dashboard/new-account" class="btn btn-info text-white">New account</a
+          >
+          <div class="table-responsive mt-3">
+            <table class="table table-bordered">
+              <thead>
+                <tr class="text-center">
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Country</th>
+                  <th>Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i = 0; i < accounts.length; i ++) { %>
+                <tr class="text-center">
+                  <td><%= i+1%></td>
+                  <td><%= accounts[i].username %></td>
+                  <td>
+                    <span class="badge badge-danger text-white"><%= accounts[i].country%></span>
+                  </td>
+                  <td><%= accounts[i].customInfo %></td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-info" href="/dashboard/edit-account?id=<%= accounts[i].id%>">Edit</a>
+                        <a class="btn btn-sm btn-outline-danger" href="/dashboard/delete-account?id=<%= accounts[i].id%>">
+                      Delete
+                    </a>
+                        </td>
+                        </tr>
+                        <% } %>
+                            </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <%- include('../layout/footer.ejs')%>

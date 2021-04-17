@@ -1,0 +1,67 @@
+<%- include('layout/header.ejs')%>
+<section id="hero" class="d-flex align-items-center">
+    <div
+      class="container position-relative text-center text-lg-left"
+      data-aos="zoom-in"
+      data-aos-delay="100"
+    >
+      <div class="row">
+        <div class="col-6 offset-3">
+          <div class="card-auth mb-3">
+            <div class="row g-0">
+              <div class="col-md-12">
+                <div class="card-body p-5">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="mb-4 text-center">
+                        <p class="card-title">Log in to your account</p>
+                      </div>
+                      <div class="mb-3">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="exampleFormControlInput1"
+                          placeholder="Email Address"
+                        />
+                      </div>
+
+                      <div class="mb-3">
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="exampleFormControlInput1"
+                          placeholder="Password"
+                        />
+                      </div>
+
+                      <div class="mb-3 text-right">
+                        <a href="/forget-password" class="forget-password"
+                          >Forgot Password</a
+                        >
+                      </div>
+                      <div class="mb-5">
+                        <button
+                          type="button"
+                          class="btn btn-primary btn-continue"
+                        >
+                          Log in
+                        </button>
+                      </div>
+
+                      <div class="mb-3 text-center">
+                        <label
+                          >Don't have an account?
+                          <a href="/sign-up">Get Started</a></label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<%- include('layout/footer.ejs')%>

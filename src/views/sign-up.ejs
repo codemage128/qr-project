@@ -1,0 +1,78 @@
+<%- include('layout/header.ejs')%>
+<section id="hero" class="d-flex align-items-center">
+  <div
+    class="container position-relative text-center text-lg-left"
+    data-aos="zoom-in"
+    data-aos-delay="100"
+  >
+    <div class="row">
+      <div class="col-6 offset-3">
+        <div class="card-auth mb-3">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body p-5">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-4 text-center">
+                      <p class="card-title">Register your account</p>
+                    </div>
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="First Name"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Last Name"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Email Address"
+                      />
+                    </div>
+
+                    <div class="mb-4">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="exampleFormControlInput1"
+                        placeholder="Password"
+                      />
+                    </div>
+
+                    <div class="mb-3">
+                      <button
+                        type="button"
+                        class="btn btn-primary btn-continue"
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+
+                    <div class="mb-3 text-center">
+                      <label
+                        >Already have an account?
+                        <a href="/login">Login</a></label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('layout/footer.ejs')%>

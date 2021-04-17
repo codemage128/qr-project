@@ -1,0 +1,27 @@
+<%- include('./auth/header.ejs')%>
+   <div class="container mt-5">
+      <form method="POST" action="/login">
+         <div class="row">
+            <div class="col-lg-6 offset-3 mt-5">
+               <% if (error) { %>
+                  <div class="form-group">
+                     <div class="alert alert-danger"><h1><%= data.message%></h1></div>
+                  </div>
+               <% } %>
+               <input id="email" type="email" class="form-control" name="email" placeholder="Email" value="" required
+                  autocomplete="email" autofocus>
+            </div>
+            <div class="col-lg-6 offset-3 mt-2">
+               <input id="password" type="password" class="form-control" placeholder="Password" name="password" required
+                  autocomplete="current-password">
+            </div>
+            <div class="col-lg-6 offset-3 ">
+               <div class="text-center">
+                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                  <a href="/sign-up" class="btn btn-outline-primary my-4">Create new account</a>
+               </div>
+            </div>
+         </div>
+      </form>
+   </div>
+   <%- include('./auth/footer.ejs')%>

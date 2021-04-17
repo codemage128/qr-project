@@ -1,0 +1,75 @@
+<%- include('../layout/header.ejs')%>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- column -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/dashboard/new-project" class="btn btn-danger text-white">New project</a>
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>#</th>
+                                        <th>Project Image</th>
+                                        <th>Project Name</th>
+                                        <th>Technologies</th>
+                                        <th><i class="fab fa-github"></i></th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% for(var i = 0; i < projects.length; i ++) { %>
+                                        <tr class="text-center">
+                                            <td>
+                                                <%= i+1 %>
+                                            </td>
+                                            <td style="width: 10vw;">
+                                                <div id="carouselExampleControls<%= i %>" class="carousel slide" data-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <% for(var j = 0; j < projects[i].images.length; j ++) {%>
+                                                            <div class="carousel-item <% if(j ==0){ %> active <% } %>">
+                                                                <img class="d-block w-100" src="/uploads/<%= projects[i].images[j] %>" />
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                    <a class="carousel-control-prev" href="#carouselExampleControls<%= i %>" role="button" data-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#carouselExampleControls<%= i %>" role="button" data-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <%= projects[i].title %>
+                                            </td>
+                                            <td>
+                                                <% for( var k = 0; k < projects[i].technologies.length; k ++) {%>
+                                                    <span class="badge badge-primary"><%= projects[i].technologies[k] %></span>
+                                                    <% } %>
+                                            </td>
+                                            <td>
+                                                <a href="<%= projects[i].github %>" target="_blank">
+                                                    <%= projects[i].github %>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-outline-info" href="/dashboard/edit-project?id=<%= projects[i]._id %>">Edit</a>
+                                                <a class="btn btn-sm btn-outline-danger" href="/dashboard/delete-project?id=<%= projects[i]._id %>">
+                      Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../layout/footer.ejs')%>

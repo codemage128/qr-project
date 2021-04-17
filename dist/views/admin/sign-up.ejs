@@ -1,0 +1,34 @@
+<%- include('./auth/header.ejs')%>
+   <div class="container mt-5">
+      <div class="row justify-content-center">
+         <div class="col-lg-6 col-md-8">
+            <form role="form" action="/sign-up" method="POST">
+               <% if (error) { %>
+                  <div class="form-group">
+                     <div class="alert alert-danger"><h1><%= data.message%></h1></div>
+                  </div>
+               <% } %>
+               <div class="form-group">
+                  <div class="input-group input-group-alternative mb-3">
+                     <input class="form-control" placeholder="Name" name="name" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="input-group input-group-alternative mb-3">
+                     <input class="form-control" placeholder="Email" name="email" type="email" required>
+                  </div>
+               </div>
+               <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                     <input class="form-control" placeholder="Password" type="password" name="password" required>
+                  </div>
+               </div>
+               <div class="text-center">
+                  <a href="/login">login</a>
+                  <button type="submit" class="btn btn-primary mt-4">Create account</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+   <%- include('./auth/footer.ejs')%>
