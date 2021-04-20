@@ -51,6 +51,6 @@ app.use(index)
 app.use(auth)
 // app.use(admin)
 
-app.listen(80, () => {
+app.listen(port, () => {
     console.log(`Example app listening at :${port}`)
 })
