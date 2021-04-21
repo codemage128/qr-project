@@ -38,7 +38,7 @@ router.post('/login', function (req, res, next) {
       return res.redirect('login');
     }
 
-    if (user.active === false) {
+    if (user.active === true) {
       req.flash("warning_msg", "Your account is not active, check your email to activate your account");
       return res.redirect("back");
     }
