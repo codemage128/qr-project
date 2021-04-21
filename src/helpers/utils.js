@@ -2,7 +2,7 @@
 
 const removeSpaceFromText = (_string) => {
     let a = _string.trim();
-    let b = a.replaceAll(" ", "");
+    let b = a.replace(/ /g, "");
     return b;
 }
 

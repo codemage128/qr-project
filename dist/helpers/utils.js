@@ -3,7 +3,7 @@
 var removeSpaceFromText = function removeSpaceFromText(_string) {
   var a = _string.trim();
 
-  var b = a.replaceAll(" ", "");
+  var b = a.replace(/ /g, "");
   return b;
 };
 
