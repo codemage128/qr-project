@@ -3,6 +3,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const logger = require('morgan')
+const flash = require('connect-flash');
 const path = require('path')
 const passport = require('./helpers/passport')
 const bodyParser = require('body-parser')
@@ -15,13 +16,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(require("express-session")({
-    secret: "Rusty is the worst and ugliest dog in the wolrd",
+    secret: "Skanz",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1209600000
+    }
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
 
 const options = {
     useNewUrlParser: true,
@@ -42,15 +44,31 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "public")))
 
 app.use(logger("dev"))
+app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+    // res.header("X-powered-by", "Skanz");
+    // res.header("server", "Skanz");
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.warning_msg = req.flash('warning_msg');
+    res.locals.user = req.user || null;
+    next();
+})
 const index = require('./routes/index')
 const auth = require('./routes/auth')
 // const admin = require('./routes/admin')
-
 app.use(index)
 app.use(auth)
 // app.use(admin)
 
+app.get('*', (req, res, next) => {
+    res.status(404).render('404');
+    next();
+});
 app.listen(port, () => {
     console.log(`Example app listening at :${port}`)
 })

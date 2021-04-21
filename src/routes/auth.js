@@ -1,20 +1,34 @@
 const express = require('express');
 import passport from "../helpers/passport";
+import crypto from "crypto";
+const { removeSpaceFromText } = require('../helpers/utils');
 const bodyParser = require('body-parser')
 import User from "../models/users";
 const router = express.Router();
 
+
 router.get('/login', (req, res, next) => {
     console.log(req.isAuthenticated());
-    res.render('login', { error: false });
+    if (req.isAuthenticated()) {
+        res.redirect('dashboard');
+    }
+    res.render('login');
 })
 router.post('/login', (req, res, next) => {
-    passport.authenticate("local", function(err, user, info) {
+    passport.authenticate("local", function (err, user, info) {
         if (err) return next(err);
         if (!user) {
-            return res.render('./admin/login', { error: true, data: info });
+            req.flash('error_msg', 'This user doesn`t exist');
+            return res.redirect('login');
         }
-        req.logIn(user, function(err) {
+        if (user.active === false) {
+            req.flash(
+                "warning_msg",
+                "Your account is not active, check your email to activate your account"
+            );
+            return res.redirect("back");
+        }
+        req.logIn(user, function (err) {
             if (err) return next(err);
             return res.redirect('/dashboard');
         });
@@ -26,7 +40,7 @@ router.get('/log-out', (req, res, next) => {
         if (!req.user) res.redirect("/login");
         else {
             req.logout();
-            req.flash("success_msg", "Du bist nun abgemeldet");
+            req.flash("success_msg", "You are logged out!");
             res.redirect("/login");
         }
     } catch (error) {
@@ -35,24 +49,37 @@ router.get('/log-out', (req, res, next) => {
 })
 
 router.get('/sign-up', (req, res, next) => {
-    res.render('sign-up', { error: false });
+    res.render('sign-up');
 })
 
-router.post('/sign-up', async(req, res, next) => {
+router.post('/sign-up', async (req, res, next) => {
     let check = await User.findOne({ email: req.body.email });
     var Msg;
     if (check) {
-        Msg = { message: "Email has been used!" };
-        res.render('./admin/sign-up', { error: true, data: Msg });
+        req.flash('warning_msg', 'Email has been used!');
+        res.redirect('back');
     }
+    let userslug = removeSpaceFromText(req.body.firstName) + "-" + removeSpaceFromText(req.body.lastName)
+
     var payload = {
-        username: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userslug: userslug,
         password: req.body.password,
-        email: req.body.email
+        email: req.body.email,
+        profilePicture: "https://gravatar.com/avatar/" +
+            crypto
+                .createHash("md5")
+                .update(req.body.email)
+                .digest("hex")
+                .toString() +
+            "?s=200" +
+            "&d=retro",
     }
-    let user = await User.create(payload);
-    Msg = { message: "User created" }
-    res.render('./admin/sign-up', { error: true, data: Msg });
+    User.create(payload).then(() => {
+        req.flash('success_msg', 'Registration  is successfully!');
+        res.redirect('/login');
+    }).catch(e => next(e));;
 })
 
 module.exports = router;

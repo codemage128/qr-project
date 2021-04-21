@@ -12,11 +12,28 @@ var Schema = _mongoose["default"].Schema;
 var userSchema = new Schema({
   firstName: String,
   lastName: String,
+  userslug: String,
+  roleId: {
+    type: String,
+    "enum": ["admin", "user"],
+    "default": "user"
+  },
   email: {
     type: String,
     unique: true
   },
+  active: {
+    type: Boolean,
+    "default": false
+  },
+  token: String,
+  profilePicture: {
+    type: String,
+    "default": "https://gravatar.com/avatar/?s=200&d=retro"
+  },
   password: String
+}, {
+  timestamps: true
 });
 userSchema.pre("save", function (next) {
   var user = this;

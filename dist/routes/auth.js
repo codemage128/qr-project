@@ -8,28 +8,39 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _passport = _interopRequireDefault(require("../helpers/passport"));
 
+var _crypto = _interopRequireDefault(require("crypto"));
+
 var _users = _interopRequireDefault(require("../models/users"));
 
 var express = require('express');
+
+var _require = require('../helpers/utils'),
+    removeSpaceFromText = _require.removeSpaceFromText;
 
 var bodyParser = require('body-parser');
 
 var router = express.Router();
 router.get('/login', function (req, res, next) {
   console.log(req.isAuthenticated());
-  res.render('login', {
-    error: false
-  });
+
+  if (req.isAuthenticated()) {
+    res.redirect('dashboard');
+  }
+
+  res.render('login');
 });
 router.post('/login', function (req, res, next) {
   _passport["default"].authenticate("local", function (err, user, info) {
     if (err) return next(err);
 
     if (!user) {
-      return res.render('./admin/login', {
-        error: true,
-        data: info
-      });
+      req.flash('error_msg', 'This user doesn`t exist');
+      return res.redirect('login');
+    }
+
+    if (user.active === false) {
+      req.flash("warning_msg", "Your account is not active, check your email to activate your account");
+      return res.redirect("back");
     }
 
     req.logIn(user, function (err) {
@@ -42,7 +53,7 @@ router.get('/log-out', function (req, res, next) {
   try {
     if (!req.user) res.redirect("/login");else {
       req.logout();
-      req.flash("success_msg", "Du bist nun abgemeldet");
+      req.flash("success_msg", "You are logged out!");
       res.redirect("/login");
     }
   } catch (error) {
@@ -50,13 +61,11 @@ router.get('/log-out', function (req, res, next) {
   }
 });
 router.get('/sign-up', function (req, res, next) {
-  res.render('sign-up', {
-    error: false
-  });
+  res.render('sign-up');
 });
 router.post('/sign-up', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var check, Msg, payload, user;
+    var check, Msg, userslug, payload;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -70,34 +79,30 @@ router.post('/sign-up', /*#__PURE__*/function () {
             check = _context.sent;
 
             if (check) {
-              Msg = {
-                message: "Email has been used!"
-              };
-              res.render('./admin/sign-up', {
-                error: true,
-                data: Msg
-              });
+              req.flash('warning_msg', 'Email has been used!');
+              res.redirect('back');
             }
 
+            userslug = removeSpaceFromText(req.body.firstName) + "-" + removeSpaceFromText(req.body.lastName);
             payload = {
-              username: req.body.name,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              userslug: userslug,
               password: req.body.password,
-              email: req.body.email
+              email: req.body.email,
+              profilePicture: "https://gravatar.com/avatar/" + _crypto["default"].createHash("md5").update(req.body.email).digest("hex").toString() + "?s=200" + "&d=retro"
             };
-            _context.next = 7;
-            return _users["default"].create(payload);
 
-          case 7:
-            user = _context.sent;
-            Msg = {
-              message: "User created"
-            };
-            res.render('./admin/sign-up', {
-              error: true,
-              data: Msg
+            _users["default"].create(payload).then(function () {
+              req.flash('success_msg', 'Registration  is successfully!');
+              res.redirect('/login');
+            })["catch"](function (e) {
+              return next(e);
             });
 
-          case 10:
+            ;
+
+          case 8:
           case "end":
             return _context.stop();
         }

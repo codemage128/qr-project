@@ -10,6 +10,8 @@ var mongoose = require('mongoose');
 
 var logger = require('morgan');
 
+var flash = require('connect-flash');
+
 var path = require('path');
 
 var passport = require('./helpers/passport');
@@ -26,12 +28,13 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(require("express-session")({
-  secret: "Rusty is the worst and ugliest dog in the wolrd",
+  secret: "Skanz",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 1209600000
+  }
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 var options = {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -46,6 +49,18 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express["static"](path.join(__dirname, "public")));
 app.use(logger("dev"));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function (req, res, next) {
+  // res.header("X-powered-by", "Skanz");
+  // res.header("server", "Skanz");
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.warning_msg = req.flash('warning_msg');
+  res.locals.user = req.user || null;
+  next();
+});
 
 var index = require('./routes/index');
 
@@ -55,6 +70,10 @@ var auth = require('./routes/auth'); // const admin = require('./routes/admin')
 app.use(index);
 app.use(auth); // app.use(admin)
 
+app.get('*', function (req, res, next) {
+  res.status(404).render('404');
+  next();
+});
 app.listen(port, function () {
-  console.log("Example app listening at http://localhost:".concat(port));
+  console.log("Example app listening at :".concat(port));
 });

@@ -6,14 +6,14 @@ import User from "../models/users";
 //Serialize user
 passport.serializeUser((user, done) => {
    done(null, user.id);
- });
- 
- //Deserialize user
- passport.deserializeUser((id, done) => {
+});
+
+//Deserialize user
+passport.deserializeUser((id, done) => {
    User.findById(id, (err, user) => {
-     done(err, user);
+      done(err, user);
    });
- });
+});
 
 passport.use(
    new LocalStrategy(
