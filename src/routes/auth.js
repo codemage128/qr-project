@@ -77,7 +77,7 @@ router.post('/sign-up', async (req, res, next) => {
             "&d=retro",
     }
     User.create(payload).then(() => {
-        req.flash('success_msg', 'Registration  is successfully!');
+        req.flash('success_msg', 'Registration is successful');
         res.redirect('/login');
     }).catch(e => next(e));;
 })

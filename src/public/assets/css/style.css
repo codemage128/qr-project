@@ -522,7 +522,6 @@ h6 {
 
 #hero {
   width: 100%;
-  height: 100vh;
   background: url("../img/hero-bg.jpg") top center;
   background-size: cover;
   position: relative;
@@ -674,6 +673,7 @@ h6 {
 
 @media (min-width: 1024px) {
   #hero {
+    height: 100vh;
     background-attachment: fixed;
   }
 }
@@ -832,7 +832,6 @@ ol li:hover > a {
 }
 
 .inner-page{
-  height: 75vh;
   background: url("../img/inner-bg.png") top center;
   background-size: cover;
 }

@@ -94,7 +94,7 @@ router.post('/sign-up', /*#__PURE__*/function () {
             };
 
             _users["default"].create(payload).then(function () {
-              req.flash('success_msg', 'Registration  is successfully!');
+              req.flash('success_msg', 'Registration is successful');
               res.redirect('/login');
             })["catch"](function (e) {
               return next(e);
