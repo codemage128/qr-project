@@ -1,6 +1,18 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
 var express = require('express');
+
+var Qr = require('../models/qrcode');
+
+var User = require('../models/users');
+
+var QRCode = require('qrcode');
 
 var router = express.Router();
 
@@ -11,11 +23,175 @@ var auth = function auth(req, res, next) {
 };
 
 router.get('/', function (req, res, next) {
-  res.render('index');
+  if (req.isAuthenticated()) {
+    res.redirect('/dashboard');
+  } else {
+    res.render('index');
+  }
 });
-router.get('/dashboard', auth, function (req, res, next) {
-  res.render('dashboard');
-});
+router.get('/dashboard', auth, /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
+    var qrId, qrfield;
+    return _regenerator["default"].wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            qrfield = "";
+
+            if (!(req.user.qrcodes.length > 0)) {
+              _context.next = 7;
+              break;
+            }
+
+            qrId = req.user.qrcodes[0];
+            _context.next = 5;
+            return Qr.findOne({
+              _id: qrId
+            });
+
+          case 5:
+            qrfield = _context.sent;
+            qrfield = qrfield.content;
+
+          case 7:
+            res.render('dashboard', {
+              qr: qrfield
+            });
+
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}());
+router.post('/choose-type', auth, /*#__PURE__*/function () {
+  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
+    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
+
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            membertype = req.body.membertype;
+            promocode = req.body.promocode;
+            payload = {
+              content: "",
+              promocode: ""
+            };
+
+            if (!(membertype === "0")) {
+              _context2.next = 27;
+              break;
+            }
+
+            //Don't have qr code
+            a = Math.random();
+            a = Math.floor(a * 1000000);
+            payload.promocode = "A" + a;
+            console.log(payload.promocode);
+            _context2.next = 10;
+            return Qr.findOne({
+              promocode: payload.promocode
+            });
+
+          case 10:
+            qrList = _context2.sent;
+
+            if (qrList) {
+              _context2.next = 25;
+              break;
+            }
+
+            promise = new Promise(function (resolve, reject) {
+              var segs = "Welcome To Skanz. This is your qr code on the Skanz, you can order and print your tattoo. https://skanz.link. Your code is " + payload.promocode;
+              QRCode.toDataURL(segs, {
+                version: 8
+              }, function (err, url) {
+                resolve(url);
+              });
+            });
+            _context2.next = 15;
+            return promise;
+
+          case 15:
+            url = _context2.sent;
+            payload.content = url;
+            _context2.next = 19;
+            return Qr.create(payload);
+
+          case 19:
+            qrcode = _context2.sent;
+            _context2.next = 22;
+            return User.findOne({
+              _id: req.user.id
+            });
+
+          case 22:
+            user = _context2.sent;
+            _context2.next = 25;
+            return User.updateOne({
+              _id: req.user.id
+            }, {
+              $push: {
+                qrcodes: qrcode.id
+              }
+            });
+
+          case 25:
+            _context2.next = 36;
+            break;
+
+          case 27:
+            _context2.next = 29;
+            return Qr.findOne({
+              promocode: promocode
+            });
+
+          case 29:
+            _qrcode = _context2.sent;
+
+            if (!_qrcode) {
+              _context2.next = 35;
+              break;
+            }
+
+            _context2.next = 33;
+            return User.updateOne({
+              _id: req.user.id
+            }, {
+              $push: {
+                qrcodes: _qrcode.id
+              }
+            });
+
+          case 33:
+            _context2.next = 36;
+            break;
+
+          case 35:
+            req.flash('warning_msg', 'That promocode doesn`t exist');
+
+          case 36:
+            res.redirect('back');
+
+          case 37:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function (_x4, _x5, _x6) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 router.get('/contacts', auth, function (req, res, next) {
   res.render('contacts');
 });

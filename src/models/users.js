@@ -16,6 +16,12 @@ const userSchema = new Schema({
     type: String,
     unique: true
   },
+  qrcodes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Qrcode"
+    }
+  ],
   active: {
     type: Boolean,
     default: false

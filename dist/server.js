@@ -18,6 +18,10 @@ var passport = require('./helpers/passport');
 
 var bodyParser = require('body-parser');
 
+var session = require("express-session");
+
+var MongoStore = require("connect-mongo");
+
 require('dotenv').config();
 
 var app = express();
@@ -27,13 +31,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use(require("express-session")({
+app.use(session({
   secret: "Skanz",
   resave: true,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
     maxAge: 1209600000
-  }
+  },
+  store: MongoStore.create({
+    mongoUrl: process.env.DATABASE
+  })
 }));
 var options = {
   useNewUrlParser: true,

@@ -65,7 +65,7 @@ router.get('/sign-up', function (req, res, next) {
 });
 router.post('/sign-up', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var check, Msg, userslug, payload;
+    var check, Msg, userslug, payload, user;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -91,18 +91,27 @@ router.post('/sign-up', /*#__PURE__*/function () {
               password: req.body.password,
               email: req.body.email,
               profilePicture: "https://gravatar.com/avatar/" + _crypto["default"].createHash("md5").update(req.body.email).digest("hex").toString() + "?s=200" + "&d=retro"
-            };
+            }; // User.create(payload).then(() => {
+            //     req.flash('success_msg', 'Registration is successful');
+            //     res.redirect('/login');
+            // }).catch(e => next(e));
 
-            _users["default"].create(payload).then(function () {
-              req.flash('success_msg', 'Registration is successful');
-              res.redirect('/login');
-            })["catch"](function (e) {
-              return next(e);
-            });
-
-            ;
+            _context.next = 8;
+            return _users["default"].create(payload);
 
           case 8:
+            user = _context.sent;
+            req.logIn(user, function (err) {
+              if (err) return next(err);
+
+              if (user.roleId === "user") {
+                return res.redirect('/dashboard');
+              } else if (user.roleId === "admin") {
+                return res.redirect('/admin/dashboard');
+              }
+            });
+
+          case 10:
           case "end":
             return _context.stop();
         }

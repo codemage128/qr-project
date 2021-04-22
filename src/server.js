@@ -7,6 +7,8 @@ const flash = require('connect-flash');
 const path = require('path')
 const passport = require('./helpers/passport')
 const bodyParser = require('body-parser')
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
 require('dotenv').config()
 const app = express()
@@ -15,13 +17,16 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(require("express-session")({
+app.use(session({
     secret: "Skanz",
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         maxAge: 1209600000
-    }
+    },
+    store: MongoStore.create({
+        mongoUrl: process.env.DATABASE
+    })
 }));
 
 

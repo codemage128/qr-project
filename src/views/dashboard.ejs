@@ -1,82 +1,99 @@
 <%- include('layout/header.ejs')%>
 
-<main id="main">
-  <section class="breadcrumbs">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <ol>
-          <li class="active">
-            <a class="breadcrumbs-link" href="/dashboard">Dashboard</a>
-          </li>
-          <li><a class="breadcrumbs-link" href="/contacts">Contacts</a></li>
-          <li><a class="breadcrumbs-link" href="/profile">Profile</a></li>
-          <li><a class="breadcrumbs-link" href="/settings">Settings</a></li>
-        </ol>
-        <h2>Dashboard</h2>
+  <main id="main">
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <ol>
+            <li class="active">
+              <a class="breadcrumbs-link" href="/dashboard">Dashboard</a>
+            </li>
+            <li><a class="breadcrumbs-link" href="/contacts">Contacts</a></li>
+            <li><a class="breadcrumbs-link" href="/profile">Profile</a></li>
+            <li><a class="breadcrumbs-link" href="/settings">Settings</a></li>
+          </ol>
+          <h2>Dashboard</h2>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="inner-page">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label for="exampleFormControlInput1">Email address</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleFormControlInput1"
-                    placeholder="name@example.com"
-                  />
+    <section class="inner-page">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col text-center">
+                    <img src="<%= qr %>">
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect1">Example select</label>
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlSelect2"
-                    >Example multiple select</label
-                  >
-                  <select
-                    multiple
-                    class="form-control"
-                    id="exampleFormControlSelect2"
-                  >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1"
-                    >Example textarea</label
-                  >
-                  <textarea
-                    class="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                  ></textarea>
-                </div>
-              </form>
-              Comming Soon. In here, you can see your total counts of QR code
-              and connects people counts.
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </section>
+  </main>
+  <div class="modal fade" id="chooseType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <form action="/choose-type" method="POST">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Almost Done!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-4 text-center">
+                    <%- include('./particials/msg') %>
+                  </div>
+                  <div class="form-group">
+                    <label for="membertype">Type</label>
+                    <select class="form-control" id="membertype" name="membertype" required>
+                      <option value="0">I don't have any tattos and am going to order one.</option>
+                      <option value="1">I have already tattoos and identification code.</option>
+                    </select>
+                  </div>
+                  <div class="form-group promocode">
+                    <label for="promocode">Identification Code</label>
+                    <input type="text" class="form-control" id="promocode" name="promocode" value="-1"
+                      placeholder="A000001" required />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+      </form>
     </div>
-  </section>
-</main>
-<%- include('layout/footer.ejs')%>
+  </div>
+  <%- include('./particials/foot.ejs')%>
+    <script>
+      $(function () {
+        var newmember = "<%= user.qrcodes.length %>" > 0 ? false : true;
+        /* If the user is new member, alert modal to choose order or type the code */
+        if (newmember) {
+          $('#chooseType').modal({});
+        }
+        $('.promocode').hide();
+        $('#membertype').change(function () {
+          if ($(this).val() == 0) {
+            $('.promocode').hide();
+          } else {
+            $('.promocode').show();
+          }
+        })
+      })
+    </script>
+    </body>
+
+    </html>
