@@ -26,11 +26,16 @@ router.get('/dashboard', auth, async (req, res, next) => {
     if (req.user.qrcodes.length > 0) {
         qrId = req.user.qrcodes[0];
         qrfield = await Qr.findOne({ _id: qrId });
-        qrfield = qrfield.content;
     }
     res.render('dashboard', {
         qr: qrfield
     });
+})
+
+router.get("/code/:promocode", async (req, res, next) => {
+    let promocode = req.params.promocode;
+    let qr = await Qr.findOne({promocode: promocode});
+    res.render('qrcode', {data: qr.content});
 })
 
 router.post('/choose-type', auth, async (req, res, next) => {

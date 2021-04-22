@@ -39,7 +39,7 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
             qrfield = "";
 
             if (!(req.user.qrcodes.length > 0)) {
-              _context.next = 7;
+              _context.next = 6;
               break;
             }
 
@@ -51,14 +51,13 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
 
           case 5:
             qrfield = _context.sent;
-            qrfield = qrfield.content;
 
-          case 7:
+          case 6:
             res.render('dashboard', {
               qr: qrfield
             });
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -70,13 +69,44 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
-router.post('/choose-type', auth, /*#__PURE__*/function () {
+router.get("/code/:promocode", /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
-    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
-
+    var promocode, qr;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
+          case 0:
+            promocode = req.params.promocode;
+            _context2.next = 3;
+            return Qr.findOne({
+              promocode: promocode
+            });
+
+          case 3:
+            qr = _context2.sent;
+            res.render('qrcode', {
+              data: qr.content
+            });
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function (_x4, _x5, _x6) {
+    return _ref2.apply(this, arguments);
+  };
+}());
+router.post('/choose-type', auth, /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
+
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             membertype = req.body.membertype;
             promocode = req.body.promocode;
@@ -86,7 +116,7 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             };
 
             if (!(membertype === "0")) {
-              _context2.next = 27;
+              _context3.next = 27;
               break;
             }
 
@@ -95,16 +125,16 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             a = Math.floor(a * 1000000);
             payload.promocode = "A" + a;
             console.log(payload.promocode);
-            _context2.next = 10;
+            _context3.next = 10;
             return Qr.findOne({
               promocode: payload.promocode
             });
 
           case 10:
-            qrList = _context2.sent;
+            qrList = _context3.sent;
 
             if (qrList) {
-              _context2.next = 25;
+              _context3.next = 25;
               break;
             }
 
@@ -116,25 +146,25 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
                 resolve(url);
               });
             });
-            _context2.next = 15;
+            _context3.next = 15;
             return promise;
 
           case 15:
-            url = _context2.sent;
+            url = _context3.sent;
             payload.content = url;
-            _context2.next = 19;
+            _context3.next = 19;
             return Qr.create(payload);
 
           case 19:
-            qrcode = _context2.sent;
-            _context2.next = 22;
+            qrcode = _context3.sent;
+            _context3.next = 22;
             return User.findOne({
               _id: req.user.id
             });
 
           case 22:
-            user = _context2.sent;
-            _context2.next = 25;
+            user = _context3.sent;
+            _context3.next = 25;
             return User.updateOne({
               _id: req.user.id
             }, {
@@ -144,24 +174,24 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             });
 
           case 25:
-            _context2.next = 36;
+            _context3.next = 36;
             break;
 
           case 27:
-            _context2.next = 29;
+            _context3.next = 29;
             return Qr.findOne({
               promocode: promocode
             });
 
           case 29:
-            _qrcode = _context2.sent;
+            _qrcode = _context3.sent;
 
             if (!_qrcode) {
-              _context2.next = 35;
+              _context3.next = 35;
               break;
             }
 
-            _context2.next = 33;
+            _context3.next = 33;
             return User.updateOne({
               _id: req.user.id
             }, {
@@ -171,7 +201,7 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             });
 
           case 33:
-            _context2.next = 36;
+            _context3.next = 36;
             break;
 
           case 35:
@@ -182,14 +212,14 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
 
           case 37:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2);
+    }, _callee3);
   }));
 
-  return function (_x4, _x5, _x6) {
-    return _ref2.apply(this, arguments);
+  return function (_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
   };
 }());
 router.get('/contacts', auth, function (req, res, next) {
