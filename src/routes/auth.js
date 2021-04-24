@@ -30,7 +30,11 @@ router.post('/login', (req, res, next) => {
         }
         req.logIn(user, function (err) {
             if (err) return next(err);
-            return res.redirect('/dashboard');
+            if (user.roleId === "user") {
+                return res.redirect('/dashboard');
+            }else {
+                return res.redirect('/admin/dashboard');
+            }
         });
     })(req, res, next);
 })
@@ -81,7 +85,7 @@ router.post('/sign-up', async (req, res, next) => {
     //     res.redirect('/login');
     // }).catch(e => next(e));
     let user = await User.create(payload);
-    req.logIn(user, function(err) {
+    req.logIn(user, function (err) {
         if (err) return next(err);
         if (user.roleId === "user") {
             return res.redirect('/dashboard');

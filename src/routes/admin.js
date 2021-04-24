@@ -2,8 +2,6 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const path = require('path');
-const Project = require('../models/projects');
-const Account = require('../models/accounts');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './src/public/uploads');
@@ -23,8 +21,8 @@ const upload = multer({ storage: storage, fileFilter: fileFilter });
 const auth = require('../helpers/auth');
 const { route } = require('.');
 
-router.get('/dashboard', auth, async(req, res, next) => {
-    res.render('./admin/index');
+router.get('/admin/dashboard', auth, async(req, res, next) => {
+    res.render('./admin/dashboard');
 })
 
 router.get('/dashboard/projects', auth, async(req, res, next) => {

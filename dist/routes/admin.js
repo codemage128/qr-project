@@ -14,10 +14,6 @@ var multer = require('multer');
 
 var path = require('path');
 
-var Project = require('../models/projects');
-
-var Account = require('../models/accounts');
-
 var storage = multer.diskStorage({
   destination: function destination(req, file, cb) {
     cb(null, './src/public/uploads');
@@ -45,13 +41,13 @@ var auth = require('../helpers/auth');
 var _require = require('.'),
     route = _require.route;
 
-router.get('/dashboard', auth, /*#__PURE__*/function () {
+router.get('/admin/dashboard', auth, /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            res.render('./admin/index');
+            res.render('./admin/dashboard');
 
           case 1:
           case "end":

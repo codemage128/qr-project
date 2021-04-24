@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const qrcodeSchema = new Schema({
-    content: String,
-    promocode: String,
-    image: Array,
+    image: String,
+    code: String,
+    link: String,
 });
 
 module.exports = mongoose.model("qrcode", qrcodeSchema);

@@ -45,7 +45,12 @@ router.post('/login', function (req, res, next) {
 
     req.logIn(user, function (err) {
       if (err) return next(err);
-      return res.redirect('/dashboard');
+
+      if (user.roleId === "user") {
+        return res.redirect('/dashboard');
+      } else {
+        return res.redirect('/admin/dashboard');
+      }
     });
   })(req, res, next);
 });

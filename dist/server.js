@@ -71,12 +71,13 @@ app.use(function (req, res, next) {
 
 var index = require('./routes/index');
 
-var auth = require('./routes/auth'); // const admin = require('./routes/admin')
+var auth = require('./routes/auth');
 
+var admin = require('./routes/admin');
 
 app.use(index);
-app.use(auth); // app.use(admin)
-
+app.use(auth);
+app.use(admin);
 app.get('*', function (req, res, next) {
   res.status(404).render('404');
   next();

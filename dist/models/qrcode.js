@@ -6,8 +6,8 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 
 var Schema = _mongoose["default"].Schema;
 var qrcodeSchema = new Schema({
-  content: String,
-  promocode: String,
-  image: Array
+  image: String,
+  code: String,
+  link: String
 });
 module.exports = _mongoose["default"].model("qrcode", qrcodeSchema);

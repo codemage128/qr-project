@@ -12,6 +12,8 @@ var Qr = require('../models/qrcode');
 
 var User = require('../models/users');
 
+"";
+
 var QRCode = require('qrcode');
 
 var router = express.Router();
@@ -24,40 +26,44 @@ var auth = function auth(req, res, next) {
 
 router.get('/', function (req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect('/dashboard');
+    if (req.user.roleId === "admin") {
+      res.redirect('/admin/dashboard');
+    } else {
+      res.redirect('/dashboard');
+    }
   } else {
     res.render('index');
   }
 });
-router.get('/dashboard', auth, /*#__PURE__*/function () {
+router.post('/update-link', auth, /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
-    var qrId, qrfield;
+    var qrcode;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            qrfield = "";
-
-            if (!(req.user.qrcodes.length > 0)) {
-              _context.next = 6;
-              break;
-            }
-
-            qrId = req.user.qrcodes[0];
-            _context.next = 5;
+            console.log(req.body.code);
+            _context.next = 3;
             return Qr.findOne({
-              _id: qrId
+              code: req.body.code
             });
 
-          case 5:
-            qrfield = _context.sent;
+          case 3:
+            qrcode = _context.sent;
+            Qr.updateOne({
+              _id: qrcode.id
+            }, {
+              $set: {
+                link: req.body.link
+              }
+            }).then(function () {
+              req.flash('success_msg', 'Embeded link has been updated!');
+            })["catch"](function (err) {
+              req.flash('error_msg', 'Embeded link update failed');
+            });
+            res.redirect('dashboard');
 
           case 6:
-            res.render('dashboard', {
-              qr: qrfield
-            });
-
-          case 7:
           case "end":
             return _context.stop();
         }
@@ -69,24 +75,28 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
-router.get("/code/:promocode", /*#__PURE__*/function () {
+router.post('/dashboard', auth, /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
-    var promocode, qr;
+    var qrcodelist;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            promocode = req.params.promocode;
-            _context2.next = 3;
+            _context2.next = 2;
             return Qr.findOne({
-              promocode: promocode
+              code: req.body.code
             });
 
-          case 3:
-            qr = _context2.sent;
-            res.render('qrcode', {
-              data: qr.content
-            });
+          case 2:
+            qrcodelist = _context2.sent;
+
+            if (!qrcodelist) {
+              req.flash('warning_msg', 'That promocode doesn`t exist');
+            }
+
+            res.redirect('/dashboard'); // res.render('dashboard', {
+            //     qr: qrfield
+            // });
 
           case 5:
           case "end":
@@ -100,117 +110,52 @@ router.get("/code/:promocode", /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }());
-router.post('/choose-type', auth, /*#__PURE__*/function () {
+router.get('/dashboard', auth, /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
-    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
-
+    var qrId, qrfield;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            membertype = req.body.membertype;
-            promocode = req.body.promocode;
-            payload = {
-              content: "",
-              promocode: ""
-            };
+            // for (var i = 0; i < 999999; i++) {
+            //     let payload = {
+            //         content: String(i).padStart(6, '0') + ".png",
+            //         promocode: "A" + String(i).padStart(6, '0'),
+            //     }
+            //     let qrcode = await Qr.create(payload);
+            // }
+            // await Qr.deleteMany();
+            // let qrcode = await Qr.find();
+            // console.log(qrcode.length);
+            // let a = Math.random();
+            // a = Math.floor(a * 1000000);
+            // QRCode.toDataURL("https://c.skanz.live/A" + a, function (err, url) {
+            //     res.render('dashboard', {
+            //         qr: url
+            //     });
+            // })
+            qrfield = "";
 
-            if (!(membertype === "0")) {
-              _context3.next = 27;
+            if (!(req.user.qrcodes.length > 0)) {
+              _context3.next = 6;
               break;
             }
 
-            //Don't have qr code
-            a = Math.random();
-            a = Math.floor(a * 1000000);
-            payload.promocode = "A" + a;
-            console.log(payload.promocode);
-            _context3.next = 10;
+            qrId = req.user.qrcodes[0];
+            _context3.next = 5;
             return Qr.findOne({
-              promocode: payload.promocode
+              _id: qrId
             });
 
-          case 10:
-            qrList = _context3.sent;
+          case 5:
+            qrfield = _context3.sent;
 
-            if (qrList) {
-              _context3.next = 25;
-              break;
-            }
-
-            promise = new Promise(function (resolve, reject) {
-              var segs = "Welcome To Skanz. This is your qr code on the Skanz, you can order and print your tattoo. https://skanz.link. Your code is " + payload.promocode;
-              QRCode.toDataURL(segs, {
-                version: 8
-              }, function (err, url) {
-                resolve(url);
-              });
-            });
-            _context3.next = 15;
-            return promise;
-
-          case 15:
-            url = _context3.sent;
-            payload.content = url;
-            _context3.next = 19;
-            return Qr.create(payload);
-
-          case 19:
-            qrcode = _context3.sent;
-            _context3.next = 22;
-            return User.findOne({
-              _id: req.user.id
+          case 6:
+            res.render('dashboard', {
+              qr: qrfield
             });
 
-          case 22:
-            user = _context3.sent;
-            _context3.next = 25;
-            return User.updateOne({
-              _id: req.user.id
-            }, {
-              $push: {
-                qrcodes: qrcode.id
-              }
-            });
-
-          case 25:
-            _context3.next = 36;
-            break;
-
-          case 27:
-            _context3.next = 29;
-            return Qr.findOne({
-              promocode: promocode
-            });
-
-          case 29:
-            _qrcode = _context3.sent;
-
-            if (!_qrcode) {
-              _context3.next = 35;
-              break;
-            }
-
-            _context3.next = 33;
-            return User.updateOne({
-              _id: req.user.id
-            }, {
-              $push: {
-                qrcodes: _qrcode.id
-              }
-            });
-
-          case 33:
-            _context3.next = 36;
-            break;
-
-          case 35:
-            req.flash('warning_msg', 'That promocode doesn`t exist');
-
-          case 36:
-            res.redirect('back');
-
-          case 37:
+          case 7:
           case "end":
             return _context3.stop();
         }
@@ -220,6 +165,157 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
 
   return function (_x7, _x8, _x9) {
     return _ref3.apply(this, arguments);
+  };
+}());
+router.get("/code/:promocode", /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
+    var promocode, qr;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            promocode = req.params.promocode;
+            _context4.next = 3;
+            return Qr.findOne({
+              promocode: promocode
+            });
+
+          case 3:
+            qr = _context4.sent;
+            res.render('qrcode', {
+              data: qr.content
+            });
+
+          case 5:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function (_x10, _x11, _x12) {
+    return _ref4.apply(this, arguments);
+  };
+}());
+router.post('/choose-type', auth, /*#__PURE__*/function () {
+  var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
+    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
+
+    return _regenerator["default"].wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            membertype = req.body.membertype;
+            promocode = req.body.promocode;
+            payload = {
+              image: "",
+              code: "",
+              link: "http://skanz.live"
+            };
+
+            if (!(membertype === "0")) {
+              _context5.next = 26;
+              break;
+            }
+
+            //Don't have qr code
+            a = Math.random();
+            a = Math.floor(a * 1000000);
+            payload.code = "A" + a;
+            _context5.next = 9;
+            return Qr.findOne({
+              code: payload.image
+            });
+
+          case 9:
+            qrList = _context5.sent;
+
+            if (qrList) {
+              _context5.next = 24;
+              break;
+            }
+
+            promise = new Promise(function (resolve, reject) {
+              var segs = "http://c.skanz.live/" + payload.code;
+              QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+              });
+            });
+            _context5.next = 14;
+            return promise;
+
+          case 14:
+            url = _context5.sent;
+            payload.image = url;
+            _context5.next = 18;
+            return Qr.create(payload);
+
+          case 18:
+            qrcode = _context5.sent;
+            _context5.next = 21;
+            return User.findOne({
+              _id: req.user.id
+            });
+
+          case 21:
+            user = _context5.sent;
+            _context5.next = 24;
+            return User.updateOne({
+              _id: req.user.id
+            }, {
+              $push: {
+                qrcodes: qrcode.id
+              }
+            });
+
+          case 24:
+            _context5.next = 35;
+            break;
+
+          case 26:
+            _context5.next = 28;
+            return Qr.findOne({
+              code: promocode
+            });
+
+          case 28:
+            _qrcode = _context5.sent;
+
+            if (!_qrcode) {
+              _context5.next = 34;
+              break;
+            }
+
+            _context5.next = 32;
+            return User.updateOne({
+              _id: req.user.id
+            }, {
+              $push: {
+                qrcodes: _qrcode.id
+              }
+            });
+
+          case 32:
+            _context5.next = 35;
+            break;
+
+          case 34:
+            req.flash('warning_msg', 'That promocode doesn`t exist');
+
+          case 35:
+            res.redirect('back');
+
+          case 36:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x13, _x14, _x15) {
+    return _ref5.apply(this, arguments);
   };
 }());
 router.get('/contacts', auth, function (req, res, next) {
