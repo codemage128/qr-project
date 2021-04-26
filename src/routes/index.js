@@ -82,6 +82,10 @@ router.get('/dashboard', auth, async (req, res, next) => {
     });
 })
 
+router.get('/shop', async (req, res, next) => {
+    res.render('shop');
+})
+
 router.get("/code/:promocode", async (req, res, next) => {
     let promocode = req.params.promocode;
     let qr = await Qr.findOne({ promocode: promocode });
@@ -97,24 +101,25 @@ router.post('/choose-type', auth, async (req, res, next) => {
         link: "http://skanz.live"
     }
     if (membertype === "0") {
+        res.redirect('/shop');
         //Don't have qr code
-        let a = Math.random();
-        a = Math.floor(a * 1000000);
-        payload.code = "A" + a;
-        let qrList = await Qr.findOne({ code: payload.image });
-        if (!qrList) {
-            let promise = new Promise((resolve, reject) => {
-                let segs = "http://c.skanz.live/" + payload.code;
-                QRCode.toDataURL(segs, function (err, url) {
-                    resolve(url);
-                })
-            });
-            let url = await promise;
-            payload.image = url;
-            let qrcode = await Qr.create(payload);
-            let user = await User.findOne({ _id: req.user.id });
-            await User.updateOne({ _id: req.user.id }, { $push: { qrcodes: qrcode.id } });
-        }
+        // let a = Math.random();
+        // a = Math.floor(a * 1000000);
+        // payload.code = "A" + a;
+        // let qrList = await Qr.findOne({ code: payload.image });
+        // if (!qrList) {
+        //     let promise = new Promise((resolve, reject) => {
+        //         let segs = "http://c.skanz.live/" + payload.code;
+        //         QRCode.toDataURL(segs, function (err, url) {
+        //             resolve(url);
+        //         })
+        //     });
+        //     let url = await promise;
+        //     payload.image = url;
+        //     let qrcode = await Qr.create(payload);
+        //     let user = await User.findOne({ _id: req.user.id });
+        //     await User.updateOne({ _id: req.user.id }, { $push: { qrcodes: qrcode.id } });
+        // }
     } else {
         let qrcode = await Qr.findOne({ code: promocode });
         if (qrcode) {

@@ -168,26 +168,15 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }());
-router.get("/code/:promocode", /*#__PURE__*/function () {
+router.get('/shop', /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
-    var promocode, qr;
     return _regenerator["default"].wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            promocode = req.params.promocode;
-            _context4.next = 3;
-            return Qr.findOne({
-              promocode: promocode
-            });
+            res.render('shop');
 
-          case 3:
-            qr = _context4.sent;
-            res.render('qrcode', {
-              data: qr.content
-            });
-
-          case 5:
+          case 1:
           case "end":
             return _context4.stop();
         }
@@ -199,13 +188,43 @@ router.get("/code/:promocode", /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }());
-router.post('/choose-type', auth, /*#__PURE__*/function () {
+router.get("/code/:promocode", /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
-    var membertype, promocode, payload, a, qrList, promise, url, qrcode, user, _qrcode;
-
+    var promocode, qr;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
+          case 0:
+            promocode = req.params.promocode;
+            _context5.next = 3;
+            return Qr.findOne({
+              promocode: promocode
+            });
+
+          case 3:
+            qr = _context5.sent;
+            res.render('qrcode', {
+              data: qr.content
+            });
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x13, _x14, _x15) {
+    return _ref5.apply(this, arguments);
+  };
+}());
+router.post('/choose-type', auth, /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+    var membertype, promocode, payload, qrcode;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
           case 0:
             membertype = req.body.membertype;
             promocode = req.body.promocode;
@@ -216,52 +235,47 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             };
 
             if (!(membertype === "0")) {
-              _context5.next = 26;
+              _context6.next = 7;
               break;
             }
 
-            //Don't have qr code
-            a = Math.random();
-            a = Math.floor(a * 1000000);
-            payload.code = "A" + a;
-            _context5.next = 9;
+            res.redirect('/shop'); //Don't have qr code
+            // let a = Math.random();
+            // a = Math.floor(a * 1000000);
+            // payload.code = "A" + a;
+            // let qrList = await Qr.findOne({ code: payload.image });
+            // if (!qrList) {
+            //     let promise = new Promise((resolve, reject) => {
+            //         let segs = "http://c.skanz.live/" + payload.code;
+            //         QRCode.toDataURL(segs, function (err, url) {
+            //             resolve(url);
+            //         })
+            //     });
+            //     let url = await promise;
+            //     payload.image = url;
+            //     let qrcode = await Qr.create(payload);
+            //     let user = await User.findOne({ _id: req.user.id });
+            //     await User.updateOne({ _id: req.user.id }, { $push: { qrcodes: qrcode.id } });
+            // }
+
+            _context6.next = 16;
+            break;
+
+          case 7:
+            _context6.next = 9;
             return Qr.findOne({
-              code: payload.image
+              code: promocode
             });
 
           case 9:
-            qrList = _context5.sent;
+            qrcode = _context6.sent;
 
-            if (qrList) {
-              _context5.next = 24;
+            if (!qrcode) {
+              _context6.next = 15;
               break;
             }
 
-            promise = new Promise(function (resolve, reject) {
-              var segs = "http://c.skanz.live/" + payload.code;
-              QRCode.toDataURL(segs, function (err, url) {
-                resolve(url);
-              });
-            });
-            _context5.next = 14;
-            return promise;
-
-          case 14:
-            url = _context5.sent;
-            payload.image = url;
-            _context5.next = 18;
-            return Qr.create(payload);
-
-          case 18:
-            qrcode = _context5.sent;
-            _context5.next = 21;
-            return User.findOne({
-              _id: req.user.id
-            });
-
-          case 21:
-            user = _context5.sent;
-            _context5.next = 24;
+            _context6.next = 13;
             return User.updateOne({
               _id: req.user.id
             }, {
@@ -270,53 +284,26 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
               }
             });
 
-          case 24:
-            _context5.next = 35;
+          case 13:
+            _context6.next = 16;
             break;
 
-          case 26:
-            _context5.next = 28;
-            return Qr.findOne({
-              code: promocode
-            });
-
-          case 28:
-            _qrcode = _context5.sent;
-
-            if (!_qrcode) {
-              _context5.next = 34;
-              break;
-            }
-
-            _context5.next = 32;
-            return User.updateOne({
-              _id: req.user.id
-            }, {
-              $push: {
-                qrcodes: _qrcode.id
-              }
-            });
-
-          case 32:
-            _context5.next = 35;
-            break;
-
-          case 34:
+          case 15:
             req.flash('warning_msg', 'That promocode doesn`t exist');
 
-          case 35:
+          case 16:
             res.redirect('back');
 
-          case 36:
+          case 17:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5);
+    }, _callee6);
   }));
 
-  return function (_x13, _x14, _x15) {
-    return _ref5.apply(this, arguments);
+  return function (_x16, _x17, _x18) {
+    return _ref6.apply(this, arguments);
   };
 }());
 router.get('/contacts', auth, function (req, res, next) {
