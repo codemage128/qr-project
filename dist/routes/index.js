@@ -58,12 +58,13 @@ router.post('/update-link', auth, /*#__PURE__*/function () {
               }
             }).then(function () {
               req.flash('success_msg', 'Embeded link has been updated!');
+              res.redirect('dashboard');
             })["catch"](function (err) {
               req.flash('error_msg', 'Embeded link update failed');
+              res.redirect('dashboard');
             });
-            res.redirect('dashboard');
 
-          case 6:
+          case 5:
           case "end":
             return _context.stop();
         }

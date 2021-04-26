@@ -26,57 +26,56 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <div class="row mb-3 text-center">
-                  <div class="col-lg-8 offset-lg-2 col-sm-8 offset-sm-2">
-                    <%- include('./particials/msg') %>
+                <form action="/dashboard" method="POST">
+                  <div class="row mb-3 text-center">
+                    <div class="col-lg-8 offset-lg-2 col-sm-8 offset-sm-2">
+                      <%- include('./particials/msg') %>
+                    </div>
                   </div>
-                </div>
-                <!-- <form action="/dashboard" method="POST">
-                  
-                  <div class="row mb-3">
+                  <!-- <div class="row mb-3">
                     <div class="col-lg-5 col-sm-6 offset-lg-2 offset-sm-2 mb-3">
                       <input class="form-control" type="text" name="code" required />
                     </div>
                     <div class="col-lg-3 col-sm-3 text-center">
                       <button class="btn btn-outline-primary btn-block" type="submit">Find</button>
                     </div>
+                  </div> -->
+                </form>
+                <div class="row mb-3">
+                  <div class="col text-center">
+                    <img src="<%= qr.image %>">
                   </div>
-                </form> -->
-              </div>
-              <div class="row mb-3">
-                <div class="col text-center">
-                  <img src="<%= qr.image %>">
                 </div>
-              </div>
-              <div class="row mb-3">
-                <div class="col-lg-6 offset-lg-3 text-center">
-                  <% if(qr) {%>
-                  <h4><a href="http://c.skanz.live/<%= qr.code%>" target="_blank">http://c.skanz.live/<%= qr.code%></a></h4>
-                  <% } %>
+                <div class="row mb-3">
+                  <div class="col-lg-6 offset-lg-3 text-center">
+                    <% if(qr) {%>
+                      <h4><a href="http://c.skanz.live/<%= qr.code%>" target="_blank">http://c.skanz.live/<%= qr.code%>
+                            </a></h4>
+                      <% } %>
+                  </div>
                 </div>
-              </div>
-              <form action="/update-link" method="POST">
-                <div class="row mb-5">
-                  <div class="col-lg-6 offset-lg-2 text-center">
-                    <div class="form-group row align-items-center">
-                      <label class="control-label col-lg-4 text-lg-right text-center">Embed Link</label>
-                      <div class="col">
-                        <% if(qr) {%>
-                        <input type="text" class="form-control" name="link" placeholder="" value="<%= qr.link%>"/>
-                        <input type="hidden" class="form-control" name="code" value="<%= qr.code%>" />
-                        <% } %>
+                <form action="/update-link" method="POST">
+                  <div class="row mb-5">
+                    <div class="col-lg-6 offset-lg-2 text-center">
+                      <div class="form-group row align-items-center">
+                        <label class="control-label col-lg-4 text-lg-right text-center">Embed Link</label>
+                        <div class="col">
+                          <% if(qr) {%>
+                            <input type="text" class="form-control" name="link" placeholder="" value="<%= qr.link%>" />
+                            <input type="hidden" class="form-control" name="code" value="<%= qr.code%>" />
+                            <% } %>
+                        </div>
                       </div>
                     </div>
+                    <div class="col-lg-2">
+                      <button class="btn btn-primary btn-block">Update</button>
+                    </div>
                   </div>
-                  <div class="col-lg-2">
-                    <button class="btn btn-primary btn-block">Update</button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </section>
   </main>

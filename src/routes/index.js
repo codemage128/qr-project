@@ -29,10 +29,12 @@ router.post('/update-link', auth, async (req, res, next) => {
     let qrcode = await Qr.findOne({ code: req.body.code });
     Qr.updateOne({ _id: qrcode.id }, { $set: { link: req.body.link } }).then(() => {
         req.flash('success_msg', 'Embeded link has been updated!');
+        res.redirect('dashboard');
     }).catch(err => {
         req.flash('error_msg', 'Embeded link update failed');
+        res.redirect('dashboard');
     })
-    res.redirect('dashboard');
+    
 })
 
 router.post('/dashboard', auth, async (req, res, next) => {
