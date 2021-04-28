@@ -24,17 +24,31 @@ router.get('/', (req, res, next) => {
 
 })
 
+router.get('/deactive-code', auth, async (req, res, next) => {
+    let newQrcodelist = [];
+    let user = await User.findOne({ _id: req.user.id });
+    var qrs = user.qrcodes;
+    var carIndex = qrs.indexOf(req.query.id);
+    qrs.splice(carIndex, 1);
+    newQrcodelist = qrs;
+    await Qr.updateOne({_id: req.query.id}, {link: "http://skanz.live"})
+    User.updateOne({ _id: req.user.id }, { $set: { qrcodes: newQrcodelist } }).then(() => {
+        req.flash('success_msg', 'Tattoo has been deactived!');
+        res.redirect('dashboard');
+    }).catch(err => {
+        req.flash('error_msg', 'Tatto deactivate is failed');
+        res.redirect('dashboard');
+    });
+})
+
 router.post('/update-link', auth, async (req, res, next) => {
-    console.log(req.body.code);
-    let qrcode = await Qr.findOne({ code: req.body.code });
-    Qr.updateOne({ _id: qrcode.id }, { $set: { link: req.body.link } }).then(() => {
+    Qr.updateOne({ _id: req.body.id }, { $set: { link: req.body.link } }).then(() => {
         req.flash('success_msg', 'Embeded link has been updated!');
         res.redirect('dashboard');
     }).catch(err => {
-        req.flash('error_msg', 'Embeded link update failed');
+        req.flash('error_msg', 'Embeded link update is failed');
         res.redirect('dashboard');
     })
-    
 })
 
 router.post('/dashboard', auth, async (req, res, next) => {
@@ -49,6 +63,24 @@ router.post('/dashboard', auth, async (req, res, next) => {
 })
 
 router.get('/dashboard', auth, async (req, res, next) => {
+    // let payload = {
+    //     image: "",
+    //     code: "",
+    //     link: "http://skanz.live"
+    // }
+    // for (var i = 1; i < 10; i++) {
+    //     payload.code = "A" + String(i).padStart(6, '0');
+    //     let promise = new Promise((resolve, reject) => {
+    //         let segs = "http://c.skanz.live/" + payload.code;
+    //         QRCode.toDataURL(segs, function (err, url) {
+    //             resolve(url);
+    //         })
+    //     });
+    //     let url = await promise;
+    //     payload.image = url;
+    //     let qrcode = await Qr.create(payload);
+    // }
+
 
     // for (var i = 0; i < 999999; i++) {
     //     let payload = {
@@ -71,25 +103,44 @@ router.get('/dashboard', auth, async (req, res, next) => {
     // })
 
     let qrId;
-    let qrfield = "";
+    let qrfields = [];
+    let result;
     if (req.user.qrcodes.length > 0) {
-        qrId = req.user.qrcodes[0];
-        qrfield = await Qr.findOne({ _id: qrId });
-
+        qrId = req.user.qrcodes;
+        for (var i = 0; i < qrId.length; i++) {
+            let field = await Qr.findOne({ _id: qrId[i] });
+            qrfields.push(field);
+        }
     }
     res.render('dashboard', {
-        qr: qrfield
+        qrs: qrfields
     });
+
+
 })
 
-router.get('/shop', async (req, res, next) => {
+router.get('/shop', auth, async (req, res, next) => {
+    res.locals.page_name = "shop";
     res.render('shop');
 })
 
-router.get("/code/:promocode", async (req, res, next) => {
-    let promocode = req.params.promocode;
-    let qr = await Qr.findOne({ promocode: promocode });
-    res.render('qrcode', { data: qr.content });
+
+router.post('/active-tattoo', auth, async (req, res, next) => {
+    let code = "A" + req.body.code;
+    let qr = await Qr.findOne({ code: code });
+    if (code === "") {
+        req.flash('warning_msg', 'please enter the code!');
+        res.redirect('back');
+    }
+    if (!qr) {
+        req.flash('error_msg', 'That promocode doesn`t exist');
+        res.redirect('back');
+    }
+
+    let user = await User.findOne({ _id: req.user.id });
+    await User.updateOne({ _id: req.user.id }, { $push: { qrcodes: qr.id } });
+    req.flash('success_msg', "You've acivated one Tattoo!");
+    res.redirect('back');
 })
 
 router.post('/choose-type', auth, async (req, res, next) => {
@@ -137,9 +188,11 @@ router.get('/contacts', auth, (req, res, next) => {
     res.render('contacts');
 })
 router.get('/profile', auth, (req, res, next) => {
+    res.locals.page_name = "profile";
     res.render('profile');
 })
 router.get('/settings', auth, (req, res, next) => {
+    res.locals.page_name = "settings";
     res.render('settings');
 })
 

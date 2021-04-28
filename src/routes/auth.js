@@ -80,10 +80,12 @@ router.post('/sign-up', async (req, res, next) => {
             "?s=200" +
             "&d=retro",
     }
+    
     // User.create(payload).then(() => {
     //     req.flash('success_msg', 'Registration is successful');
     //     res.redirect('/login');
     // }).catch(e => next(e));
+
     let user = await User.create(payload);
     req.logIn(user, function (err) {
         if (err) return next(err);

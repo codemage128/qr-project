@@ -17,9 +17,9 @@ const fileFilter = (req, file, cb) => {
         cb(null, false);
     }
 }
+
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 const auth = require('../helpers/auth');
-const { route } = require('.');
 
 router.get('/admin/dashboard', auth, async(req, res, next) => {
     res.render('./admin/dashboard');
