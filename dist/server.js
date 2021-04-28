@@ -65,6 +65,7 @@ app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.warning_msg = req.flash('warning_msg');
+  res.locals.page_name = "dashboard";
   res.locals.user = req.user || null;
   next();
 });

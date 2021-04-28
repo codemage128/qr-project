@@ -1,141 +1,140 @@
 <%- include('layout/header.ejs')%>
 
   <main id="main">
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <ol>
-            <li class="active">
-              <a class="breadcrumbs-link" href="/dashboard">Tattoo</a>
-            </li>
-            <li><a class="breadcrumbs-link" href="/my-order">My all Tattoos</a></li>
-            <li><a class="breadcrumbs-link" href="/my-order">Shop</a></li>
-            <li><a class="breadcrumbs-link" href="/my-order">My order</a></li>
-            <!-- <li><a class="breadcrumbs-link" href="/contacts">Contacts</a></li> -->
-            <!-- <li><a class="breadcrumbs-link" href="/profile">Profile</a></li> -->
-            <!-- <li><a class="breadcrumbs-link" href="/settings">Settings</a></li> -->
-          </ol>
-          <!-- <h2>Dashboard</h2> -->
-        </div>
-      </div>
-    </section>
+    <%- include('breadcrumbs')%>
 
-    <section class="inner-page">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <form action="/dashboard" method="POST">
-                  <div class="row mb-3 text-center">
-                    <div class="col-lg-8 offset-lg-2 col-sm-8 offset-sm-2">
-                      <%- include('./particials/msg') %>
+      <section class="inner-page">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col">
+              <%- include('./particials/msg') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row mb-3">
+                    <div class="col-lg-2 col-sm-12 mb-2">
+                      <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#chooseType">Activate
+                        Tattoo</button>
                     </div>
-                  </div>
-                  <!-- <div class="row mb-3">
-                    <div class="col-lg-5 col-sm-6 offset-lg-2 offset-sm-2 mb-3">
-                      <input class="form-control" type="text" name="code" required />
-                    </div>
-                    <div class="col-lg-3 col-sm-3 text-center">
-                      <button class="btn btn-outline-primary btn-block" type="submit">Find</button>
-                    </div>
-                  </div> -->
-                </form>
-                <div class="row mb-3">
-                  <div class="col text-center">
-                    <img src="<%= qr.image %>">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="col-lg-6 offset-lg-3 text-center">
-                    <% if(qr) {%>
-                      <h4><a href="http://c.skanz.live/<%= qr.code%>" target="_blank"><%= qr.code%>
-                            </a></h4>
-                      <% } %>
-                  </div>
-                </div>
-                <form action="/update-link" method="POST">
-                  <div class="row mb-5">
-                    <div class="col-lg-6 offset-lg-2 text-center">
-                      <div class="form-group row align-items-center">
-                        <label class="control-label col-lg-4 text-lg-right text-center">Embed Link</label>
+                    <div class="col-lg-10 text-center">
+                      <div class="row align-items-center">
                         <div class="col">
-                          <% if(qr) {%>
-                            <input type="text" class="form-control" name="link" placeholder="" value="<%= qr.link%>" />
-                            <input type="hidden" class="form-control" name="code" value="<%= qr.code%>" />
-                            <% } %>
+                          <h3>Activated Tattoos List</h3>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-2">
-                      <button class="btn btn-primary btn-block">Update</button>
+                      <hr>
+                      <% if(user.qrcodes.length> 0) {%>
+                        <% for(var i=0; i < qrs.length; i++) { %>
+                          <form action="/update-link" method="POST">
+                            <div class="row align-items-center">
+                              <div class="col-lg-4 col-sm-12"><img src="<%= qrs[i].image %>"></div>
+                              <div class="col-lg-5 col-sm-12">
+                                <h4><a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank">
+                                    <%= qrs[i].code%>
+                                  </a></h4>
+                                <input type="text" class="form-control" name="link" placeholder=""
+                                  value="<%= qrs[i].link%>" />
+                                <input type="hidden" name="id" value="<%= qrs[i].id%>" />
+                                <input type="hidden" name="type" id="update_type" />
+                              </div>
+                              <div class="btn-group col-lg-2 mt-3" role="group">
+                                <button type="submit" class="btn btn-outline-primary btn-update">Update</button>
+                                <a href="/deactive-code?id=<%= qrs[i].id%>" type="button"
+                                  class="btn btn-danger btn-deactive">Deactive</a>
+                              </div>
+                              <!-- <div class="col-lg-1 col-sm-2 mt-3"><button class="btn btn-danger" type="submit">Deactive</button></div>
+                              <div class="col-lg-1 col-sm-2 mt-3"><button class="btn btn-primary" type="submit">Update</button></div> -->
+                            </div>
+                          </form>
+                          <hr>
+                          <% } %>
+                            <% } else { %>
+                              <div class="row align-items-center">
+                                <div class="col">
+                                  <h4>There is no activated Tattoo</h4>
+                                </div>
+                              </div>
+                              <hr>
+                              <%} %>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   </main>
+  <!-- Modal -->
   <div class="modal fade" id="chooseType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-      <form action="/choose-type" method="POST">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Almost Done!</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="container-fluid">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <form action="/active-tattoo" method="POST" id="activeTattoo">
               <div class="row">
                 <div class="col">
-                  <div class="mb-4 text-center">
-                    <%- include('./particials/msg') %>
-                  </div>
-                  <div class="form-group">
-                    <label for="membertype">Type</label>
-                    <select class="form-control" id="membertype" name="membertype" required>
-                      <option value="0">I don't have any tattoos and am going to order one.</option>
-                      <option value="1">I have already tattoos and identification code.</option>
-                    </select>
-                  </div>
-                  <div class="form-group promocode">
-                    <label for="promocode">Identification Code</label>
-                    <input type="text" class="form-control" id="promocode" name="promocode" value="-1"
-                      placeholder="A000001" required />
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">A</span>
+                    </div>
+                    <input type="text" maxlength="6" class="form-control code-label" placeholder="Label Number"
+                      aria-label="Label Number" name="code" aria-describedby="basic-addon1">
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Confirm</button>
+            </form>
           </div>
         </div>
-      </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-active-code">Save changes</button>
+        </div>
+      </div>
     </div>
   </div>
+
   <%- include('./particials/foot.ejs')%>
     <script>
       $(function () {
-        var newmember = "<%= user.qrcodes.length %>" > 0 ? false : true;
-        /* If the user is new member, alert modal to choose order or type the code */
-        if (newmember) {
-          $('#chooseType').modal({});
-        }
-        $('.promocode').hide();
-        $('#membertype').change(function () {
-          if ($(this).val() == 0) {
-            $('.promocode').hide();
-          } else {
-            $('.promocode').show();
-          }
+
+        $('.code-label').keypress(function (e) {
+          var a = [];
+          var k = e.which;
+
+          for (i = 48; i < 58; i++)
+            a.push(i);
+
+          if (!(a.indexOf(k) >= 0))
+            e.preventDefault();
+        });
+        $('.btn-active-code').click(function () {
+          $('#activeTattoo').submit();
         })
+        //   var newmember = "<%= user.qrcodes.length %>" > 0 ? false : true;
+        //   /* If the user is new member, alert modal to choose order or type the code */
+        //   if (newmember) {
+        //     $('#chooseType').modal({});
+        //   }
+        //   $('.promocode').hide();
+        //   $('#membertype').change(function () {
+        //     if ($(this).val() == 0) {
+        //       $('.promocode').hide();
+        //     } else {
+        //       $('.promocode').show();
+        //     }
+        //   })
       })
     </script>
     </body>

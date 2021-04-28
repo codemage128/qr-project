@@ -38,9 +38,6 @@ var upload = multer({
 
 var auth = require('../helpers/auth');
 
-var _require = require('.'),
-    route = _require.route;
-
 router.get('/admin/dashboard', auth, /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
     return _regenerator["default"].wrap(function _callee$(_context) {
