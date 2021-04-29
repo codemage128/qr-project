@@ -1,0 +1,97 @@
+<%- include('layout/header.ejs')%>
+    <!-- Main content -->
+    <!-- Board -->
+    <section class="slice py-5 bg-section-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <%- include('layout/side.ejs') %>
+                </div>
+                <div class="col-md-9">
+                    <div class="row align-items-center mb-4">
+                        <div class="col">
+                            <!-- Title -->
+                            <h1 class="h5 mb-0">
+                                Users
+                            </h1>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" class="btn btn-sm btn-warning btn-icon">
+                                <span class="btn-inner--text">Add User</span>
+                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mx-n2">
+                        <div class="col">
+                            <div class="table-responsive">
+                                <table class="table table-cards align-items-center">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="min-width: 240px">Image</th>
+                                            <th scope="col">Activated Tatoo</th>
+                                            <th scope="col">Role</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(var i=0; i < users.length; i ++){ %>
+                                            <tr>
+                                                <td scope="row">
+                                                    <div class="media align-items-center">
+                                                        <div>
+                                                            <div class="avatar-parent-child">
+                                                                <img alt="Image placeholder"
+                                                                    src="<%= users[i].profilePicture %>" class="avatar">
+                                                            </div>
+                                                        </div>
+                                                        <div class="media-body ml-4">
+                                                            <a href="#" class="name h6 mb-0 text-sm">
+                                                                <%= users[i].firstName %>
+                                                                    <%= users[i].lastName %>
+                                                            </a>
+                                                            <small class="d-block font-weight-bold">
+                                                                <%= users[i].email%>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="badge badge-info">
+                                                        <%= users[i].qrcodes.length %>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <% if(users[i].roleId==="admin" ) {%>
+                                                        <p class="badge badge-danger">admin</p>
+                                                        <% } else {%>
+                                                            <p class="badge badge-success">user</p>
+                                                            <% } %>
+                                                </td>
+                                                <td class="text-right">
+                                                    <!-- Actions -->
+                                                    <div class="actions ml-3">
+                                                        <a class="action-item mr-2" data-toggle="tooltip"
+                                                            title="Edit">
+                                                            <i data-feather="edit-2"></i>
+                                                        </a>
+                                                        <a class="action-item text-danger mr-2"
+                                                            data-toggle="tooltip" title="Move to trash">
+                                                            <i data-feather="trash-2"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Core JS  -->
+    <%- include('layout/foot.ejs')%>
+        <%- include('layout/footer.ejs')%>

@@ -1,87 +1,105 @@
 <%- include('layout/auth-header.ejs')%>
-<section id="hero" class="d-flex align-items-center">
-  <div
-    class="container position-relative text-center text-lg-left"
-    data-aos="zoom-in"
-    data-aos-delay="100"
-  >
-    <div class="row">
-      <div class="col-lg-6 offset-lg-3">
-        <div class="card-auth mb-3">
-          <div class="row g-0">
-            <div class="col-md-12">
-              <div class="card-body p-5">
-                <div class="row">
-                  <div class="col-md-12">
-                    <form action="/sign-up" method="POST">
-                      <div class="mb-4 text-center">
-                        <p class="card-title">Register your account</p>
-                      </div>
-                      <div class="mb-4 text-center">
-                        <%- include('./particials/msg') %>
-                      </div>
-                      <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="firstName"
-                          required
-                          placeholder="First Name"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <input
-                          type="text"
-                          class="form-control"
-                          name="lastName"
-                          required
-                          placeholder="Last Name"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <input
-                          type="email"
-                          class="form-control"
-                          name="email"
-                          required
-                          placeholder="Email Address"
-                        />
-                      </div>
-
-                      <div class="mb-4">
-                        <input
-                          type="password"
-                          class="form-control"
-                          name="password"
-                          required
-                          placeholder="Password"
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <button
-                          type="submit"
-                          class="btn btn-primary btn-continue"
-                        >
-                          Sign Up
-                        </button>
-                      </div>
-
-                      <div class="mb-3 text-center">
-                        <label
-                          >Already have an account?
-                          <a href="/login">Login</a></label
-                        >
-                      </div>
-                    </form>
-                  </div>
+<div class="container-fluid d-flex flex-column">
+    <div class="row align-items-center justify-content-center justify-content-lg-end min-vh-100">
+        <div class="col-sm-7 col-lg-6 col-xl-6 py-6 py-lg-0">
+            <div class="row justify-content-center">
+                <div class="col-11 col-lg-10 col-xl-7">
+                    <div>
+                        <div class="mb-5">
+                            <h6 class="h3 mb-1">Create your account</h6>
+                            <p class="text-muted mb-0">Made with love for designers &amp; developers.</p>
+                        </div>
+                        <span class="clearfix"></span>
+                        <%- include('particials/msg.ejs') %>
+                        <form action="/sign-up" method="POST">
+                            <div class="form-group">
+                                <label class="form-control-label">First name</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control form-control-prepend"
+                                        placeholder="John" name="firstName" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Last name</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="text" class="form-control form-control-prepend"
+                                        placeholder="Ive" name="lastName" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="user"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Email address</label>
+                                <div class="input-group input-group-merge">
+                                    <input type="email" name="email" class="form-control form-control-prepend" id="input-email"
+                                        placeholder="name@example.com" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="at-sign"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <label class="form-control-label">Password</label>
+                                    </div>
+                                    <div class="mb-2">
+                                        <a href="#" class="small text-muted text-underline--dashed border-warning"
+                                            data-toggle="password-text" data-target="#input-password">Show password</a>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-merge">
+                                    <input type="password" name="password" class="form-control form-control-prepend" id="input-password"
+                                        placeholder="********" required>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather="key"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-4">
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="check-terms">
+                                    <label class="custom-control-label" for="check-terms">I agree to the <a
+                                            href="/terms-policy">terms and conditions</a></label>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-block btn-warning">Create my account</button>
+                            </div>
+                        </form>
+                        <div class="py-3 text-center">
+                            <span class="text-xs text-uppercase">or</span>
+                        </div>
+                        <!-- Alternative login -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="#" class="btn btn-block btn-dark btn-icon mb-3 mb-sm-0">
+                                    <span class="btn-inner--icon"><img src="/assets/img/icons/brands/apple.svg"
+                                            alt="Image placeholder"></span>
+                                    <span class="btn-inner--text">Apple</span>
+                                </a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="#" class="btn btn-block btn-dark btn-icon">
+                                    <span class="btn-inner--icon"><img src="/assets/img/icons/brands/google.svg"
+                                            alt="Image placeholder"></span>
+                                    <span class="btn-inner--text">Google</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Links -->
+                        <div class="mt-4">Already have an acocunt?
+                            <a href="/login" class="font-weight-bold">Sign in</a>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
-<%- include('layout/footer.ejs')%>
+</div>
+
+<%- include('layout/auth-foot.ejs')%>

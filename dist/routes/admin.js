@@ -38,15 +38,26 @@ var upload = multer({
 
 var auth = require('../helpers/auth');
 
-router.get('/admin/dashboard', auth, /*#__PURE__*/function () {
+var Qr = require('../models/qrcode');
+
+var User = require('../models/users');
+
+var admin = function admin(req, res, next) {
+  if (req.user.roleId === "admin") return next();
+  req.flash('success_msg', 'You are not admin');
+  res.redirect("/");
+};
+
+router.get('/admin/dashboard', auth, admin, /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            res.locals.page_name = "admin/dashboard";
             res.render('./admin/dashboard');
 
-          case 1:
+          case 2:
           case "end":
             return _context.stop();
         }
@@ -58,23 +69,24 @@ router.get('/admin/dashboard', auth, /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
-router.get('/dashboard/projects', auth, /*#__PURE__*/function () {
+router.get('/admin/users', auth, admin, /*#__PURE__*/function () {
   var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(req, res, next) {
-    var projects;
+    var users;
     return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return Project.find();
+            return User.find({});
 
           case 2:
-            projects = _context2.sent;
-            res.render('./admin/projects/projects', {
-              projects: projects
+            users = _context2.sent;
+            res.locals.page_name = "admin/users";
+            res.render('./admin/users', {
+              users: users
             });
 
-          case 4:
+          case 5:
           case "end":
             return _context2.stop();
         }
@@ -86,15 +98,24 @@ router.get('/dashboard/projects', auth, /*#__PURE__*/function () {
     return _ref2.apply(this, arguments);
   };
 }());
-router.get('/dashboard/new-project', auth, /*#__PURE__*/function () {
+router.get('/admin/tattoos', auth, admin, /*#__PURE__*/function () {
   var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+    var qrs;
     return _regenerator["default"].wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            res.render('./admin/projects/new-project');
+            _context3.next = 2;
+            return Qr.find({});
 
-          case 1:
+          case 2:
+            qrs = _context3.sent;
+            res.locals.page_name = "admin/tattoos";
+            res.render('./admin/tattoos', {
+              qrs: qrs
+            });
+
+          case 5:
           case "end":
             return _context3.stop();
         }
@@ -106,21 +127,23 @@ router.get('/dashboard/new-project', auth, /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }());
-router.get('/dashboard/delete-project/', auth, /*#__PURE__*/function () {
+router.get('/dashboard/projects', auth, /*#__PURE__*/function () {
   var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
+    var projects;
     return _regenerator["default"].wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             _context4.next = 2;
-            return Project.deleteOne({
-              _id: req.query.id
-            });
+            return Project.find();
 
           case 2:
-            res.redirect('back');
+            projects = _context4.sent;
+            res.render('./admin/projects/projects', {
+              projects: projects
+            });
 
-          case 3:
+          case 4:
           case "end":
             return _context4.stop();
         }
@@ -132,20 +155,66 @@ router.get('/dashboard/delete-project/', auth, /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }());
-router.get('/dashboard/edit-project/', auth, /*#__PURE__*/function () {
+router.get('/dashboard/new-project', auth, /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
-    var project, data;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
+            res.render('./admin/projects/new-project');
+
+          case 1:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x13, _x14, _x15) {
+    return _ref5.apply(this, arguments);
+  };
+}());
+router.get('/dashboard/delete-project/', auth, /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return Project.deleteOne({
+              _id: req.query.id
+            });
+
+          case 2:
+            res.redirect('back');
+
+          case 3:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function (_x16, _x17, _x18) {
+    return _ref6.apply(this, arguments);
+  };
+}());
+router.get('/dashboard/edit-project/', auth, /*#__PURE__*/function () {
+  var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res, next) {
+    var project, data;
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
             return Project.findOne({
               _id: req.query.id
             });
 
           case 2:
-            project = _context5.sent;
+            project = _context7.sent;
             data = {
               id: project._id,
               title: project.title,
@@ -160,22 +229,22 @@ router.get('/dashboard/edit-project/', auth, /*#__PURE__*/function () {
 
           case 5:
           case "end":
-            return _context5.stop();
+            return _context7.stop();
         }
       }
-    }, _callee5);
+    }, _callee7);
   }));
 
-  return function (_x13, _x14, _x15) {
-    return _ref5.apply(this, arguments);
+  return function (_x19, _x20, _x21) {
+    return _ref7.apply(this, arguments);
   };
 }());
 router.post('/dashboard/create-project', auth, upload.any(), /*#__PURE__*/function () {
-  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+  var _ref8 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(req, res, next) {
     var title, description, technologies, github, url, images, skills, payload;
-    return _regenerator["default"].wrap(function _callee6$(_context6) {
+    return _regenerator["default"].wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
             title = req.body.title;
             description = req.body.description;
@@ -195,7 +264,7 @@ router.post('/dashboard/create-project', auth, upload.any(), /*#__PURE__*/functi
               url: url,
               images: images
             };
-            _context6.next = 11;
+            _context8.next = 11;
             return Project.create(payload);
 
           case 11:
@@ -203,22 +272,22 @@ router.post('/dashboard/create-project', auth, upload.any(), /*#__PURE__*/functi
 
           case 12:
           case "end":
-            return _context6.stop();
+            return _context8.stop();
         }
       }
-    }, _callee6);
+    }, _callee8);
   }));
 
-  return function (_x16, _x17, _x18) {
-    return _ref6.apply(this, arguments);
+  return function (_x22, _x23, _x24) {
+    return _ref8.apply(this, arguments);
   };
 }());
 router.post('/dashboard/update-project', auth, upload.any(), /*#__PURE__*/function () {
-  var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res, next) {
+  var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res, next) {
     var id, title, description, technologies, github, url, skills, project, images, payload;
-    return _regenerator["default"].wrap(function _callee7$(_context7) {
+    return _regenerator["default"].wrap(function _callee9$(_context9) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context9.prev = _context9.next) {
           case 0:
             id = req.body.id;
             title = req.body.title;
@@ -227,13 +296,13 @@ router.post('/dashboard/update-project', auth, upload.any(), /*#__PURE__*/functi
             github = req.body.github;
             url = req.body.url;
             skills = technologies[1].split(",");
-            _context7.next = 9;
+            _context9.next = 9;
             return Project.findOne({
               _id: id
             });
 
           case 9:
-            project = _context7.sent;
+            project = _context9.sent;
             images = project.images;
 
             if (req.files.length > 0) {
@@ -251,7 +320,7 @@ router.post('/dashboard/update-project', auth, upload.any(), /*#__PURE__*/functi
               url: url,
               images: images
             };
-            _context7.next = 15;
+            _context9.next = 15;
             return Project.update({
               _id: id
             }, payload);
@@ -260,54 +329,6 @@ router.post('/dashboard/update-project', auth, upload.any(), /*#__PURE__*/functi
             res.redirect("/dashboard/projects");
 
           case 16:
-          case "end":
-            return _context7.stop();
-        }
-      }
-    }, _callee7);
-  }));
-
-  return function (_x19, _x20, _x21) {
-    return _ref7.apply(this, arguments);
-  };
-}());
-router.get('/dashboard/accounts', auth, /*#__PURE__*/function () {
-  var _ref8 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee8(req, res, next) {
-    var accounts;
-    return _regenerator["default"].wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            _context8.next = 2;
-            return Account.find();
-
-          case 2:
-            accounts = _context8.sent;
-            res.render('./admin/accounts/accounts', {
-              accounts: accounts
-            });
-
-          case 4:
-          case "end":
-            return _context8.stop();
-        }
-      }
-    }, _callee8);
-  }));
-
-  return function (_x22, _x23, _x24) {
-    return _ref8.apply(this, arguments);
-  };
-}());
-router.get('/dashboard/new-account', auth, /*#__PURE__*/function () {
-  var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res, next) {
-    return _regenerator["default"].wrap(function _callee9$(_context9) {
-      while (1) {
-        switch (_context9.prev = _context9.next) {
-          case 0:
-            res.render('./admin/accounts/new-account');
-
-          case 1:
           case "end":
             return _context9.stop();
         }
@@ -319,22 +340,20 @@ router.get('/dashboard/new-account', auth, /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }());
-router.get('/dashboard/edit-account', auth, /*#__PURE__*/function () {
+router.get('/dashboard/accounts', auth, /*#__PURE__*/function () {
   var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res, next) {
-    var account;
+    var accounts;
     return _regenerator["default"].wrap(function _callee10$(_context10) {
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
             _context10.next = 2;
-            return Account.findOne({
-              _id: req.query.id
-            });
+            return Account.find();
 
           case 2:
-            account = _context10.sent;
-            res.render('./admin/accounts/edit-account', {
-              account: account
+            accounts = _context10.sent;
+            res.render('./admin/accounts/accounts', {
+              accounts: accounts
             });
 
           case 4:
@@ -349,21 +368,15 @@ router.get('/dashboard/edit-account', auth, /*#__PURE__*/function () {
     return _ref10.apply(this, arguments);
   };
 }());
-router.get('/dashboard/delete-account', auth, /*#__PURE__*/function () {
+router.get('/dashboard/new-account', auth, /*#__PURE__*/function () {
   var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res, next) {
     return _regenerator["default"].wrap(function _callee11$(_context11) {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
-            _context11.next = 2;
-            return Account.deleteOne({
-              _id: req.query.id
-            });
+            res.render('./admin/accounts/new-account');
 
-          case 2:
-            res.redirect('back');
-
-          case 3:
+          case 1:
           case "end":
             return _context11.stop();
         }
@@ -375,34 +388,25 @@ router.get('/dashboard/delete-account', auth, /*#__PURE__*/function () {
     return _ref11.apply(this, arguments);
   };
 }());
-router.post('/dashboard/create-account', auth, /*#__PURE__*/function () {
+router.get('/dashboard/edit-account', auth, /*#__PURE__*/function () {
   var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res, next) {
-    var username, email, contact, country, address, customInfo, payload;
+    var account;
     return _regenerator["default"].wrap(function _callee12$(_context12) {
       while (1) {
         switch (_context12.prev = _context12.next) {
           case 0:
-            username = req.body.username;
-            email = req.body.email;
-            contact = req.body.contact;
-            country = req.body.country;
-            address = req.body.address;
-            customInfo = req.body.customInfo;
-            payload = {
-              username: username,
-              email: email,
-              contact: contact,
-              country: country,
-              address: address,
-              customInfo: customInfo
-            };
-            _context12.next = 9;
-            return Account.create(payload);
+            _context12.next = 2;
+            return Account.findOne({
+              _id: req.query.id
+            });
 
-          case 9:
-            res.redirect('/dashboard/accounts');
+          case 2:
+            account = _context12.sent;
+            res.render('./admin/accounts/edit-account', {
+              account: account
+            });
 
-          case 10:
+          case 4:
           case "end":
             return _context12.stop();
         }
@@ -414,12 +418,38 @@ router.post('/dashboard/create-account', auth, /*#__PURE__*/function () {
     return _ref12.apply(this, arguments);
   };
 }());
-router.post('/dashboard/update-account', auth, /*#__PURE__*/function () {
+router.get('/dashboard/delete-account', auth, /*#__PURE__*/function () {
   var _ref13 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee13(req, res, next) {
-    var username, email, contact, country, address, customInfo, payload;
     return _regenerator["default"].wrap(function _callee13$(_context13) {
       while (1) {
         switch (_context13.prev = _context13.next) {
+          case 0:
+            _context13.next = 2;
+            return Account.deleteOne({
+              _id: req.query.id
+            });
+
+          case 2:
+            res.redirect('back');
+
+          case 3:
+          case "end":
+            return _context13.stop();
+        }
+      }
+    }, _callee13);
+  }));
+
+  return function (_x37, _x38, _x39) {
+    return _ref13.apply(this, arguments);
+  };
+}());
+router.post('/dashboard/create-account', auth, /*#__PURE__*/function () {
+  var _ref14 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee14(req, res, next) {
+    var username, email, contact, country, address, customInfo, payload;
+    return _regenerator["default"].wrap(function _callee14$(_context14) {
+      while (1) {
+        switch (_context14.prev = _context14.next) {
           case 0:
             username = req.body.username;
             email = req.body.email;
@@ -435,7 +465,46 @@ router.post('/dashboard/update-account', auth, /*#__PURE__*/function () {
               address: address,
               customInfo: customInfo
             };
-            _context13.next = 9;
+            _context14.next = 9;
+            return Account.create(payload);
+
+          case 9:
+            res.redirect('/dashboard/accounts');
+
+          case 10:
+          case "end":
+            return _context14.stop();
+        }
+      }
+    }, _callee14);
+  }));
+
+  return function (_x40, _x41, _x42) {
+    return _ref14.apply(this, arguments);
+  };
+}());
+router.post('/dashboard/update-account', auth, /*#__PURE__*/function () {
+  var _ref15 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee15(req, res, next) {
+    var username, email, contact, country, address, customInfo, payload;
+    return _regenerator["default"].wrap(function _callee15$(_context15) {
+      while (1) {
+        switch (_context15.prev = _context15.next) {
+          case 0:
+            username = req.body.username;
+            email = req.body.email;
+            contact = req.body.contact;
+            country = req.body.country;
+            address = req.body.address;
+            customInfo = req.body.customInfo;
+            payload = {
+              username: username,
+              email: email,
+              contact: contact,
+              country: country,
+              address: address,
+              customInfo: customInfo
+            };
+            _context15.next = 9;
             return Account.update({
               _id: req.body.id
             }, payload);
@@ -445,14 +514,14 @@ router.post('/dashboard/update-account', auth, /*#__PURE__*/function () {
 
           case 10:
           case "end":
-            return _context13.stop();
+            return _context15.stop();
         }
       }
-    }, _callee13);
+    }, _callee15);
   }));
 
-  return function (_x37, _x38, _x39) {
-    return _ref13.apply(this, arguments);
+  return function (_x43, _x44, _x45) {
+    return _ref15.apply(this, arguments);
   };
 }());
 module.exports = router;

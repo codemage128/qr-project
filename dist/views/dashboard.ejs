@@ -1,113 +1,198 @@
 <%- include('layout/header.ejs')%>
-
-  <main id="main">
-    <%- include('breadcrumbs')%>
-
-      <section class="inner-page">
-        <div class="container">
-          <div class="row text-center">
-            <div class="col">
-              <%- include('./particials/msg') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="row mb-3">
-                    <div class="col-lg-2 col-sm-12 mb-2">
-                      <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#chooseType">Activate
-                        Tattoo</button>
-                    </div>
-                    <div class="col-lg-10 text-center">
-                      <div class="row align-items-center">
-                        <div class="col">
-                          <h3>Activated Tattoos List</h3>
-                        </div>
-                      </div>
-                      <hr>
-                      <% if(user.qrcodes.length> 0) {%>
-                        <% for(var i=0; i < qrs.length; i++) { %>
-                          <form action="/update-link" method="POST">
-                            <div class="row align-items-center">
-                              <div class="col-lg-4 col-sm-12"><img src="<%= qrs[i].image %>"></div>
-                              <div class="col-lg-5 col-sm-12">
-                                <h4><a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank">
-                                    <%= qrs[i].code%>
-                                  </a></h4>
-                                <input type="text" class="form-control" name="link" placeholder=""
-                                  value="<%= qrs[i].link%>" />
-                                <input type="hidden" name="id" value="<%= qrs[i].id%>" />
-                                <input type="hidden" name="type" id="update_type" />
-                              </div>
-                              <div class="btn-group col-lg-2 mt-3" role="group">
-                                <button type="submit" class="btn btn-outline-primary btn-update">Update</button>
-                                <a href="/deactive-code?id=<%= qrs[i].id%>" type="button"
-                                  class="btn btn-danger btn-deactive">Deactive</a>
-                              </div>
-                              <!-- <div class="col-lg-1 col-sm-2 mt-3"><button class="btn btn-danger" type="submit">Deactive</button></div>
-                              <div class="col-lg-1 col-sm-2 mt-3"><button class="btn btn-primary" type="submit">Update</button></div> -->
-                            </div>
-                          </form>
-                          <hr>
-                          <% } %>
-                            <% } else { %>
-                              <div class="row align-items-center">
-                                <div class="col">
-                                  <h4>There is no activated Tattoo</h4>
-                                </div>
-                              </div>
-                              <hr>
-                              <%} %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-  </main>
-  <!-- Modal -->
-  <div class="modal fade" id="chooseType" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-
-      <div class="modal-content">
+  <div class="modal fade" tabindex="-1" role="dialog" id="addTattoo" data-backdrop="false"
+    aria-labelledby="modal-cookies" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark-dark">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Enter tattoo code</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Activate code</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="container-fluid">
-            <form action="/active-tattoo" method="POST" id="activeTattoo">
-              <div class="row">
-                <div class="col">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">A</span>
-                    </div>
-                    <input type="text" maxlength="6" class="form-control code-label" placeholder="Label Number"
-                      aria-label="Label Number" name="code" aria-describedby="basic-addon1">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            Please type the tattoo label number inside your pack to active your tattoo.
+          </p>
+          <form action="/active-tattoo" method="POST">
+            <div class="row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">A</span>
                   </div>
+                  <input type="text" maxlength="6" class="form-control code-label" placeholder="label number"
+                    name="code" aria-describedby="basic-addon1">
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-active-code">Activate</button>
+            </div>
+            <div class="row">
+              <div class="col text-right">
+                <button type="submit" class="btn btn-sm btn-outline-warning mr-2 mt-3">OK</button>
+              </div>
+            </div>
+          </form>
+          <!-- Buttons -->
+
         </div>
       </div>
     </div>
   </div>
-
-  <%- include('./particials/foot.ejs')%>
-    <script>
-      $(function () {
-
+  <!-- Main content -->
+  <!-- Header -->
+  <div class="slice slice-sm bg-section-secondary">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="row align-items-center mb-4">
+            <div class="col">
+              <h5 class="h5 mb-0">
+                Activated Tattoos
+              </h5>
+            </div>
+            <div class="col-auto">
+              <div class="dropdown">
+                <button type="button" class="btn btn-sm btn-warning btn-icon-only rounded-circle" data-toggle="modal"
+                  data-target="#addTattoo">
+                  <span class="btn-inner--icon"><i data-feather="plus"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Latest users -->
+          <div class="row mx-n2">
+            <% if(qrs.length> 0) { %>
+              <% for(var i=0; i < qrs.length; i ++){ %>
+                <div class="col-md-3 col-sm-6 px-2">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <div class="avatar-parent-child">
+                        <img alt="Image placeholder" src="<%= qrs[i].image%>" class="avatar rounded-circle avatar-lg">
+                      </div>
+                      <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="d-block mt-4 mb-0 mb-3">
+                        <%= qrs[i].code%>
+                      </a>
+                      <div class="actions d-flex justify-content-between">
+                        <a href="#" class="action-item">
+                          <i data-feather="edit"></i>
+                        </a>
+                        <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="action-item">
+                          <i data-feather="send"></i>
+                        </a>
+                        <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item">
+                          <i data-feather="trash-2"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+                  <% } else {%>
+                    <div class="col-md-12 col-sm-6 px-2 text-center">
+                      <p>No activated tatoos</p>
+                    </div>
+                    <% } %>
+          </div>
+          <div class="row mt-4">
+            <div class="col-lg-12">
+              <div class="mb-5">
+                <div class="d-flex align-items-center mb-4">
+                  <div class="d-flex">
+                    <div class="pr-3">
+                      <span class="h5 mb-0"><i data-feather="users"></i></span>
+                    </div>
+                    <div class="">
+                      <h3 class="h5 mb-0">Tattoo Management</h3>
+                      <p class="text-muted mb-0">
+                        Manage all activated Tattoos
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <!-- User managementt -->
+                <div class="table-responsive">
+                  <table class="table table-cards align-items-center">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="min-width: 240px">Image</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Access</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0; i < qrs.length; i ++){ %>
+                        <tr>
+                          <td scope="row">
+                            <div class="media align-items-center">
+                              <div>
+                                <div class="avatar-parent-child">
+                                  <img alt="Image placeholder" src="<%= qrs[i].image%>" class="avatar">
+                                </div>
+                              </div>
+                              <div class="media-body ml-4">
+                                <a href="#" class="name h6 mb-0 text-sm">John Sullivan</a>
+                                <small class="d-block font-weight-bold">your.name@example.com</small>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="dropdown">
+                              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Inactive
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Active</a>
+                                <a class="dropdown-item" href="#">Needs confirmation</a>
+                                <a class="dropdown-item" href="#">Banned</a>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="dropdown">
+                              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manager
+                              </button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">View</a>
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Full access</a>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-right">
+                            <!-- Actions -->
+                            <div class="actions ml-3">
+                              <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Quick view">
+                                <i data-feather="external-link"></i>
+                              </a>
+                              <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Edit">
+                                <i data-feather="edit-2"></i>
+                              </a>
+                              <a href="#" class="action-item text-danger mr-2" data-toggle="tooltip"
+                                title="Move to trash">
+                                <i data-feather="trash-2"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Core JS  -->
+  <%- include('layout/landing-foot.ejs') %>
+    <%- include('layout/foot.ejs')%>
+      <script>
         $('.code-label').keypress(function (e) {
           var a = [];
           var k = e.which;
@@ -118,24 +203,5 @@
           if (!(a.indexOf(k) >= 0))
             e.preventDefault();
         });
-        $('.btn-active-code').click(function () {
-          $('#activeTattoo').submit();
-        })
-        //   var newmember = "<%= user.qrcodes.length %>" > 0 ? false : true;
-        //   /* If the user is new member, alert modal to choose order or type the code */
-        //   if (newmember) {
-        //     $('#chooseType').modal({});
-        //   }
-        //   $('.promocode').hide();
-        //   $('#membertype').change(function () {
-        //     if ($(this).val() == 0) {
-        //       $('.promocode').hide();
-        //     } else {
-        //       $('.promocode').show();
-        //     }
-        //   })
-      })
-    </script>
-    </body>
-
-    </html>
+      </script>
+      <%- include('layout/footer.ejs')%>

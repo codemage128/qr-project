@@ -1,6 +1,6 @@
 const express = require('express');
 const Qr = require('../models/qrcode');
-const User = require('../models/users'); ``
+const User = require('../models/users'); 
 var QRCode = require('qrcode')
 const router = express.Router();
 
@@ -51,16 +51,16 @@ router.post('/update-link', auth, async (req, res, next) => {
     })
 })
 
-router.post('/dashboard', auth, async (req, res, next) => {
-    let qrcodelist = await Qr.findOne({ code: req.body.code });
-    if (!qrcodelist) {
-        req.flash('warning_msg', 'That promocode doesn`t exist');
-    }
-    res.redirect('/dashboard');
-    // res.render('dashboard', {
-    //     qr: qrfield
-    // });
-})
+// router.post('/dashboard', auth, async (req, res, next) => {
+//     let qrcodelist = await Qr.findOne({ code: req.body.code });
+//     if (!qrcodelist) {
+//         req.flash('warning_msg', 'That promocode doesn`t exist');
+//     }
+//     res.redirect('/dashboard');
+//     // res.render('dashboard', {
+//     //     qr: qrfield
+//     // });
+// })
 
 router.get('/dashboard', auth, async (req, res, next) => {
     // let payload = {
@@ -115,7 +115,6 @@ router.get('/dashboard', auth, async (req, res, next) => {
     res.render('dashboard', {
         qrs: qrfields
     });
-
 
 })
 
@@ -184,8 +183,8 @@ router.post('/choose-type', auth, async (req, res, next) => {
     res.redirect('back');
 })
 
-router.get('/contacts', auth, (req, res, next) => {
-    res.render('contacts');
+router.get('/contact', (req, res, next) => {
+    res.render('contact');
 })
 router.get('/profile', auth, (req, res, next) => {
     res.locals.page_name = "profile";
@@ -194,6 +193,16 @@ router.get('/profile', auth, (req, res, next) => {
 router.get('/settings', auth, (req, res, next) => {
     res.locals.page_name = "settings";
     res.render('settings');
+})
+
+router.get('/notification', auth, (req, res, next) => {
+    res.locals.page_name = "notification";
+    res.render('notification');
+})
+
+router.get('/security', auth, (req, res, next) => {
+    res.locals.page_name = "security";
+    res.render('security');
 })
 
 module.exports = router;

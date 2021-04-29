@@ -20,25 +20,49 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({ storage: storage, fileFilter: fileFilter });
 const auth = require('../helpers/auth');
+const Qr = require('../models/qrcode');
+const User = require('../models/users');
 
-router.get('/admin/dashboard', auth, async(req, res, next) => {
+const admin = function (req, res, next) {
+    if (req.user.roleId === "admin")
+        return next()
+    req.flash('success_msg', 'You are not admin');
+    res.redirect(`/`)
+}
+router.get('/admin/dashboard', auth, admin, async (req, res, next) => {
+    res.locals.page_name = "admin/dashboard"
     res.render('./admin/dashboard');
 })
+router.get('/admin/users', auth, admin, async (req, res, next) => {
+    let users = await User.find({});
+    res.locals.page_name = "admin/users"
+    res.render('./admin/users', {
+        users: users
+    });
+})
 
-router.get('/dashboard/projects', auth, async(req, res, next) => {
+router.get('/admin/tattoos', auth, admin, async (req, res, next) => {
+    let qrs = await Qr.find({});
+    res.locals.page_name = "admin/tattoos"
+    res.render('./admin/tattoos', {
+        qrs: qrs
+    });
+})
+
+router.get('/dashboard/projects', auth, async (req, res, next) => {
     let projects = await Project.find();
     res.render('./admin/projects/projects', { projects: projects });
 })
 
-router.get('/dashboard/new-project', auth, async(req, res, next) => {
+router.get('/dashboard/new-project', auth, async (req, res, next) => {
     res.render('./admin/projects/new-project');
 })
-router.get('/dashboard/delete-project/', auth, async(req, res, next) => {
+router.get('/dashboard/delete-project/', auth, async (req, res, next) => {
     await Project.deleteOne({ _id: req.query.id });
     res.redirect('back');
 })
 
-router.get('/dashboard/edit-project/', auth, async(req, res, next) => {
+router.get('/dashboard/edit-project/', auth, async (req, res, next) => {
     let project = await Project.findOne({ _id: req.query.id });
     let data = {
         id: project._id,
@@ -51,7 +75,7 @@ router.get('/dashboard/edit-project/', auth, async(req, res, next) => {
     res.render('./admin/projects/edit-project', { data: data });
 })
 
-router.post('/dashboard/create-project', auth, upload.any(), async(req, res, next) => {
+router.post('/dashboard/create-project', auth, upload.any(), async (req, res, next) => {
     let title = req.body.title;
     let description = req.body.description;
     let technologies = req.body.technologies;
@@ -74,7 +98,7 @@ router.post('/dashboard/create-project', auth, upload.any(), async(req, res, nex
     res.redirect("/dashboard/projects");
 })
 
-router.post('/dashboard/update-project', auth, upload.any(), async(req, res, next) => {
+router.post('/dashboard/update-project', auth, upload.any(), async (req, res, next) => {
     let id = req.body.id;
     let title = req.body.title;
     let description = req.body.description;
@@ -104,26 +128,26 @@ router.post('/dashboard/update-project', auth, upload.any(), async(req, res, nex
 
 
 
-router.get('/dashboard/accounts', auth, async(req, res, next) => {
+router.get('/dashboard/accounts', auth, async (req, res, next) => {
     let accounts = await Account.find();
     res.render('./admin/accounts/accounts', { accounts: accounts });
 })
 
-router.get('/dashboard/new-account', auth, async(req, res, next) => {
+router.get('/dashboard/new-account', auth, async (req, res, next) => {
     res.render('./admin/accounts/new-account');
 })
 
-router.get('/dashboard/edit-account', auth, async(req, res, next) => {
+router.get('/dashboard/edit-account', auth, async (req, res, next) => {
     let account = await Account.findOne({ _id: req.query.id });
     res.render('./admin/accounts/edit-account', { account: account });
 })
 
-router.get('/dashboard/delete-account', auth, async(req, res, next) => {
+router.get('/dashboard/delete-account', auth, async (req, res, next) => {
     await Account.deleteOne({ _id: req.query.id });
     res.redirect('back');
 })
 
-router.post('/dashboard/create-account', auth, async(req, res, next) => {
+router.post('/dashboard/create-account', auth, async (req, res, next) => {
     let username = req.body.username;
     let email = req.body.email;
     let contact = req.body.contact;
@@ -142,7 +166,7 @@ router.post('/dashboard/create-account', auth, async(req, res, next) => {
     res.redirect('/dashboard/accounts');
 })
 
-router.post('/dashboard/update-account', auth, async(req, res, next) => {
+router.post('/dashboard/update-account', auth, async (req, res, next) => {
     let username = req.body.username;
     let email = req.body.email;
     let contact = req.body.contact;
