@@ -90,7 +90,7 @@ body
     text-align: left;
 
     color: #c0ccda;
-    background-color: #1f2d3d;
+    background-color: #fff;
 }
 
 [tabindex='-1']:focus:not(:focus-visible)
