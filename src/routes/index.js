@@ -63,6 +63,7 @@ router.post('/update-link', auth, async (req, res, next) => {
 // })
 
 router.get('/dashboard', auth, async (req, res, next) => {
+    
     // let payload = {
     //     image: "",
     //     code: "",
@@ -80,7 +81,6 @@ router.get('/dashboard', auth, async (req, res, next) => {
     //     payload.image = url;
     //     let qrcode = await Qr.create(payload);
     // }
-
 
     // for (var i = 0; i < 999999; i++) {
     //     let payload = {

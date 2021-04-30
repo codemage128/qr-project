@@ -38,12 +38,52 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" tabindex="-1" role="dialog" id="editTattoo" data-backdrop="false"
+    aria-labelledby="modal-cookies" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark-dark">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit embedded link</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            Please type the embedded link.
+          </p>
+          <form action="/update-link" method="POST">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Insert Link" name="link" id="link"
+                  aria-describedby="basic-addon1">
+                <input type="hidden" id="id" name="id" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-right">
+                <button type="submit" class="btn btn-sm btn-outline-warning mr-2 mt-3">OK</button>
+              </div>
+            </div>
+          </form>
+          <!-- Buttons -->
+
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Main content -->
   <!-- Header -->
   <div class="slice slice-sm bg-section-secondary">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-9">
+          <div class="row align-items-center">
+            <div class="col">
+              <%- include('particials/msg.ejs') %>
+            </div>
+          </div>
           <div class="row align-items-center mb-4">
             <div class="col">
               <h5 class="h5 mb-0">
@@ -73,7 +113,8 @@
                         <%= qrs[i].code%>
                       </a>
                       <div class="actions d-flex justify-content-between">
-                        <a href="#" class="action-item">
+                        <a href="#" class="action-item action-edit" data-toggle="modal" data-target="#editTattoo"
+                          data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
                           <i data-feather="edit"></i>
                         </a>
                         <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="action-item">
@@ -203,5 +244,11 @@
           if (!(a.indexOf(k) >= 0))
             e.preventDefault();
         });
+        $('.action-edit').click(function () {
+          var _id = $(this).data('id');
+          var _link = $(this).data('link');
+          $('#id').val(_id);
+          $('#link').val(_link);
+        })
       </script>
       <%- include('layout/footer.ejs')%>

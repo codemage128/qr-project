@@ -42,6 +42,8 @@ var Qr = require('../models/qrcode');
 
 var User = require('../models/users');
 
+var QRCode = require('qrcode');
+
 var admin = function admin(req, res, next) {
   if (req.user.roleId === "admin") return next();
   req.flash('success_msg', 'You are not admin');
@@ -50,14 +52,53 @@ var admin = function admin(req, res, next) {
 
 router.get('/admin/dashboard', auth, admin, /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
+    var payload, i, promise, url, qrcode;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            payload = {
+              image: "",
+              code: "",
+              link: "http://skanz.live"
+            };
+            i = 1;
+
+          case 2:
+            if (!(i < 50)) {
+              _context.next = 15;
+              break;
+            }
+
+            payload.code = "A" + String(i).padStart(6, '0');
+            promise = new Promise(function (resolve, reject) {
+              var segs = "http://c.skanz.live/" + payload.code;
+              QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+              });
+            });
+            _context.next = 7;
+            return promise;
+
+          case 7:
+            url = _context.sent;
+            payload.image = url;
+            _context.next = 11;
+            return Qr.create(payload);
+
+          case 11:
+            qrcode = _context.sent;
+
+          case 12:
+            i++;
+            _context.next = 2;
+            break;
+
+          case 15:
             res.locals.page_name = "admin/dashboard";
             res.render('./admin/dashboard');
 
-          case 2:
+          case 17:
           case "end":
             return _context.stop();
         }
