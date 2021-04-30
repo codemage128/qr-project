@@ -8638,7 +8638,7 @@ button.bg-light:focus
 
 .bg-dark
 {
-    background-color: #253649 !important;
+    background-color:#1f1f1f !important
 }
 
 a.bg-dark:hover,
@@ -33603,7 +33603,7 @@ article p
 
 section.slice
 {
-    background-color: #1f2d3d;
+    background-color: #000;
 }
 
 .slice
