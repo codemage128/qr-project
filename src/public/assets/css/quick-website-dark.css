@@ -6017,9 +6017,9 @@ input[type='button'].btn-block
 
     word-wrap: break-word;
 
-    border: 1px solid #2c4056;
+    border: 1px solid #1f1f1f;
     border-radius: .75rem; 
-    background-color: #253649;
+    background-color: #1f1f1f;
     background-clip: border-box;
 }
 .card > hr
