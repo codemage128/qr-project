@@ -106,24 +106,35 @@
                 <div class="col-md-3 col-sm-6 px-2">
                   <div class="card">
                     <div class="card-body text-center">
-                      <div class="avatar-parent-child">
-                        <img alt="Image placeholder" src="<%= qrs[i].image%>" class="avatar rounded-circle avatar-lg">
-                      </div>
-                      <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="d-block mt-4 mb-0 mb-3">
-                        <%= qrs[i].code%>
-                      </a>
-                      <div class="actions d-flex justify-content-between">
-                        <a href="#" class="action-item action-edit" data-toggle="modal" data-target="#editTattoo"
-                          data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
-                          <i data-feather="edit"></i>
-                        </a>
-                        <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="action-item">
-                          <i data-feather="send"></i>
-                        </a>
-                        <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item">
-                          <i data-feather="trash-2"></i>
-                        </a>
-                      </div>
+                      <% if(qrs[i].single===1){%>
+                        <span class="pro-tatto">Pro</span>
+                        <%}%>
+                          <div class="avatar-parent-child">
+                            <img alt="Image placeholder" src="<%= qrs[i].image%>"
+                              class="avatar rounded-circle avatar-lg">
+                          </div>
+                          <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank"
+                            class="d-block mt-4 mb-0 mb-3">
+                            <%= qrs[i].code%>
+                          </a>
+                          <div class="actions d-flex justify-content-between">
+                            <% if(qrs[i].single===1){%>
+                              <a href="/profile" class="action-item mr-2" data-toggle="tooltip" title="Profile">
+                                <i data-feather="external-link"></i>
+                              </a>
+                              <%} else {%>
+                                <a href="javascript:void();" class="action-item action-edit" data-toggle="modal"
+                                  data-target="#editTattoo" data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
+                                  <i data-feather="edit"></i>
+                                </a>
+                                <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="action-item">
+                                  <i data-feather="send"></i>
+                                </a>
+                                <%}%>
+                                  <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item">
+                                    <i data-feather="trash-2"></i>
+                                  </a>
+                          </div>
                     </div>
                   </div>
                 </div>
@@ -156,8 +167,7 @@
                     <thead>
                       <tr>
                         <th scope="col" style="min-width: 240px">Image</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Access</th>
+                        <th scope="col">Type</th>
                         <th scope="col"></th>
                       </tr>
                     </thead>
@@ -172,50 +182,38 @@
                                 </div>
                               </div>
                               <div class="media-body ml-4">
-                                <a href="#" class="name h6 mb-0 text-sm">John Sullivan</a>
-                                <small class="d-block font-weight-bold">your.name@example.com</small>
+                                <a href="#" class="name h6 mb-0 text-sm">
+                                  <%= qrs[i].code%>
+                                </a>
                               </div>
                             </div>
                           </td>
                           <td>
-                            <div class="dropdown">
-                              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Inactive
-                              </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Active</a>
-                                <a class="dropdown-item" href="#">Needs confirmation</a>
-                                <a class="dropdown-item" href="#">Banned</a>
-                              </div>
-                            </div>
+                            <% if(qrs[i].single===1){%>
+                              <div class="badge badge-info">Pro</div>
+                              <% } %>
                           </td>
-                          <td>
-                            <div class="dropdown">
-                              <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Manager
-                              </button>
-                              <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">View</a>
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Full access</a>
-                              </div>
-                            </div>
-                          </td>
+
                           <td class="text-right">
                             <!-- Actions -->
                             <div class="actions ml-3">
-                              <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Quick view">
+                              <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank"" class="action-item mr-2" data-toggle="tooltip" title="Quick view">
                                 <i data-feather="external-link"></i>
                               </a>
-                              <a href="#" class="action-item mr-2" data-toggle="tooltip" title="Edit">
-                                <i data-feather="edit-2"></i>
-                              </a>
-                              <a href="#" class="action-item text-danger mr-2" data-toggle="tooltip"
-                                title="Move to trash">
-                                <i data-feather="trash-2"></i>
-                              </a>
+                              <% if(qrs[i].single===1){%>
+                                <!-- <a href="/profile" class="action-item mr-2 " data-toggle="tooltip" title="Edit">
+                                  <i data-feather="edit-2"></i>
+                                </a> -->
+                                <% } else { %>
+                                  <a href="#" class="action-item mr-2 action-edit" data-toggle="modal" data-target="#editTattoo"
+                                    data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
+                                    <i data-feather="edit-2"></i>
+                                  </a>
+                                  <% } %>
+                                  <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item text-danger mr-2" data-toggle="tooltip"
+                                    title="Move to trash">
+                                    <i data-feather="trash-2"></i>
+                                  </a>
                             </div>
                           </td>
                         </tr>

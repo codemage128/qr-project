@@ -21,16 +21,16 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <a href="#" class="avatar rounded-circle">
+                        <a href="/" class="avatar rounded-circle">
                           <img alt="Image placeholder" src="<%= user.profilePicture %>">
                         </a>
                       </div>
                       <div class="col ml-md-n2">
                         <a href="#!" class="d-block h6 mb-0"><%= user.firstName %> <%= user.lastName %></a>
-                        <small class="d-block text-muted">Sales Manager</small>
+                        <small class="d-block text-muted"><%= user.email %></small>
                       </div>
                       <div class="col-auto">
-                        <a href="/edit" type="button" class="btn btn-xs btn-warning btn-icon rounded-pill">
+                        <a href="/user/edit" type="button" class="btn btn-xs btn-warning btn-icon rounded-pill">
                           <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
                           <span class="btn-inner--text">Edit</span>
                         </a>
@@ -39,11 +39,14 @@
                   </div>
                   <div class="card-body">
                     <div class="row">
+                      <div class="col-12  mb-3">
+                        <span class="h5 text-sm"><%= user.bio%>
+                        </span>
+                      </div>
                       <div class="col-12 text-center">
                         <span class="h5 mb-0"><%= user.qrcodes.length %></span>
                         <span class="d-block text-sm">Activated Tattoos</span>
                       </div>
-                      
                     </div>
                   </div>
                   <!-- <div class="card-footer py-2">
@@ -61,18 +64,7 @@
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-facebook mr-2"></i>Facebook
-                        </h6>
-                      </div>
-                      <div class="col-auto">
-                        <span class="text-sm">emma.stone</span>
-                      </div>
-                    </div>
-                    <hr class="my-3">
-                    <div class="row align-items-center">
-                      <div class="col">
-                        <h6 class="text-sm mb-0">
-                          <i class="fab fa-instagram mr-2"></i>Instagram
+                          <img src="/assets/img/svg/social/facebook.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
@@ -83,55 +75,143 @@
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                          <img src="/assets/img/svg/social/linkedin.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">emmastone</span>
+                        <a href="#" class="text-sm">Connect</a>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                          <img src="/assets/img/svg/social/twitter.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">emmastone</span>
+                        <a href="#" class="text-sm">Connect</a>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                          <img src="/assets/img/svg/social/instagram.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">emmastone</span>
+                        <a href="#" class="text-sm">Connect</a>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                          <img src="/assets/img/svg/social/spotify.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">emmastone</span>
+                        <a href="#" class="text-sm">Connect</a>
                       </div>
                     </div>
                     <hr class="my-3">
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
-                          <i class="fab fa-linkedin mr-2"></i>LinkedIn
+                          <img src="/assets/img/svg/social/pinterest.svg" class="social-svg" />
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <span class="text-sm">emmastone</span>
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/skype.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/whatsapp.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/youtube.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/safari.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/google-docs.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/paypal.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/microsoft-store.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
+                      </div>
+                    </div>
+                    <hr class="my-3">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/google-inbox.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="#" class="text-sm">Connect</a>
                       </div>
                     </div>
                   </div>
