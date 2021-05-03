@@ -4756,7 +4756,7 @@ input[type='button'].btn-block
     text-align: center;
     white-space: nowrap;
 
-    color: #c0ccda;
+    color: #000000;
     border: 1px solid #223244;
     border-radius: .375rem; 
     background-color: #f9fafc;
@@ -37021,6 +37021,21 @@ Advanced example - Customized layout
 .bootstrap-tagsinput .badge:hover [data-role='remove']
 {
     opacity: 1;
+}
+
+.social-svg{
+    width: 50px;
+}
+.pro-tatto{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #50b5ff;
+    color: white;
+    font-size: 80%;
+    padding: 3px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 /*# sourceMappingURL=quick-website-dark.css.map */
