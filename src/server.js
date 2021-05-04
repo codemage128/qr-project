@@ -71,11 +71,13 @@ const users = require('./routes/users');
 app.use(index)
 app.use(auth)
 app.use(admin)
-app.use(users);
+app.use(users)
+
 app.get('*', (req, res, next) => {
     res.status(404).render('404');
     next();
 });
+
 app.listen(port, () => {
     console.log(`Example app listening at :${port}`)
 })

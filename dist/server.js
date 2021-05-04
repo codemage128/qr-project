@@ -76,9 +76,12 @@ var auth = require('./routes/auth');
 
 var admin = require('./routes/admin');
 
+var users = require('./routes/users');
+
 app.use(index);
 app.use(auth);
 app.use(admin);
+app.use(users);
 app.get('*', function (req, res, next) {
   res.status(404).render('404');
   next();

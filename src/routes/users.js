@@ -12,7 +12,16 @@ const auth = (req, res, next) => {
 };
 
 router.get('/user/edit', auth, (req, res, next) => {
-  res.render('user-edit')  ;
+  res.locals.page_name = "Edit";
+  res.render('user-edit');
 })
+
+router.post('/user/update-info', auth, async(req, res, next) => {
+  User.updateOne({_id: req.user.id}, req.body).then(data => {
+    req.flash('success_msg', 'Tattoo has been deactived!');
+    res.redirect('back');
+  }).catch(error => next(error));
+})
+
 
 module.exports = router

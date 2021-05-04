@@ -7702,7 +7702,7 @@ a.close.disabled
     border: 1px solid rgba(31, 45, 61, .2);
     border-radius: .75rem;
     outline: 0; 
-    background-color: #253649;
+    background-color: #000;
     background-clip: padding-box;
     box-shadow: 0 .25rem .5rem rgba(31, 45, 61, .3);
 }

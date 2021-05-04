@@ -13,6 +13,8 @@ var userSchema = new Schema({
   firstName: String,
   lastName: String,
   userslug: String,
+  bio: String,
+  phone: String,
   roleId: {
     type: String,
     "enum": ["admin", "user"],

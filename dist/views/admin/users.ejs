@@ -16,13 +16,16 @@
                             </h1>
                         </div>
                         <div class="col-auto">
-                            <button type="button" class="btn btn-sm btn-warning btn-icon">
+                            <button type="button" class="btn btn-sm btn-warning btn-icon" data-toggle="modal"
+                                data-target="#addUser">
                                 <span class="btn-inner--text">Add User</span>
                                 <span class="btn-inner--icon"><i data-feather="plus"></i></span>
                             </button>
                         </div>
                     </div>
+                    <%- include('../particials/msg.ejs') %>
                     <div class="row mx-n2">
+                        
                         <div class="col">
                             <div class="table-responsive">
                                 <table class="table table-cards align-items-center">
@@ -71,12 +74,11 @@
                                                 <td class="text-right">
                                                     <!-- Actions -->
                                                     <div class="actions ml-3">
-                                                        <a class="action-item mr-2" data-toggle="tooltip"
-                                                            title="Edit">
+                                                        <a class="action-item mr-2" data-toggle="tooltip" title="Edit">
                                                             <i data-feather="edit-2"></i>
                                                         </a>
-                                                        <a class="action-item text-danger mr-2"
-                                                            data-toggle="tooltip" title="Move to trash">
+                                                        <a class="action-item text-danger mr-2" data-toggle="tooltip"
+                                                            title="Move to trash">
                                                             <i data-feather="trash-2"></i>
                                                         </a>
                                                     </div>
@@ -87,6 +89,58 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="addUser" data-backdrop="false"
+            aria-labelledby="modal-cookies" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Text -->
+                        
+                        <form action="/user/create-account" method="POST">
+                            <div class="row">
+                                
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-control-label">First name</label>
+                                        <input class="form-control" type="text" name="firstName" required placeholder="Enter first name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Last name</label>
+                                        <input class="form-control" type="text" name="lastName" required  placeholder="Enter last name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Email</label>
+                                        <input class="form-control" type="email" name="email" required  placeholder="Enter first name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Type</label>
+                                        <select class="custom-select" name="type" required>
+                                            <option>Select option</option>
+                                            <option value="admin">Admin</option>
+                                            <option value="user" selected>User</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-right">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning mr-2 mt-3">OK</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Buttons -->
+
                     </div>
                 </div>
             </div>

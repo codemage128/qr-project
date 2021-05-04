@@ -1,6 +1,6 @@
 const express = require('express');
 const Qr = require('../models/qrcode');
-const User = require('../models/users'); 
+const User = require('../models/users');
 var QRCode = require('qrcode')
 const router = express.Router();
 
@@ -31,7 +31,7 @@ router.get('/deactive-code', auth, async (req, res, next) => {
     var carIndex = qrs.indexOf(req.query.id);
     qrs.splice(carIndex, 1);
     newQrcodelist = qrs;
-    await Qr.updateOne({_id: req.query.id}, {link: "http://skanz.live"})
+    await Qr.updateOne({ _id: req.query.id }, { link: "http://skanz.live" })
     User.updateOne({ _id: req.user.id }, { $set: { qrcodes: newQrcodelist } }).then(() => {
         req.flash('success_msg', 'Tattoo has been deactived!');
         res.redirect('dashboard');
@@ -51,6 +51,19 @@ router.post('/update-link', auth, async (req, res, next) => {
     })
 })
 
+router.post('/update-tatto-type', auth, async (req, res, next) => {
+    console.log(req.body.tattooid);
+    console.log(req.body.tattotype);
+    let single = 1;
+    if (req.body.tattotype === "false") {
+        single = 0;
+    }
+    Qr.updateOne({ _id: req.body.tattooid }, { $set: { single: single } }).then(() => {
+        req.flash('success_msg', 'Tattoo type is changed');
+        res.redirect('back');
+    }).catch(err => next(err));
+})
+
 // router.post('/dashboard', auth, async (req, res, next) => {
 //     let qrcodelist = await Qr.findOne({ code: req.body.code });
 //     if (!qrcodelist) {
@@ -63,7 +76,7 @@ router.post('/update-link', auth, async (req, res, next) => {
 // })
 
 router.get('/dashboard', auth, async (req, res, next) => {
-    
+
     // let payload = {
     //     image: "",
     //     code: "",

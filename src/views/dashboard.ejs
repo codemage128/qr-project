@@ -33,7 +33,6 @@
             </div>
           </form>
           <!-- Buttons -->
-
         </div>
       </div>
     </div>
@@ -119,20 +118,21 @@
                           </a>
                           <div class="actions d-flex justify-content-between">
                             <% if(qrs[i].single===1){%>
-                              <a href="/profile" class="action-item mr-2" data-toggle="tooltip" title="Profile">
-                                <i data-feather="external-link"></i>
+                              <a href="/profile" target="_blank" class="action-item mr-2 btn btn-sm btn-success"
+                                data-toggle="tooltip" title="Profile">
+                                View
                               </a>
                               <%} else {%>
-                                <a href="javascript:void();" class="action-item action-edit" data-toggle="modal"
-                                  data-target="#editTattoo" data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
-                                  <i data-feather="edit"></i>
+                                <a href="javascript:void();" class="action-item action-edit btn btn-sm btn-info"
+                                  data-toggle="modal" data-target="#editTattoo" data-link="<%= qrs[i].link%>"
+                                  data-id="<%= qrs[i].id%>">
+                                  <!-- <i data-feather="edit"></i> -->Edit
                                 </a>
-                                <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank" class="action-item">
-                                  <i data-feather="send"></i>
-                                </a>
+
                                 <%}%>
-                                  <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item">
-                                    <i data-feather="trash-2"></i>
+                                  <a href="/deactive-code?id=<%= qrs[i]._id %>"
+                                    class="action-item btn btn-sm btn-danger" data-toggle="tooltip" title="Delete">
+                                    Delete
                                   </a>
                           </div>
                     </div>
@@ -189,35 +189,46 @@
                             </div>
                           </td>
                           <td>
-                            <% if(qrs[i].single===1){%>
+                            <!-- <% if(qrs[i].single===1){%>
                               <div class="badge badge-info">Pro</div>
-                              <% } %>
+                              <% } %> -->
+                            <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input protatto" id="<%= qrs[i].id%>" <%
+                                if(qrs[i].single===1){%> checked <% } %>>
+                                <label class="custom-control-label" for="<%= qrs[i].id%>">Pro Tatto</label>
+                            </div>
+
                           </td>
 
                           <td class="text-right">
                             <!-- Actions -->
                             <div class="actions ml-3">
-                              <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank"" class="action-item mr-2" data-toggle="tooltip" title="Quick view">
-                                <i data-feather="external-link"></i>
+                              <a href="http://c.skanz.live/<%= qrs[i].code%>" target="_blank"" class=" action-item mr-2"
+                                data-toggle="tooltip" title="Quick view">
+                                View
                               </a>
                               <% if(qrs[i].single===1){%>
                                 <!-- <a href="/profile" class="action-item mr-2 " data-toggle="tooltip" title="Edit">
                                   <i data-feather="edit-2"></i>
                                 </a> -->
                                 <% } else { %>
-                                  <a href="#" class="action-item mr-2 action-edit" data-toggle="modal" data-target="#editTattoo"
-                                    data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
-                                    <i data-feather="edit-2"></i>
+                                  <a href="#" class="action-item mr-2 action-edit" data-toggle="modal"
+                                    data-target="#editTattoo" data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
+                                    Edit
                                   </a>
                                   <% } %>
-                                  <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item text-danger mr-2" data-toggle="tooltip"
-                                    title="Move to trash">
-                                    <i data-feather="trash-2"></i>
-                                  </a>
+                                    <a href="/deactive-code?id=<%= qrs[i]._id %>" class="action-item text-danger mr-2"
+                                      data-toggle="tooltip" title="Move to trash">
+                                      Delete
+                                    </a>
                             </div>
                           </td>
                         </tr>
                         <% } %>
+                        <form action="/update-tatto-type" method="POST" id="updateType">
+                          <input type="hidden" name="tattooid" id="tattooid" />
+                          <input type="hidden" name="tattotype" id="tattotype" />
+                        </form>
                     </tbody>
                   </table>
                 </div>
@@ -247,6 +258,19 @@
           var _link = $(this).data('link');
           $('#id').val(_id);
           $('#link').val(_link);
+        })
+        $('.protatto').on("change", function () {
+          var switchStatus = false;
+          if ($(this).is(':checked')) {
+            switchStatus = $(this).is(':checked');
+          }
+          else {
+            switchStatus = $(this).is(':checked');
+          }
+          console.log($(this).attr('id'));
+          $('#tattotype').val(switchStatus);
+          $('#tattooid').val($(this).attr('id'));
+          $('#updateType').submit();
         })
       </script>
       <%- include('layout/footer.ejs')%>

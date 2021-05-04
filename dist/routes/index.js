@@ -117,6 +117,46 @@ router.post('/update-link', auth, /*#__PURE__*/function () {
   return function (_x4, _x5, _x6) {
     return _ref2.apply(this, arguments);
   };
+}());
+router.post('/update-tatto-type', auth, /*#__PURE__*/function () {
+  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+    var single;
+    return _regenerator["default"].wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            console.log(req.body.tattooid);
+            console.log(req.body.tattotype);
+            single = 1;
+
+            if (req.body.tattotype === "false") {
+              single = 0;
+            }
+
+            Qr.updateOne({
+              _id: req.body.tattooid
+            }, {
+              $set: {
+                single: single
+              }
+            }).then(function () {
+              req.flash('success_msg', 'Tattoo type is changed');
+              res.redirect('back');
+            })["catch"](function (err) {
+              return next(err);
+            });
+
+          case 5:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function (_x7, _x8, _x9) {
+    return _ref3.apply(this, arguments);
+  };
 }()); // router.post('/dashboard', auth, async (req, res, next) => {
 //     let qrcodelist = await Qr.findOne({ code: req.body.code });
 //     if (!qrcodelist) {
@@ -129,11 +169,11 @@ router.post('/update-link', auth, /*#__PURE__*/function () {
 // })
 
 router.get('/dashboard', auth, /*#__PURE__*/function () {
-  var _ref3 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(req, res, next) {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
     var qrId, qrfields, result, i, field;
-    return _regenerator["default"].wrap(function _callee3$(_context3) {
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             // let payload = {
             //     image: "",
@@ -172,7 +212,7 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
             qrfields = [];
 
             if (!(req.user.qrcodes.length > 0)) {
-              _context3.next = 12;
+              _context4.next = 12;
               break;
             }
 
@@ -181,22 +221,22 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
 
           case 4:
             if (!(i < qrId.length)) {
-              _context3.next = 12;
+              _context4.next = 12;
               break;
             }
 
-            _context3.next = 7;
+            _context4.next = 7;
             return Qr.findOne({
               _id: qrId[i]
             });
 
           case 7:
-            field = _context3.sent;
+            field = _context4.sent;
             qrfields.push(field);
 
           case 9:
             i++;
-            _context3.next = 4;
+            _context4.next = 4;
             break;
 
           case 12:
@@ -205,27 +245,6 @@ router.get('/dashboard', auth, /*#__PURE__*/function () {
             });
 
           case 13:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-
-  return function (_x7, _x8, _x9) {
-    return _ref3.apply(this, arguments);
-  };
-}());
-router.get('/shop', auth, /*#__PURE__*/function () {
-  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
-    return _regenerator["default"].wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-            res.locals.page_name = "shop";
-            res.render('shop');
-
-          case 2:
           case "end":
             return _context4.stop();
         }
@@ -237,21 +256,42 @@ router.get('/shop', auth, /*#__PURE__*/function () {
     return _ref4.apply(this, arguments);
   };
 }());
-router.post('/active-tattoo', auth, /*#__PURE__*/function () {
+router.get('/shop', auth, /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
-    var code, qr, user;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
+            res.locals.page_name = "shop";
+            res.render('shop');
+
+          case 2:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x13, _x14, _x15) {
+    return _ref5.apply(this, arguments);
+  };
+}());
+router.post('/active-tattoo', auth, /*#__PURE__*/function () {
+  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+    var code, qr, user;
+    return _regenerator["default"].wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
             code = "A" + req.body.code;
-            _context5.next = 3;
+            _context6.next = 3;
             return Qr.findOne({
               code: code
             });
 
           case 3:
-            qr = _context5.sent;
+            qr = _context6.sent;
 
             if (code === "") {
               req.flash('warning_msg', 'please enter the code!');
@@ -263,14 +303,14 @@ router.post('/active-tattoo', auth, /*#__PURE__*/function () {
               res.redirect('back');
             }
 
-            _context5.next = 8;
+            _context6.next = 8;
             return User.findOne({
               _id: req.user.id
             });
 
           case 8:
-            user = _context5.sent;
-            _context5.next = 11;
+            user = _context6.sent;
+            _context6.next = 11;
             return User.updateOne({
               _id: req.user.id
             }, {
@@ -285,22 +325,22 @@ router.post('/active-tattoo', auth, /*#__PURE__*/function () {
 
           case 13:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5);
+    }, _callee6);
   }));
 
-  return function (_x13, _x14, _x15) {
-    return _ref5.apply(this, arguments);
+  return function (_x16, _x17, _x18) {
+    return _ref6.apply(this, arguments);
   };
 }());
 router.post('/choose-type', auth, /*#__PURE__*/function () {
-  var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(req, res, next) {
+  var _ref7 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res, next) {
     var membertype, promocode, payload, qrcode;
-    return _regenerator["default"].wrap(function _callee6$(_context6) {
+    return _regenerator["default"].wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             membertype = req.body.membertype;
             promocode = req.body.promocode;
@@ -311,7 +351,7 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             };
 
             if (!(membertype === "0")) {
-              _context6.next = 7;
+              _context7.next = 7;
               break;
             }
 
@@ -334,24 +374,24 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             //     await User.updateOne({ _id: req.user.id }, { $push: { qrcodes: qrcode.id } });
             // }
 
-            _context6.next = 16;
+            _context7.next = 16;
             break;
 
           case 7:
-            _context6.next = 9;
+            _context7.next = 9;
             return Qr.findOne({
               code: promocode
             });
 
           case 9:
-            qrcode = _context6.sent;
+            qrcode = _context7.sent;
 
             if (!qrcode) {
-              _context6.next = 15;
+              _context7.next = 15;
               break;
             }
 
-            _context6.next = 13;
+            _context7.next = 13;
             return User.updateOne({
               _id: req.user.id
             }, {
@@ -361,7 +401,7 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             });
 
           case 13:
-            _context6.next = 16;
+            _context7.next = 16;
             break;
 
           case 15:
@@ -372,14 +412,14 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
 
           case 17:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
       }
-    }, _callee6);
+    }, _callee7);
   }));
 
-  return function (_x16, _x17, _x18) {
-    return _ref6.apply(this, arguments);
+  return function (_x19, _x20, _x21) {
+    return _ref7.apply(this, arguments);
   };
 }());
 router.get('/contact', function (req, res, next) {

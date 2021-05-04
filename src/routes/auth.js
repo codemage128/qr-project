@@ -71,14 +71,7 @@ router.post('/sign-up', async (req, res, next) => {
         userslug: userslug,
         password: req.body.password,
         email: req.body.email,
-        profilePicture: "https://gravatar.com/avatar/" +
-            crypto
-                .createHash("md5")
-                .update(req.body.email)
-                .digest("hex")
-                .toString() +
-            "?s=200" +
-            "&d=retro",
+        profilePicture: "/assets/img/newUser.png",
     }
     
     // User.create(payload).then(() => {
