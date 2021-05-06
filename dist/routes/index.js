@@ -56,7 +56,7 @@ router.get('/deactive-code', auth, /*#__PURE__*/function () {
             return Qr.updateOne({
               _id: req.query.id
             }, {
-              link: "http://skanz.live"
+              link: "https://skanz.live"
             });
 
           case 10:
@@ -347,7 +347,7 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
             payload = {
               image: "",
               code: "",
-              link: "http://skanz.live"
+              link: "https://skanz.live"
             };
 
             if (!(membertype === "0")) {

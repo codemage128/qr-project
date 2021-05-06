@@ -9,7 +9,11 @@ var qrcodeSchema = new Schema({
   image: String,
   code: String,
   link: String,
-  single: Number //  0 -> simple redirect, 1 -> user probile
-
+  single: Number,
+  //  0 -> simple redirect, 1 -> user probile
+  printed: {
+    type: Boolean,
+    "default": "false"
+  }
 });
 module.exports = _mongoose["default"].model("qrcode", qrcodeSchema);

@@ -2,27 +2,78 @@
     <!-- Nav -->
     <ul class="nav nav-menu overflow-x flex-nowrap flex-md-column mx-n2">
         <li class="nav-item px-2">
-            <a href="/admin/dashboard" class="nav-link <% if(page_name === 'admin/dashboard'){ %> active <% } %>">Dashboard</a>
+            <h6><i data-feather="home" class="mr-3"></i>Dashboard</h6>
+            <ul class="nav nav-menu overflow-x flex-nowrap flex-md-column ">
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/dashboard'){ %> active <% } %>"><i
+                            data-feather="users" class="mr-3"></i>Tattoo</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/user/dashboard'){ %> active <% } %>"><i
+                            data-feather="user" class="mr-3"></i>User</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/tattoo/dashboard'){ %> active <% } %>"><i
+                            data-feather="file" class="mr-3"></i>Order</a>
+                </li>
+            </ul>
+            <hr>
+            <!-- <a href="/admin/dashboard" class="nav-link <% if(page_name === 'admin/dashboard'){ %> active <% } %>">Dashboard</a> -->
         </li>
         <li class="nav-item px-2">
-            <a href="/admin/users" class="nav-link <% if(page_name === 'admin/users'){ %> active <% } %>">Users</a>
+            <h6><i data-feather="users" class="mr-3"></i>Users</h6>
+            <ul class="nav nav-menu overflow-x flex-nowrap flex-md-column ">
+                <li class="nav-item px-2">
+                    <a href="/admin/users" class="nav-link <% if(page_name === 'admin/users'){ %> active <% } %>"><i
+                            data-feather="users" class="mr-3"></i>All Users</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/user/user" class="nav-link <% if(page_name === 'admin/user/user'){ %> active <% } %>"><i
+                            data-feather="user" class="mr-3"></i>Users</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/user/admin" class="nav-link <% if(page_name === 'admin/user/admin'){ %> active <% } %>"><i
+                            data-feather="users" class="mr-3"></i>Admin</a>
+                </li>
+            </ul>
+            <hr>
+            <!-- <a href="/admin/users" class="nav-link <% if(page_name === 'admin/users'){ %> active <% } %>">Users</a> -->
         </li>
         <li class="nav-item px-2">
-            <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/tattoos'){ %> active <% } %>">Tattoos</a>
+            <h6><i data-feather="unlock" class="mr-3"></i>Tattoo</h6>
+            <ul class="nav nav-menu overflow-x flex-nowrap flex-md-column ">
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/tattoos'){ %> active <% } %>"><i
+                            data-feather="file" class="mr-3"></i>All Tattoos</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoo/active" class="nav-link <% if(page_name === 'admin/tattoo/active'){ %> active <% } %>">
+                        <i data-feather="file" class="mr-3"></i>Activated Tattoos</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoo/printed" class="nav-link <% if(page_name === 'admin/tattoo/printed'){ %> active <% } %>"
+                        ><i data-feather="file" class="mr-3"></i>Printed Tattoos</a>
+                </li>
+            </ul>
+            <hr>
         </li>
-        
-        <hr>
         <li class="nav-item px-2">
-            <a href="#" class="nav-link <% if(page_name === 'notification'){ %> active <% } %>">Orders</a>
-        </li>
-        <li class="nav-item px-2">
-            <a href="#" class="nav-link <% if(page_name === 'notification'){ %> active <% } %>">Report</a>
-        </li>
-        <li class="nav-item px-2">
-            <a href="#" class="nav-link <% if(page_name === 'notification'){ %> active <% } %>">Profile</a>
-        </li>
-        <li class="nav-item px-2">
-            <a href="#" class="nav-link <% if(page_name === 'notification'){ %> active <% } %>">Settings</a>
+            <h6><i data-feather="unlock" class="mr-3"></i>Order</h6>
+            <ul class="nav nav-menu overflow-x flex-nowrap flex-md-column ">
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/order'){ %> active <% } %>"><i
+                            data-feather="file" class="mr-3"></i>All Tattoos</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/order'){ %> active <% } %>"><i
+                            data-feather="file" class="mr-3"></i>Activated Tattoos</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a href="/admin/tattoos" class="nav-link <% if(page_name === 'admin/order'){ %> active <% } %>"><i
+                            data-feather="file" class="mr-3"></i>Printed Tattoos</a>
+                </li>
+            </ul>
+            <hr>
         </li>
     </ul>
 </div>

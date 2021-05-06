@@ -31,7 +31,7 @@ router.get('/deactive-code', auth, async (req, res, next) => {
     var carIndex = qrs.indexOf(req.query.id);
     qrs.splice(carIndex, 1);
     newQrcodelist = qrs;
-    await Qr.updateOne({ _id: req.query.id }, { link: "http://skanz.live" })
+    await Qr.updateOne({ _id: req.query.id }, { link: "https://skanz.live" })
     User.updateOne({ _id: req.user.id }, { $set: { qrcodes: newQrcodelist } }).then(() => {
         req.flash('success_msg', 'Tattoo has been deactived!');
         res.redirect('dashboard');
@@ -161,7 +161,7 @@ router.post('/choose-type', auth, async (req, res, next) => {
     let payload = {
         image: "",
         code: "",
-        link: "http://skanz.live"
+        link: "https://skanz.live"
     }
     if (membertype === "0") {
         res.redirect('/shop');

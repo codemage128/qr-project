@@ -3,16 +3,17 @@
     <!-- Board -->
     <section class="slice py-5 bg-section-secondary">
         <div class="container">
+            
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <%- include('layout/side.ejs') %>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <div class="row align-items-center mb-4">
                         <div class="col">
                             <!-- Title -->
                             <h1 class="h5 mb-0">
-                                Users
+                                Tattoos
                             </h1>
                         </div>
                         <div class="col-auto">
@@ -22,16 +23,47 @@
                             </button>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <input class="form-control-sm form-control" placeholder="Type the code" />
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-sm btn-warning ">
+                                <span class="btn-inner--icon"><i data-feather="search"></i></span>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Previous</span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active" aria-current="page">
+                                        <span class="page-link">
+                                            2
+                                            <span class="sr-only">(current)</span>
+                                        </span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                     <div class="row mx-n2">
                         <div class="col">
                             <div class="table-responsive">
                                 <table class="table table-cards align-items-center">
                                     <thead>
                                         <tr>
-                                            <td>#</td>
                                             <th scope="col" style="min-width: 240px">Image</th>
                                             <th scope="col">Code</th>
-                                            <th scope="col">Role</th>
+                                            <th scope="col">Printed Status</th>
+                                            <th scope="col">Active Status</th>
                                             <th scope="col"></th>
                                         </tr>
                                     </thead>
@@ -47,19 +79,30 @@
                                                             </div>
                                                         </div>
                                                         <div class="media-body ml-4">
-                                                            <a href="/download" class="action-item mr-2" data-toggle="tooltip" title="Download">
-                                                                <i data-feather="arrow-down-circle"></i>
+                                                            <a href="/tattoo-download/<%= qrs[i].id %>" class="action-item mr-2" data-toggle="tooltip" title="Download">
+                                                                <h3><i data-feather="arrow-down-circle"></i></h3>
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p class="badge badge-info">
+                                                    <h3>
                                                         <%= qrs[i].code %>
-                                                    </p>
+                                                    </h3>
                                                 </td>
                                                 <td>
-                                                    <p class="badge badge-danger">Linked</p>
+                                                    <% if(qrs[i].printed === true) {%>
+                                                        <p class="badge badge-success">
+                                                            Printed
+                                                        </p>
+                                                        <% } %>
+                                                </td>
+                                                <td>
+                                                    <% if(qrs[i].link !== "https://skanz.live") {%>
+                                                    <p class="badge badge-danger">
+                                                        Active
+                                                    </p>
+                                                    <% } %>
                                                 </td>
                                                 <td class="text-right">
                                                     <!-- Actions -->
