@@ -184,22 +184,42 @@ router.get('/admin/user/admin', auth, admin, /*#__PURE__*/function () {
 }());
 router.get('/admin/tattoos', auth, admin, /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res, next) {
-    var qrs;
+    var code, qrs;
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _context5.next = 2;
+            code = req.query.code;
+            _context5.next = 3;
             return Qr.find({});
 
-          case 2:
+          case 3:
             qrs = _context5.sent;
-            res.locals.page_name = "admin/tattoos";
-            res.render('./admin/tattoos', {
-              qrs: qrs
+
+            if (!code) {
+              _context5.next = 8;
+              break;
+            }
+
+            _context5.next = 7;
+            return Qr.find({
+              code: {
+                $regex: code,
+                $options: '$i'
+              }
             });
 
-          case 5:
+          case 7:
+            qrs = _context5.sent;
+
+          case 8:
+            res.locals.page_name = "admin/tattoos";
+            res.render('./admin/tattoos', {
+              qrs: qrs,
+              code: code
+            });
+
+          case 10:
           case "end":
             return _context5.stop();
         }

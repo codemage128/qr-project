@@ -21,8 +21,13 @@ router.get('/', (req, res, next) => {
     } else {
         res.render('index')
     }
-
 })
+
+router.get('/out-profile/:slug', async (req, res, next) => {
+    let user = await User.findOne({ userslug: req.params.slug });
+    res.render('out-profile', {person : user});
+})
+
 
 router.get('/deactive-code', auth, async (req, res, next) => {
     let newQrcodelist = [];
@@ -52,13 +57,13 @@ router.post('/update-link', auth, async (req, res, next) => {
 })
 
 router.post('/update-tatto-type', auth, async (req, res, next) => {
-    console.log(req.body.tattooid);
-    console.log(req.body.tattotype);
     let single = 1;
+    let link = "https://skanz.live/out-profile/" + req.user.userslug;;
     if (req.body.tattotype === "false") {
         single = 0;
+        link = "https://skanz.live"
     }
-    Qr.updateOne({ _id: req.body.tattooid }, { $set: { single: single } }).then(() => {
+    Qr.updateOne({ _id: req.body.tattooid }, { $set: { single: single, link: link } }).then(() => {
         req.flash('success_msg', 'Tattoo type is changed');
         res.redirect('back');
     }).catch(err => next(err));
@@ -191,15 +196,214 @@ router.post('/choose-type', auth, async (req, res, next) => {
             req.flash('warning_msg', 'That promocode doesn`t exist');
         }
     }
-
-
     res.redirect('back');
 })
+
+router.get('/delete-social-media/:type', auth, async(req, res, next) => {
+    let type = req.params.type;
+    let link = "";
+    if(type == "reset") {
+        let update = {
+            facebook: "",
+            linkedin: "",
+            twitter: "",
+            instagram: "",
+            spotify: "",
+            pinterest: "",
+            skype: "",
+            whatsapp: "",
+            youtube: "",
+            safari: "",
+            doc: "",
+            paypal: "",
+            shop: "",
+            mailbox: ""
+        }
+        User.updateOne({ _id: req.user.id }, update).then(() => {
+            req.flash('success_msg', 'all link reseted');
+            res.redirect('back');
+        })
+    }
+    if (type == "facebook") {
+        User.updateOne({ _id: req.user.id }, { $set: { facebook: link } }).then(() => {
+            req.flash('success_msg', 'facebook link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "linkedin") {
+        User.updateOne({ _id: req.user.id }, { $set: { linkedin: link } }).then(() => {
+            req.flash('success_msg', 'lnkedin link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "twitter") {
+        User.updateOne({ _id: req.user.id }, { $set: { twitter: link } }).then(() => {
+            req.flash('success_msg', 'twitter link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "instagram") {
+        User.updateOne({ _id: req.user.id }, { $set: { instagram: link } }).then(() => {
+            req.flash('success_msg', 'lnkedin link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "spotify") {
+        User.updateOne({ _id: req.user.id }, { $set: { spotify: link } }).then(() => {
+            req.flash('success_msg', 'spotify link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "pinterest") {
+        User.updateOne({ _id: req.user.id }, { $set: { pinterest: link } }).then(() => {
+            req.flash('success_msg', 'pinterest link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "skype") {
+        User.updateOne({ _id: req.user.id }, { $set: { skype: link } }).then(() => {
+            req.flash('success_msg', 'skype link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "whatsapp") {
+        User.updateOne({ _id: req.user.id }, { $set: { whatsapp: link } }).then(() => {
+            req.flash('success_msg', 'whatsapp link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "youtube") {
+        User.updateOne({ _id: req.user.id }, { $set: { youtube: link } }).then(() => {
+            req.flash('success_msg', 'youtube link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "safari") {
+        User.updateOne({ _id: req.user.id }, { $set: { safari: link } }).then(() => {
+            req.flash('success_msg', 'safari link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "google-docs") {
+        User.updateOne({ _id: req.user.id }, { $set: { doc: link } }).then(() => {
+            req.flash('success_msg', 'doc link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "paypal") {
+        User.updateOne({ _id: req.user.id }, { $set: { paypal: link } }).then(() => {
+            req.flash('success_msg', 'paypal link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "microsoft-store") {
+        User.updateOne({ _id: req.user.id }, { $set: { shop: link } }).then(() => {
+            req.flash('success_msg', 'shop link deleted');
+            res.redirect('back');
+        })
+    }
+    if (type == "google-inbox") {
+        User.updateOne({ _id: req.user.id }, { $set: { mailbox: link } }).then(() => {
+            req.flash('success_msg', 'mailbox link deleted');
+            res.redirect('back');
+        })
+    }
+})
+
+router.post('/update-social-medial', auth, async (req, res, next) => {
+    let link = req.body.link;
+    let type = req.body.type;
+    if (type == "facebook") {
+        User.updateOne({ _id: req.user.id }, { $set: { facebook: link } }).then(() => {
+            req.flash('success_msg', 'facebook link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "linkedin") {
+        User.updateOne({ _id: req.user.id }, { $set: { linkedin: link } }).then(() => {
+            req.flash('success_msg', 'lnkedin link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "twitter") {
+        User.updateOne({ _id: req.user.id }, { $set: { twitter: link } }).then(() => {
+            req.flash('success_msg', 'twitter link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "instagram") {
+        User.updateOne({ _id: req.user.id }, { $set: { instagram: link } }).then(() => {
+            req.flash('success_msg', 'lnkedin link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "spotify") {
+        User.updateOne({ _id: req.user.id }, { $set: { spotify: link } }).then(() => {
+            req.flash('success_msg', 'spotify link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "pinterest") {
+        User.updateOne({ _id: req.user.id }, { $set: { pinterest: link } }).then(() => {
+            req.flash('success_msg', 'pinterest link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "skype") {
+        User.updateOne({ _id: req.user.id }, { $set: { skype: link } }).then(() => {
+            req.flash('success_msg', 'skype link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "whatsapp") {
+        User.updateOne({ _id: req.user.id }, { $set: { whatsapp: link } }).then(() => {
+            req.flash('success_msg', 'whatsapp link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "youtube") {
+        User.updateOne({ _id: req.user.id }, { $set: { youtube: link } }).then(() => {
+            req.flash('success_msg', 'youtube link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "safari") {
+        User.updateOne({ _id: req.user.id }, { $set: { safari: link } }).then(() => {
+            req.flash('success_msg', 'safari link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "google-docs") {
+        User.updateOne({ _id: req.user.id }, { $set: { doc: link } }).then(() => {
+            req.flash('success_msg', 'doc link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "paypal") {
+        User.updateOne({ _id: req.user.id }, { $set: { paypal: link } }).then(() => {
+            req.flash('success_msg', 'paypal link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "microsoft-store") {
+        User.updateOne({ _id: req.user.id }, { $set: { shop: link } }).then(() => {
+            req.flash('success_msg', 'shop link added');
+            res.redirect('back');
+        })
+    }
+    if (type == "google-inbox") {
+        User.updateOne({ _id: req.user.id }, { $set: { mailbox: link } }).then(() => {
+            req.flash('success_msg', 'mailbox link added');
+            res.redirect('back');
+        })
+    }
+})
+
 
 router.get('/contact', (req, res, next) => {
     res.render('contact');
 })
-router.get('/profile', auth, (req, res, next) => {
+router.get('/profile', auth, async (req, res, next) => {
     res.locals.page_name = "profile";
     res.render('profile');
 })

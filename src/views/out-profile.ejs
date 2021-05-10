@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Snippet - BBBootstrap</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans', sans-serif
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            background: #eee
+        }
+
+        .card {
+            border-radius: 50px;
+            background: #eeeeee;
+            box-shadow: 20px 20px 60px #cacaca, -20px -20px 60px #ffffff;
+            border: none
+        }
+
+        .neo-button {
+            margin: 5px;
+            width: 50px;
+            height: 50px;
+            outline: 0 !important;
+            cursor: pointer;
+            color: #fff;
+            font-size: 15px;
+            border: none;
+            margin-right: 10px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #e29e15, #bf8000);
+            box-shadow: 20px 20px 60px #cacaca, -20px -20px 60px #ffffff
+        }
+
+        .neo-button:active {
+            border-radius: 50%;
+            background: linear-gradient(145deg, #d6d6d6, #ffffff);
+            box-shadow: inset 20px 20px 60px #cacaca, inset -20px -20px 60px #ffffff
+        }
+
+        .fa-facebook {
+            color: #3b5998
+        }
+
+        .fa-linkedin {
+            color: #0077b5
+        }
+
+        .fa-google {
+            color: #dc4e41
+        }
+
+        .fa-youtube {
+            color: #cd201f
+        }
+
+        .fa-twitter {
+            color: #55acee
+        }
+    </style>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script type='text/javascript'
+        src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <script type='text/javascript'></script>
+</head>
+
+<body oncontextmenu='return false' class='snippet-body'>
+    <div class="container d-flex justify-content-center">
+        <div class="card p-3 py-4">
+            <div class="text-center"> <img src="<%= person.profilePicture %>" width="100" class="rounded-circle">
+                <h3 class="mt-2">
+                    <%= person.firstName %>
+                        <%= person.firstName %>
+                </h3> <span class="mt-1 clearfix">
+                    <%= person.bio %>
+                </span>
+                <div class="social-buttons mt-5">
+                    <button class="neo-button"><i class="fa fa-facebook fa-1x"></i></button>
+                    <button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i></button>
+                    <button class="neo-button"><i class="fa fa-instagram fa-1x"></i></button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

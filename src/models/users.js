@@ -34,6 +34,22 @@ const userSchema = new Schema({
     default: "https://gravatar.com/avatar/?s=200&d=retro"
   },
   password: String,
+  // social media link
+  facebook: String,
+  linkedin: String,
+  twitter: String,
+  instagram: String,
+  spotify: String,
+  pinterest: String,
+  skype: String,
+  whatsapp: String,
+  youtube: String,
+  safari: String,
+  doc: String,
+  paypal: String,
+  shop: String,
+  mailbox: String,
+
 }, { timestamps: true });
 
 userSchema.pre("save", function (next) {

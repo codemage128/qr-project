@@ -78,10 +78,15 @@ router.get('/admin/user/admin', auth, admin, async (req, res, next) => {
 
 
 router.get('/admin/tattoos', auth, admin, async (req, res, next) => {
+    let code = req.query.code;
     let qrs = await Qr.find({});
+    if(code){
+        qrs = await Qr.find({code:{ $regex: code, $options: '$i' }});
+    }
     res.locals.page_name = "admin/tattoos"
     res.render('./admin/tattoos', {
-        qrs: qrs
+        qrs: qrs,
+        code: code,
     });
 })
 

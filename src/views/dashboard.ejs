@@ -118,17 +118,14 @@
                           </a>
                           <div class="actions d-flex justify-content-between">
                             <% if(qrs[i].single===1){%>
-                              <a href="/profile" target="_blank" class="action-item mr-2 btn btn-sm btn-success"
+                              <a href="/out-profile/<%= user.userslug %>" target="_blank" class="action-item mr-2 btn btn-sm btn-success"
                                 data-toggle="tooltip" title="Profile">
                                 View
                               </a>
                               <%} else {%>
-                                <a href="javascript:void();" class="action-item action-edit btn btn-sm btn-info"
-                                  data-toggle="modal" data-target="#editTattoo" data-link="<%= qrs[i].link%>"
-                                  data-id="<%= qrs[i].id%>">
+                                <a href="javascript:void();" class="action-item action-edit btn btn-sm btn-info" data-toggle="modal" data-target="#editTattoo" data-link="<%= qrs[i].link%>" data-id="<%= qrs[i].id%>">
                                   <!-- <i data-feather="edit"></i> -->Edit
                                 </a>
-
                                 <%}%>
                                   <a href="/deactive-code?id=<%= qrs[i]._id %>"
                                     class="action-item btn btn-sm btn-danger" data-toggle="tooltip" title="Delete">

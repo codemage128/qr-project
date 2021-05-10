@@ -3,7 +3,7 @@
     <!-- Board -->
     <section class="slice py-5 bg-section-secondary">
         <div class="container">
-            
+
             <div class="row">
                 <div class="col-md-2">
                     <%- include('layout/side.ejs') %>
@@ -25,34 +25,43 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            <input class="form-control-sm form-control" placeholder="Type the code" />
+                            <form action="/admin/tattoos" method="GET">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input class="form-control-sm form-control" placeholder="Type the code"
+                                        name="code" value="<%= code %>"/>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn btn-sm btn-warning">
+                                        <span class="btn-inner--icon"><i data-feather="search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            </form>
                         </div>
-                        <div class="col">
-                            <button type="button" class="btn btn-sm btn-warning ">
-                                <span class="btn-inner--icon"><i data-feather="search"></i></span>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <nav aria-label="...">
-                                <ul class="pagination">
-                                    <li class="page-item disabled">
-                                        <span class="page-link">Previous</span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active" aria-current="page">
-                                        <span class="page-link">
-                                            2
-                                            <span class="sr-only">(current)</span>
-                                        </span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        
+                        <form action="/admin/tattoos" method="GET">
+                            <div class="col">
+                                <nav aria-label="...">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled">
+                                            <span class="page-link">Previous</span>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active" aria-current="page">
+                                            <span class="page-link">
+                                                2
+                                                <span class="sr-only">(current)</span>
+                                            </span>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                     </div>
                     <div class="row mx-n2">
                         <div class="col">
@@ -74,12 +83,14 @@
                                                     <div class="media align-items-center">
                                                         <div>
                                                             <div class="avatar-parent-child">
-                                                                <img alt="Image placeholder"
-                                                                    src="<%= qrs[i].image %>" class="avatar-xl rounded">
+                                                                <img alt="Image placeholder" src="<%= qrs[i].image %>"
+                                                                    class="avatar-xl rounded">
                                                             </div>
                                                         </div>
                                                         <div class="media-body ml-4">
-                                                            <a href="/tattoo-download/<%= qrs[i].id %>" class="action-item mr-2" data-toggle="tooltip" title="Download">
+                                                            <a href="/tattoo-download/<%= qrs[i].id %>"
+                                                                class="action-item mr-2" data-toggle="tooltip"
+                                                                title="Download">
                                                                 <h3><i data-feather="arrow-down-circle"></i></h3>
                                                             </a>
                                                         </div>
@@ -91,18 +102,18 @@
                                                     </h3>
                                                 </td>
                                                 <td>
-                                                    <% if(qrs[i].printed === true) {%>
+                                                    <% if(qrs[i].printed===true) {%>
                                                         <p class="badge badge-success">
                                                             Printed
                                                         </p>
                                                         <% } %>
                                                 </td>
                                                 <td>
-                                                    <% if(qrs[i].link !== "https://skanz.live") {%>
-                                                    <p class="badge badge-danger">
-                                                        Active
-                                                    </p>
-                                                    <% } %>
+                                                    <% if(qrs[i].link !=="https://skanz.live" ) {%>
+                                                        <p class="badge badge-danger">
+                                                            Active
+                                                        </p>
+                                                        <% } %>
                                                 </td>
                                                 <td class="text-right">
                                                     <!-- Actions -->

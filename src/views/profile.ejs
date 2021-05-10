@@ -1,6 +1,45 @@
 <%- include('layout/header.ejs')%>
   <!-- Main content -->
   <!-- Header -->
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="connect" data-backdrop="false" aria-labelledby="modal-cookies"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-dark-dark">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <img id="connect_name" src="/assets/img/svg/brands/google-inbox.svg" class="social-svg" />
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Text -->
+          <p class="text-sm text-white mb-3">
+            Please type the link what you want.
+          </p>
+          <form action="/update-social-medial" method="POST">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Insert Link" name="link" id="link"
+                  aria-describedby="basic-addon1">
+                <input type="hidden" id="type" name="type"/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col text-right">
+                <button type="submit" class="btn btn-sm btn-outline-warning mr-2 mt-3">OK</button>
+              </div>
+            </div>
+          </form>
+          <!-- Buttons -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section class="slice slice-sm bg-section-secondary">
     <div class="container">
       <div class="row justify-content-center">
@@ -15,6 +54,11 @@
             </div>
             <!-- Quick stats -->
             <div class="row">
+              <div class="col">
+                <%- include('particials/msg.ejs') %>
+              </div>
+            </div>
+            <div class="row">
               <div class="col-xl-6">
                 <div class="card card-fluid">
                   <div class="card-header">
@@ -26,8 +70,13 @@
                         </a>
                       </div>
                       <div class="col ml-md-n2">
-                        <a href="#!" class="d-block h6 mb-0"><%= user.firstName %> <%= user.lastName %></a>
-                        <small class="d-block text-muted"><%= user.email %></small>
+                        <a href="#!" class="d-block h6 mb-0">
+                          <%= user.firstName %>
+                            <%= user.lastName %>
+                        </a>
+                        <small class="d-block text-muted">
+                          <%= user.email %>
+                        </small>
                       </div>
                       <div class="col-auto">
                         <a href="/user/edit" type="button" class="btn btn-xs btn-warning btn-icon rounded-pill">
@@ -40,27 +89,258 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-12  mb-3">
-                        <span class="h5 text-sm"><%= user.bio%>
+                        <span class="h5 text-sm">
+                          <%= user.bio%>
                         </span>
                       </div>
                       <div class="col-12 text-center">
-                        <span class="h5 mb-0"><%= user.qrcodes.length %></span>
+                        <span class="h5 mb-0">
+                          <%= user.qrcodes.length %>
+                        </span>
                         <span class="d-block text-sm">Activated Tattoos</span>
                       </div>
                     </div>
-                  </div>
-                  <!-- <div class="card-footer py-2">
-                    <div class="row align-items-center">
-                      <div class="col-6 offset-6 text-right">
-                        <button type="button" class="btn btn-xs btn-secondary rounded-pill">Follow</button>
+                    <hr>
+                    <!-- Start social media it should be in here -->
+                    <div class="row mt-3 text-right">
+                      <div class="col">
+                        <a href="/delete-social-media/reset" class="btn btn-secondary btn-xs"
+                          data-name="reset">Reset</a>
                       </div>
                     </div>
-                  </div> -->
+                    <% if(user.facebook) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/facebook.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/facebook" class="btn btn-danger btn-xs"
+                          data-name="facebook">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.linkedin) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/linkedin.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/linkedin" class="btn btn-danger btn-xs"
+                          data-name="linkedin">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.twitter) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/twitter.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/twitter" class="btn btn-danger btn-xs"
+                          data-name="twitter">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.instagram) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/instagram.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/instagram" class="btn btn-danger btn-xs"
+                          data-name="instagram">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.spotify) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/spotify.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/spotify" class="btn btn-danger btn-xs"
+                          data-name="spotify">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.pinterest) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/pinterest.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/pinterest" class="btn btn-danger btn-xs"
+                          data-name="pinterest">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.skype) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/skype.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/skype" class="btn btn-danger btn-xs"
+                          data-name="skype">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.whatsapp) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/whatsapp.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/whatsapp" class="btn btn-danger btn-xs"
+                          data-name="whatsapp">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.youtube) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/social/youtube.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/youtube" class="btn btn-danger btn-xs"
+                          data-name="youtube">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.safari) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/safari.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/safari" class="btn btn-danger btn-xs"
+                          data-name="safari">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.doc) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/google-docs.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/google-docs" class="btn btn-danger btn-xs"
+                          data-name="facebook">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.paypal) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/paypal.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/paypal" class="btn btn-danger btn-xs"
+                          data-name="facebook">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.shop) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/microsoft-store.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/microsoft-store" class="btn btn-danger btn-xs"
+                          data-name="facebook">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+                    <% if(user.mailbox) { %>
+                    <div class="row mt-3 align-items-center">
+                      <div class="col">
+                        <h6 class="text-sm mb-0">
+                          <img src="/assets/img/svg/brands/google-inbox.svg" class="social-svg" />
+                        </h6>
+                      </div>
+                      <div class="col-auto">
+                        <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
+                      </div>
+                      <div class="col-auto">
+                        <a href="/delete-social-media/google-inbox" class="btn btn-danger btn-xs"
+                          data-name="facebook">Delete</a>
+                      </div>
+                    </div>
+                    <% } %>
+
+                    <!-- End loop social media -->
+                  </div>
                 </div>
               </div>
               <div class="col-xl-6">
                 <div class="card card-fluid">
                   <div class="card-body">
+                    
                     <div class="row align-items-center">
                       <div class="col">
                         <h6 class="text-sm mb-0">
@@ -68,7 +348,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.facebook) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="facebook">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -79,7 +363,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.linkedin) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                        <a href="javascript:void();" class="text-sm btn-connect" data-name="linkedin">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -90,7 +378,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.twitter) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                        <a href="javascript:void();" class="text-sm btn-connect" data-name="twitter">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -101,7 +393,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.instagram) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="instagram">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -112,7 +408,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.spotify) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="spotify">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -123,7 +423,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.pinterest) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="pinterest">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -134,7 +438,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.skype) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="skype">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -145,7 +453,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.whatsapp) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="whatsapp">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -156,7 +468,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.youtube) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="youtube">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -167,7 +483,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.safari) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="safari">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -178,7 +498,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.doc) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="google-docs">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -189,7 +513,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.paypal) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="paypal">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -200,7 +528,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.shop) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="microsoft-store">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                     <hr class="my-3">
@@ -211,7 +543,11 @@
                         </h6>
                       </div>
                       <div class="col-auto">
-                        <a href="#" class="text-sm">Connect</a>
+                        <% if(user.mailbox) { %>
+                          <span class="text-sm">Connected</span>
+                        <% } else { %>
+                          <a href="javascript:void();" class="text-sm btn-connect" data-name="google-inbox">Connect</a>
+                        <% } %>
                       </div>
                     </div>
                   </div>
@@ -232,8 +568,7 @@
                     <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right"
                       data-title="2 hrs ago">
                       <div>
-                        <img alt="Image placeholder" src="<%= user.profilePicture %>"
-                          class="avatar rounded-circle" />
+                        <img alt="Image placeholder" src="<%= user.profilePicture %>" class="avatar rounded-circle" />
                       </div>
                       <div class="flex-fill ml-3">
                         <div class="h6 text-sm mb-0">Alex Michael <small class="float-right text-muted">2 hrs
@@ -248,8 +583,7 @@
                     <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right"
                       data-title="2 hrs ago">
                       <div>
-                        <img alt="Image placeholder" src="<%= user.profilePicture %>"
-                          class="avatar rounded-circle" />
+                        <img alt="Image placeholder" src="<%= user.profilePicture %>" class="avatar rounded-circle" />
                       </div>
                       <div class="flex-fill ml-3">
                         <div class="h6 text-sm mb-0">Alex Michael <small class="float-right text-muted">2 hrs
@@ -264,8 +598,7 @@
                     <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right"
                       data-title="2 hrs ago">
                       <div>
-                        <img alt="Image placeholder" src="<%= user.profilePicture %>"
-                          class="avatar rounded-circle" />
+                        <img alt="Image placeholder" src="<%= user.profilePicture %>" class="avatar rounded-circle" />
                       </div>
                       <div class="flex-fill ml-3">
                         <div class="h6 text-sm mb-0">Alex Michael <small class="float-right text-muted">2 hrs
@@ -280,8 +613,7 @@
                     <div class="d-flex align-items-center" data-toggle="tooltip" data-placement="right"
                       data-title="2 hrs ago">
                       <div>
-                        <img alt="Image placeholder" src="<%= user.profilePicture %>"
-                          class="avatar rounded-circle" />
+                        <img alt="Image placeholder" src="<%= user.profilePicture %>" class="avatar rounded-circle" />
                       </div>
                       <div class="flex-fill ml-3">
                         <div class="h6 text-sm mb-0">Alex Michael <small class="float-right text-muted">2 hrs
@@ -299,7 +631,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -307,5 +639,69 @@
   </section>
   <!-- Core JS  -->
   <%- include('layout/landing-foot.ejs') %>
-  <%- include('layout/foot.ejs')%>
-    <%- include('layout/footer.ejs')%>
+    <%- include('layout/foot.ejs')%>
+
+      <script>
+        $('.btn-connect').click(function () {
+          var name = $(this).data('name')
+          if (name == "facebook") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/facebook.svg')
+            $('#type').val('facebook')
+          }
+          if (name == "linkedin") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/linkedin.svg')
+            $('#type').val('linkedin')
+          }
+          if (name == "twitter") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/twitter.svg')
+            $('#type').val('twitter')
+          }
+          if (name == "instagram") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/instagram.svg')
+            $('#type').val('instagram')
+          }
+          if (name == "spotify") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/spotify.svg')
+            $('#type').val('spotify')
+          }
+          if (name == "pinterest") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/pinterest.svg')
+            $('#type').val('pinterest')
+          }
+          if (name == "skype") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/skype.svg')
+            $('#type').val('skype')
+          }
+          if (name == "whatsapp") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/whatsapp.svg')
+            $('#type').val('whatsapp')
+          }
+          if (name == "youtube") {
+            $('#connect_name').attr('src', '/assets/img/svg/social/youtube.svg')
+            $('#type').val('youtube')
+          }
+          if (name == "safari") {
+            $('#connect_name').attr('src', '/assets/img/svg/brands/safari.svg')
+            $('#type').val('safari')
+          }
+          if (name == "google-docs") {
+            $('#connect_name').attr('src', '/assets/img/svg/brands/safari.svg')
+            $('#type').val('google-docs')
+          }
+          if (name == "paypal") {
+            $('#connect_name').attr('src', '/assets/img/svg/brands/paypal.svg')
+            $('#type').val('paypal')
+          }
+          if (name == "microsoft-store") {
+            $('#connect_name').attr('src', '/assets/img/svg/brands/microsoft-store.svg')
+            $('#type').val('microsoft-store')
+          }
+          if (name == "google-inbox") {
+            $('#connect_name').attr('src', '/assets/img/svg/brands/google-inbox.svg')
+            $('#type').val('google-inbox')
+          }
+          $('#connect').modal('show');
+        });
+      </script>
+
+      <%- include('layout/footer.ejs')%>
