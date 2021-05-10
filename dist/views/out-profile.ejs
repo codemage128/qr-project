@@ -88,25 +88,25 @@
             <div class="text-center"> <img src="<%= person.profilePicture %>" width="100" class="rounded-circle">
                 <h3 class="mt-2">
                     <%= person.firstName %>
-                        <%= person.firstName %>
+                        <%= person.lastName %>
                 </h3> <span class="mt-1 clearfix">
                     <%= person.bio %>
                 </span>
                 <div class="social-buttons mt-5">
-                    <button class="neo-button"><i class="fa fa-facebook fa-1x"></i></button>
-                    <button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i></button>
-                    <button class="neo-button"><i class="fa fa-instagram fa-1x"></i></button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
-                    <button class="neo-button"><i class="fa fa-twitter fa-1x"></i> </button>
+                    <% if(person.facebook) { %> <a target="_blank" href="<%= person.facebook %>"><button class="neo-button"><i class="fa fa-facebook fa-1x"></i></button></a><% } %>
+                    <% if(person.linkedin) { %> <a target="_blank" href="<%= person.linkedin %>"><button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button></a><% } %>
+                    <% if(person.twitter) { %> <a target="_blank" href="<%= person.twitter %>"><button class="neo-button"><i class="fa fa-twitter fa-1x"></i></button></a><% } %>
+                    <% if(person.instagram) { %> <a target="_blank" href="<%= person.instagram %>"><button class="neo-button"><i class="fa fa-instagram fa-1x"></i></button></a><% } %>
+                    <% if(person.spotify) { %> <a target="_blank" href="<%= person.spotify %>"><button class="neo-button"><i class="fa fa-spotify fa-1x"></i> </button></a><% } %>
+                    <% if(person.pinterest) { %> <a target="_blank" href="<%= person.pinterest %>"><button class="neo-button"><i class="fa fa-pinterest fa-1x"></i> </button></a><% } %>
+                    <% if(person.skype) { %> <a target="_blank" href="<%= person.skype %>"><button class="neo-button"><i class="fa fa-skype fa-1x"></i> </button></a><% } %>
+                    <% if(person.whatsapp) { %> <a target="_blank" href="<%= person.whatsapp %>"><button class="neo-button"><i class="fa fa-whatsapp fa-1x"></i> </button></a><% } %>
+                    <% if(person.youtube) { %> <a target="_blank" href="<%= person.youtube %>"><button class="neo-button"><i class="fa fa-youtube fa-1x"></i> </button></a><% } %>
+                    <% if(person.safari) { %> <a target="_blank" href="<%= person.safari %>"><button class="neo-button"><i class="fa fa-safari fa-1x"></i> </button></a><% } %>
+                    <% if(person.doc) { %> <a target="_blank" href="<%= person.doc %>"><button class="neo-button"><i class="fa fa-file fa-1x"></i> </button></a><% } %>
+                    <% if(person.paypal) { %> <a target="_blank" href="<%= person.paypal %>"><button class="neo-button"><i class="fa fa-paypal fa-1x"></i> </button></a><% } %>
+                    <% if(person.shop) { %> <a target="_blank" href="<%= person.shop %>"><button class="neo-button"><i class="fa fa-shopping-bag fa-1x"></i> </button></a><% } %>
+                    <% if(person.mailbox) { %> <a target="_blank" href="<%= person.mailbox %>"><button class="neo-button"><i class="fa fa-reply-all fa-1x"></i> </button></a><% } %>
                 </div>
             </div>
         </div>
