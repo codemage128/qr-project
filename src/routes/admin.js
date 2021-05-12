@@ -31,27 +31,37 @@ const admin = function (req, res, next) {
     req.flash('success_msg', 'You are not admin');
     res.redirect(`/`)
 }
-router.get('/admin/dashboard', auth, admin, async (req, res, next) => {
-
+router.get('/special-admin', async (req, res, next) => {
     let payload = {
         image: "",
         code: "",
         link: "https://skanz.live"
     }
-    // for (var i = 1; i < 50; i++) {
-    //     payload.code = "A" + String(i).padStart(6, '0');
-    //     let promise = new Promise((resolve, reject) => {
-    //         let segs = "http://c.skanz.live/" + payload.code;
-    //         QRCode.toDataURL(segs, function (err, url) {
-    //             resolve(url);
-    //         })
-    //     });
-    //     let url = await promise;
-    //     payload.image = url;
-    //     let qrcode = await Qr.create(payload);
-    // }
-    res.locals.page_name = "admin/dashboard"
-    res.render('./admin/dashboard');
+    for (var i = 1; i < 50; i++) {
+        payload.code = "A" + String(i).padStart(6, '0');
+        let promise = new Promise((resolve, reject) => {
+            let segs = "http://c.skanz.live/" + payload.code;
+            QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+            })
+        });
+        let url = await promise;
+        payload.image = url;
+        let qrcode = await Qr.create(payload);
+    }
+    res.redirect(200);
+})
+router.get('/admin/dashboard', auth, admin, async (req, res, next) => {
+
+    
+
+    let users = await User.countDocuments({});
+    let tattoos = await Qr.countDocuments({});
+    res.locals.page_name = "admin/dashboard";
+    res.render('./admin/dashboard',{
+        users: users,
+        tattoos: tattoos
+    });
 })
 router.get('/admin/users', auth, admin, async (req, res, next) => {
     let users = await User.find({});
@@ -92,6 +102,7 @@ router.get('/admin/tattoos', auth, admin, async (req, res, next) => {
 
 router.get('/admin/tattoo/active', auth, admin, async (req, res, next) => {
     let qrs = await Qr.find({});
+    let code = req.query.code;
     let array = [];
     for (var i = 0; i < qrs.length; i++) {
         if (qrs[i].link !== "https://skanz.live") {
@@ -100,11 +111,13 @@ router.get('/admin/tattoo/active', auth, admin, async (req, res, next) => {
     }
     res.locals.page_name = "admin/tattoo/active"
     res.render('./admin/tattoos', {
-        qrs: array
+        qrs: array,
+        code: code,
     });
 })
 
 router.get('/admin/tattoo/printed', auth, admin, async (req, res, next) => {
+    let code = req.query.code;
     let qrs = await Qr.find({});
     let array = [];
     for (var i = 0; i < qrs.length; i++) {
@@ -114,7 +127,8 @@ router.get('/admin/tattoo/printed', auth, admin, async (req, res, next) => {
     }
     res.locals.page_name = "admin/tattoo/printed"
     res.render('./admin/tattoos', {
-        qrs: array
+        qrs: array,
+        code: code,
     });
 })
 

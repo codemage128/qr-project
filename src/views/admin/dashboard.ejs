@@ -15,12 +15,6 @@
                                 Dashboard
                             </h1>
                         </div>
-                        <div class="col-auto">
-                            <button type="button" class="btn btn-sm btn-warning btn-icon">
-                                <span class="btn-inner--text">Submit app</span>
-                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                            </button>
-                        </div>
                     </div>
                     <div class="row mx-n2">
                         <div class="col-sm-6 col-lg-4 px-2">
@@ -29,20 +23,7 @@
                                 <div class="card-header pb-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <span class="h6">All users</span>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +33,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/airbnb.svg" class="svg-inject" style="width: 50px; height: 50px;">
+                                                <img alt="Image placeholder" src="/assets/img/newUser.png" class="svg-inject" style="width: 50px; height: 50px;">
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -61,41 +42,26 @@
                                                     <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
                                                 </div>
                                                 <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
+                                                    <small class="h6 text-xs text-success"><%= users%></small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- App title -->
                                     <div class="mt-3">
-                                        <h6 class="mb-0">Airbnb</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
+                                        <h6 class="mb-0"><%= users%></h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-sm-6 col-lg-4 px-2">
                             <div class="card mb-3">
                                 <!-- Card header -->
                                 <div class="card-header pb-3">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <span class="h6">All tattoos</span>
                                         </div>
                                     </div>
                                 </div>
@@ -105,7 +71,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/spotify.svg" class="svg-inject" style="width: 50px; height: 50px;">
+                                                <img alt="Image placeholder" src="/assets/img/qrcode.png" class="svg-inject" style="width: 50px; height: 50px;">
                                             </div>
                                         </div>
                                         <div class="text-right">
@@ -114,535 +80,19 @@
                                                     <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
                                                 </div>
                                                 <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
+                                                    <small class="h6 text-xs text-success"><%= tattoos %></small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- App title -->
                                     <div class="mt-3">
-                                        <h6 class="mb-0">Spotify</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
+                                        <h6 class="mb-0"><%= tattoos %></h6>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/dribbble.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-xs btn-neutral btn-icon">
-                                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                                                <span class="btn-inner--text ml-1">Install</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Drribbble</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/facebook.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-xs btn-neutral btn-icon">
-                                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                                                <span class="btn-inner--text ml-1">Install</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Facebook</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/github.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Github</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/skype.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Skype</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/medium.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Medium</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/slack.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Slack</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/snapchat.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-xs btn-neutral btn-icon">
-                                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                                                <span class="btn-inner--text ml-1">Install</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Snapchat</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/treehouse.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <button type="button" class="btn btn-xs btn-neutral btn-icon">
-                                                <span class="btn-inner--icon"><i data-feather="plus"></i></span>
-                                                <span class="btn-inner--text ml-1">Install</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Treeehouse</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/twitter.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">Twitter</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-4 px-2">
-                            <div class="card mb-3">
-                                <!-- Card header -->
-                                <div class="card-header pb-3">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="h6"></span>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="actions mr-n2">
-                                                <a href="#" class="action-item"><i data-feather="refresh-ccw"></i></a>
-                                                <div class="dropdown action-item" data-toggle="dropdown">
-                                                    <a href="#" class="action-item"><i data-feather="more-horizontal"></i></a>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item">Refresh</a>
-                                                        <a href="#" class="dropdown-item">Manage Widgets</a>
-                                                        <a href="#" class="dropdown-item">Settings</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card body -->
-                                <div class="card-body pt-0">
-                                    <!-- App logo + status -->
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <div class="icon icon-sm">
-                                                <img alt="Image placeholder" src="../../assets/img/svg/social/whatsapp.svg" class="svg-inject" style="width: 50px; height: 50px;">
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="d-flex align-items-center">
-                                                <div>
-                                                    <span class="badge badge-xs badge-circle rounded-circle badge-success"><i data-feather="check"></i></span>
-                                                </div>
-                                                <div class="pl-2">
-                                                    <small class="h6 text-xs text-success">Installed</small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- App title -->
-                                    <div class="mt-3">
-                                        <h6 class="mb-0">WhatsApp</h6>
-                                        <p class="mb-0 text-sm text-muted">
-                                            Your subtitle comes here
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

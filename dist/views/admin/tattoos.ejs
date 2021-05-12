@@ -63,7 +63,13 @@
                                 </nav>
                             </div> -->
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            <%- include('../particials/msg')%>
+                        </div>
+                    </div>
                     <div class="row mx-n2">
+                        
                         <div class="col">
                             <div class="table-responsive">
                                 <table class="table table-cards align-items-center">
@@ -121,7 +127,7 @@
                                                         <a class="action-item mr-2" data-toggle="tooltip" title="Edit">
                                                             <i data-feather="edit-2"></i>
                                                         </a>
-                                                        <a class="action-item text-danger mr-2" data-toggle="tooltip"
+                                                        <a href="/delete-tattoo/<%= qrs[i]._id %>" class="action-item text-danger mr-2" data-toggle="tooltip"
                                                             title="Move to trash">
                                                             <i data-feather="trash-2"></i>
                                                         </a>

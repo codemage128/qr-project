@@ -198,6 +198,13 @@ router.post('/choose-type', auth, async (req, res, next) => {
     }
     res.redirect('back');
 })
+router.get('/delete-tattoo/:id', auth, async (req, res, nect) => {
+    let qrId = req.params.id;
+    Qr.deleteOne({_id: qrId}).then(() => {
+        req.flash('success_msg', 'QR code has been deleted.');
+        res.redirect('back');
+    });
+});
 
 router.get('/delete-social-media/:type', auth, async(req, res, next) => {
     let type = req.params.type;

@@ -454,12 +454,39 @@ router.post('/choose-type', auth, /*#__PURE__*/function () {
     return _ref8.apply(this, arguments);
   };
 }());
-router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
-  var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res, next) {
-    var type, link, update;
+router.get('/delete-tattoo/:id', auth, /*#__PURE__*/function () {
+  var _ref9 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee9(req, res, nect) {
+    var qrId;
     return _regenerator["default"].wrap(function _callee9$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
+          case 0:
+            qrId = req.params.id;
+            Qr.deleteOne({
+              _id: qrId
+            }).then(function () {
+              req.flash('success_msg', 'QR code has been deleted.');
+              res.redirect('back');
+            });
+
+          case 2:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function (_x25, _x26, _x27) {
+    return _ref9.apply(this, arguments);
+  };
+}());
+router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
+  var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res, next) {
+    var type, link, update;
+    return _regenerator["default"].wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
           case 0:
             type = req.params.type;
             link = "";
@@ -673,22 +700,22 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
 
           case 17:
           case "end":
-            return _context9.stop();
+            return _context10.stop();
         }
       }
-    }, _callee9);
+    }, _callee10);
   }));
 
-  return function (_x25, _x26, _x27) {
-    return _ref9.apply(this, arguments);
+  return function (_x28, _x29, _x30) {
+    return _ref10.apply(this, arguments);
   };
 }());
 router.post('/update-social-medial', auth, /*#__PURE__*/function () {
-  var _ref10 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(req, res, next) {
+  var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res, next) {
     var link, type;
-    return _regenerator["default"].wrap(function _callee10$(_context10) {
+    return _regenerator["default"].wrap(function _callee11$(_context11) {
       while (1) {
-        switch (_context10.prev = _context10.next) {
+        switch (_context11.prev = _context11.next) {
           case 0:
             link = req.body.link;
             type = req.body.type;
@@ -877,30 +904,6 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
 
           case 16:
           case "end":
-            return _context10.stop();
-        }
-      }
-    }, _callee10);
-  }));
-
-  return function (_x28, _x29, _x30) {
-    return _ref10.apply(this, arguments);
-  };
-}());
-router.get('/contact', function (req, res, next) {
-  res.render('contact');
-});
-router.get('/profile', auth, /*#__PURE__*/function () {
-  var _ref11 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(req, res, next) {
-    return _regenerator["default"].wrap(function _callee11$(_context11) {
-      while (1) {
-        switch (_context11.prev = _context11.next) {
-          case 0:
-            res.locals.page_name = "profile";
-            res.render('profile');
-
-          case 2:
-          case "end":
             return _context11.stop();
         }
       }
@@ -909,6 +912,30 @@ router.get('/profile', auth, /*#__PURE__*/function () {
 
   return function (_x31, _x32, _x33) {
     return _ref11.apply(this, arguments);
+  };
+}());
+router.get('/contact', function (req, res, next) {
+  res.render('contact');
+});
+router.get('/profile', auth, /*#__PURE__*/function () {
+  var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res, next) {
+    return _regenerator["default"].wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            res.locals.page_name = "profile";
+            res.render('profile');
+
+          case 2:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  }));
+
+  return function (_x34, _x35, _x36) {
+    return _ref12.apply(this, arguments);
   };
 }());
 router.get('/settings', auth, function (req, res, next) {

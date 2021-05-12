@@ -29,16 +29,22 @@
         }
 
         .card {
+            width: 100%;
             border-radius: 50px;
             background: #eeeeee;
             box-shadow: 20px 20px 60px #cacaca, -20px -20px 60px #ffffff;
             border: none
         }
-
+        @media (min-width: 1200px)
+        {
+            .card{
+                width: 350px;
+            }
+        }
         .neo-button {
             margin: 5px;
-            width: 50px;
-            height: 50px;
+            width: 80px;
+            height: 80px;
             outline: 0 !important;
             cursor: pointer;
             color: #fff;
@@ -46,8 +52,7 @@
             border: none;
             margin-right: 10px;
             border-radius: 50%;
-            background: linear-gradient(145deg, #e29e15, #bf8000);
-            box-shadow: 20px 20px 60px #cacaca, -20px -20px 60px #ffffff
+            background: #3c5877;
         }
 
         .neo-button:active {
@@ -55,25 +60,8 @@
             background: linear-gradient(145deg, #d6d6d6, #ffffff);
             box-shadow: inset 20px 20px 60px #cacaca, inset -20px -20px 60px #ffffff
         }
-
-        .fa-facebook {
-            color: #3b5998
-        }
-
-        .fa-linkedin {
-            color: #0077b5
-        }
-
-        .fa-google {
-            color: #dc4e41
-        }
-
-        .fa-youtube {
-            color: #cd201f
-        }
-
-        .fa-twitter {
-            color: #55acee
+        .text-personal {
+            color: #5587bf;
         }
     </style>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
@@ -89,24 +77,28 @@
                 <h3 class="mt-2">
                     <%= person.firstName %>
                         <%= person.lastName %>
-                </h3> <span class="mt-1 clearfix">
+                </h3> 
+                
+                <h4 ><a href="mailto:<%= person.email %>" class="text-personal"><%= person.email %></a></h4>
+                <h4 ><a href="callto:<%= person.phone %>" class="text-personal"><%= person.phone %></a></h4>
+                <span class="mt-1 clearfix">
                     <%= person.bio %>
                 </span>
                 <div class="social-buttons mt-5">
-                    <% if(person.facebook) { %> <a target="_blank" href="<%= person.facebook %>"><button class="neo-button"><i class="fa fa-facebook fa-1x"></i></button></a><% } %>
-                    <% if(person.linkedin) { %> <a target="_blank" href="<%= person.linkedin %>"><button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button></a><% } %>
-                    <% if(person.twitter) { %> <a target="_blank" href="<%= person.twitter %>"><button class="neo-button"><i class="fa fa-twitter fa-1x"></i></button></a><% } %>
-                    <% if(person.instagram) { %> <a target="_blank" href="<%= person.instagram %>"><button class="neo-button"><i class="fa fa-instagram fa-1x"></i></button></a><% } %>
-                    <% if(person.spotify) { %> <a target="_blank" href="<%= person.spotify %>"><button class="neo-button"><i class="fa fa-spotify fa-1x"></i> </button></a><% } %>
-                    <% if(person.pinterest) { %> <a target="_blank" href="<%= person.pinterest %>"><button class="neo-button"><i class="fa fa-pinterest fa-1x"></i> </button></a><% } %>
-                    <% if(person.skype) { %> <a target="_blank" href="<%= person.skype %>"><button class="neo-button"><i class="fa fa-skype fa-1x"></i> </button></a><% } %>
-                    <% if(person.whatsapp) { %> <a target="_blank" href="<%= person.whatsapp %>"><button class="neo-button"><i class="fa fa-whatsapp fa-1x"></i> </button></a><% } %>
-                    <% if(person.youtube) { %> <a target="_blank" href="<%= person.youtube %>"><button class="neo-button"><i class="fa fa-youtube fa-1x"></i> </button></a><% } %>
-                    <% if(person.safari) { %> <a target="_blank" href="<%= person.safari %>"><button class="neo-button"><i class="fa fa-safari fa-1x"></i> </button></a><% } %>
-                    <% if(person.doc) { %> <a target="_blank" href="<%= person.doc %>"><button class="neo-button"><i class="fa fa-file fa-1x"></i> </button></a><% } %>
-                    <% if(person.paypal) { %> <a target="_blank" href="<%= person.paypal %>"><button class="neo-button"><i class="fa fa-paypal fa-1x"></i> </button></a><% } %>
-                    <% if(person.shop) { %> <a target="_blank" href="<%= person.shop %>"><button class="neo-button"><i class="fa fa-shopping-bag fa-1x"></i> </button></a><% } %>
-                    <% if(person.mailbox) { %> <a target="_blank" href="<%= person.mailbox %>"><button class="neo-button"><i class="fa fa-reply-all fa-1x"></i> </button></a><% } %>
+                    <% if(person.facebook) { %> <a target="_blank" href="<%= person.facebook %>"><button class="neo-button"><i class="fa fa-facebook fa-2x"></i></button></a><% } %>
+                    <% if(person.linkedin) { %> <a target="_blank" href="<%= person.linkedin %>"><button class="neo-button"><i class="fa fa-linkedin fa-2x"></i></button></a><% } %>
+                    <% if(person.twitter) { %> <a target="_blank" href="<%= person.twitter %>"><button class="neo-button"><i class="fa fa-twitter fa-2x"></i></button></a><% } %>
+                    <% if(person.instagram) { %> <a target="_blank" href="<%= person.instagram %>"><button class="neo-button"><i class="fa fa-instagram fa-2x"></i></button></a><% } %>
+                    <% if(person.spotify) { %> <a target="_blank" href="<%= person.spotify %>"><button class="neo-button"><i class="fa fa-spotify fa-2x"></i> </button></a><% } %>
+                    <% if(person.pinterest) { %> <a target="_blank" href="<%= person.pinterest %>"><button class="neo-button"><i class="fa fa-pinterest fa-2x"></i> </button></a><% } %>
+                    <% if(person.skype) { %> <a target="_blank" href="<%= person.skype %>"><button class="neo-button"><i class="fa fa-skype fa-2x"></i> </button></a><% } %>
+                    <% if(person.whatsapp) { %> <a target="_blank" href="<%= person.whatsapp %>"><button class="neo-button"><i class="fa fa-whatsapp fa-2x"></i> </button></a><% } %>
+                    <% if(person.youtube) { %> <a target="_blank" href="<%= person.youtube %>"><button class="neo-button"><i class="fa fa-youtube fa-2x"></i> </button></a><% } %>
+                    <% if(person.safari) { %> <a target="_blank" href="<%= person.safari %>"><button class="neo-button"><i class="fa fa-safari fa-2x"></i> </button></a><% } %>
+                    <% if(person.doc) { %> <a target="_blank" href="<%= person.doc %>"><button class="neo-button"><i class="fa fa-file fa-2x"></i> </button></a><% } %>
+                    <% if(person.paypal) { %> <a target="_blank" href="<%= person.paypal %>"><button class="neo-button"><i class="fa fa-paypal fa-2x"></i> </button></a><% } %>
+                    <% if(person.shop) { %> <a target="_blank" href="<%= person.shop %>"><button class="neo-button"><i class="fa fa-shopping-bag fa-2x"></i> </button></a><% } %>
+                    <% if(person.mailbox) { %> <a target="_blank" href="<%= person.mailbox %>"><button class="neo-button"><i class="fa fa-reply-all fa-2x"></i> </button></a><% } %>
                 </div>
             </div>
         </div>
