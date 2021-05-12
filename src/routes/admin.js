@@ -32,24 +32,26 @@ const admin = function (req, res, next) {
     res.redirect(`/`)
 }
 router.get('/special-admin', async (req, res, next) => {
-    // let payload = {
-    //     image: "",
-    //     code: "",
-    //     link: "https://skanz.live"
-    // }
-    // for (var i = 1; i < 50; i++) {
-    //     payload.code = "A" + String(i).padStart(6, '0');
-    //     let promise = new Promise((resolve, reject) => {
-    //         let segs = "http://c.skanz.live/" + payload.code;
-    //         QRCode.toDataURL(segs, function (err, url) {
-    //             resolve(url);
-    //         })
-    //     });
-    //     let url = await promise;
-    //     payload.image = url;
-    //     let qrcode = await Qr.create(payload);
-    // }
-    // res.redirect(200);
+    let payload = {
+        image: "",
+        code: "",
+        link: "https://skanz.live",
+        single: 0,
+        printed: false
+    }
+    for (var i = 1; i < 50; i++) {
+        payload.code = "A" + String(i).padStart(6, '0');
+        let promise = new Promise((resolve, reject) => {
+            let segs = "http://c.skanz.live/" + payload.code;
+            QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+            })
+        });
+        let url = await promise;
+        payload.image = url;
+        let qrcode = await Qr.create(payload);
+    }
+    res.redirect(200);
 })
 router.get('/admin/dashboard', auth, admin, async (req, res, next) => {
 

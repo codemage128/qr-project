@@ -54,10 +54,54 @@ var admin = function admin(req, res, next) {
 
 router.get('/special-admin', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(req, res, next) {
+    var payload, i, promise, url, qrcode;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            payload = {
+              image: "",
+              code: "",
+              link: "https://skanz.live",
+              single: 0,
+              printed: false
+            };
+            i = 1;
+
+          case 2:
+            if (!(i < 50)) {
+              _context.next = 15;
+              break;
+            }
+
+            payload.code = "A" + String(i).padStart(6, '0');
+            promise = new Promise(function (resolve, reject) {
+              var segs = "http://c.skanz.live/" + payload.code;
+              QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+              });
+            });
+            _context.next = 7;
+            return promise;
+
+          case 7:
+            url = _context.sent;
+            payload.image = url;
+            _context.next = 11;
+            return Qr.create(payload);
+
+          case 11:
+            qrcode = _context.sent;
+
+          case 12:
+            i++;
+            _context.next = 2;
+            break;
+
+          case 15:
+            res.redirect(200);
+
+          case 16:
           case "end":
             return _context.stop();
         }
