@@ -227,91 +227,91 @@ router.get('/delete-social-media/:type', auth, async(req, res, next) => {
             mailbox: ""
         }
         User.updateOne({ _id: req.user.id }, update).then(() => {
-            req.flash('success_msg', 'all link reseted');
+            req.flash('success_msg', 'All link reseted');
             res.redirect('back');
         })
     }
     if (type == "facebook") {
         User.updateOne({ _id: req.user.id }, { $set: { facebook: link } }).then(() => {
-            req.flash('success_msg', 'facebook link deleted');
+            req.flash('success_msg', 'Facebook link deleted');
             res.redirect('back');
         })
     }
     if (type == "linkedin") {
         User.updateOne({ _id: req.user.id }, { $set: { linkedin: link } }).then(() => {
-            req.flash('success_msg', 'lnkedin link deleted');
+            req.flash('success_msg', 'Lnkedin link deleted');
             res.redirect('back');
         })
     }
     if (type == "twitter") {
         User.updateOne({ _id: req.user.id }, { $set: { twitter: link } }).then(() => {
-            req.flash('success_msg', 'twitter link deleted');
+            req.flash('success_msg', 'Twitter link deleted');
             res.redirect('back');
         })
     }
     if (type == "instagram") {
         User.updateOne({ _id: req.user.id }, { $set: { instagram: link } }).then(() => {
-            req.flash('success_msg', 'lnkedin link deleted');
+            req.flash('success_msg', 'Instagram link deleted');
             res.redirect('back');
         })
     }
     if (type == "spotify") {
         User.updateOne({ _id: req.user.id }, { $set: { spotify: link } }).then(() => {
-            req.flash('success_msg', 'spotify link deleted');
+            req.flash('success_msg', 'Spotify link deleted');
             res.redirect('back');
         })
     }
     if (type == "pinterest") {
         User.updateOne({ _id: req.user.id }, { $set: { pinterest: link } }).then(() => {
-            req.flash('success_msg', 'pinterest link deleted');
+            req.flash('success_msg', 'Pinterest link deleted');
             res.redirect('back');
         })
     }
     if (type == "skype") {
         User.updateOne({ _id: req.user.id }, { $set: { skype: link } }).then(() => {
-            req.flash('success_msg', 'skype link deleted');
+            req.flash('success_msg', 'Skype link deleted');
             res.redirect('back');
         })
     }
     if (type == "whatsapp") {
         User.updateOne({ _id: req.user.id }, { $set: { whatsapp: link } }).then(() => {
-            req.flash('success_msg', 'whatsapp link deleted');
+            req.flash('success_msg', 'Whatsapp link deleted');
             res.redirect('back');
         })
     }
     if (type == "youtube") {
         User.updateOne({ _id: req.user.id }, { $set: { youtube: link } }).then(() => {
-            req.flash('success_msg', 'youtube link deleted');
+            req.flash('success_msg', 'Youtube link deleted');
             res.redirect('back');
         })
     }
     if (type == "safari") {
         User.updateOne({ _id: req.user.id }, { $set: { safari: link } }).then(() => {
-            req.flash('success_msg', 'safari link deleted');
+            req.flash('success_msg', 'Safari link deleted');
             res.redirect('back');
         })
     }
     if (type == "google-docs") {
         User.updateOne({ _id: req.user.id }, { $set: { doc: link } }).then(() => {
-            req.flash('success_msg', 'doc link deleted');
+            req.flash('success_msg', 'Doc link deleted');
             res.redirect('back');
         })
     }
     if (type == "paypal") {
         User.updateOne({ _id: req.user.id }, { $set: { paypal: link } }).then(() => {
-            req.flash('success_msg', 'paypal link deleted');
+            req.flash('success_msg', 'Paypal link deleted');
             res.redirect('back');
         })
     }
     if (type == "microsoft-store") {
         User.updateOne({ _id: req.user.id }, { $set: { shop: link } }).then(() => {
-            req.flash('success_msg', 'shop link deleted');
+            req.flash('success_msg', 'Shop link deleted');
             res.redirect('back');
         })
     }
     if (type == "google-inbox") {
         User.updateOne({ _id: req.user.id }, { $set: { mailbox: link } }).then(() => {
-            req.flash('success_msg', 'mailbox link deleted');
+            req.flash('success_msg', 'Mailbox link deleted');
             res.redirect('back');
         })
     }
@@ -322,85 +322,85 @@ router.post('/update-social-medial', auth, async (req, res, next) => {
     let type = req.body.type;
     if (type == "facebook") {
         User.updateOne({ _id: req.user.id }, { $set: { facebook: link } }).then(() => {
-            req.flash('success_msg', 'facebook link added');
+            req.flash('success_msg', 'Facebook link added');
             res.redirect('back');
         })
     }
     if (type == "linkedin") {
         User.updateOne({ _id: req.user.id }, { $set: { linkedin: link } }).then(() => {
-            req.flash('success_msg', 'lnkedin link added');
+            req.flash('success_msg', 'Lnkedin link added');
             res.redirect('back');
         })
     }
     if (type == "twitter") {
         User.updateOne({ _id: req.user.id }, { $set: { twitter: link } }).then(() => {
-            req.flash('success_msg', 'twitter link added');
+            req.flash('success_msg', 'Twitter link added');
             res.redirect('back');
         })
     }
     if (type == "instagram") {
         User.updateOne({ _id: req.user.id }, { $set: { instagram: link } }).then(() => {
-            req.flash('success_msg', 'lnkedin link added');
+            req.flash('success_msg', 'Lnkedin link added');
             res.redirect('back');
         })
     }
     if (type == "spotify") {
         User.updateOne({ _id: req.user.id }, { $set: { spotify: link } }).then(() => {
-            req.flash('success_msg', 'spotify link added');
+            req.flash('success_msg', 'Spotify link added');
             res.redirect('back');
         })
     }
     if (type == "pinterest") {
         User.updateOne({ _id: req.user.id }, { $set: { pinterest: link } }).then(() => {
-            req.flash('success_msg', 'pinterest link added');
+            req.flash('success_msg', 'Pinterest link added');
             res.redirect('back');
         })
     }
     if (type == "skype") {
         User.updateOne({ _id: req.user.id }, { $set: { skype: link } }).then(() => {
-            req.flash('success_msg', 'skype link added');
+            req.flash('success_msg', 'Skype link added');
             res.redirect('back');
         })
     }
     if (type == "whatsapp") {
         User.updateOne({ _id: req.user.id }, { $set: { whatsapp: link } }).then(() => {
-            req.flash('success_msg', 'whatsapp link added');
+            req.flash('success_msg', 'Whatsapp link added');
             res.redirect('back');
         })
     }
     if (type == "youtube") {
         User.updateOne({ _id: req.user.id }, { $set: { youtube: link } }).then(() => {
-            req.flash('success_msg', 'youtube link added');
+            req.flash('success_msg', 'Youtube link added');
             res.redirect('back');
         })
     }
     if (type == "safari") {
         User.updateOne({ _id: req.user.id }, { $set: { safari: link } }).then(() => {
-            req.flash('success_msg', 'safari link added');
+            req.flash('success_msg', 'Safari link added');
             res.redirect('back');
         })
     }
     if (type == "google-docs") {
         User.updateOne({ _id: req.user.id }, { $set: { doc: link } }).then(() => {
-            req.flash('success_msg', 'doc link added');
+            req.flash('success_msg', 'Doc link added');
             res.redirect('back');
         })
     }
     if (type == "paypal") {
         User.updateOne({ _id: req.user.id }, { $set: { paypal: link } }).then(() => {
-            req.flash('success_msg', 'paypal link added');
+            req.flash('success_msg', 'Paypal link added');
             res.redirect('back');
         })
     }
     if (type == "microsoft-store") {
         User.updateOne({ _id: req.user.id }, { $set: { shop: link } }).then(() => {
-            req.flash('success_msg', 'shop link added');
+            req.flash('success_msg', 'Shop link added');
             res.redirect('back');
         })
     }
     if (type == "google-inbox") {
         User.updateOne({ _id: req.user.id }, { $set: { mailbox: link } }).then(() => {
-            req.flash('success_msg', 'mailbox link added');
+            req.flash('success_msg', 'Mailbox link added');
             res.redirect('back');
         })
     }

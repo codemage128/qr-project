@@ -511,7 +511,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
               User.updateOne({
                 _id: req.user.id
               }, update).then(function () {
-                req.flash('success_msg', 'all link reseted');
+                req.flash('success_msg', 'All link reseted');
                 res.redirect('back');
               });
             }
@@ -524,7 +524,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   facebook: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'facebook link deleted');
+                req.flash('success_msg', 'Facebook link deleted');
                 res.redirect('back');
               });
             }
@@ -537,7 +537,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   linkedin: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'lnkedin link deleted');
+                req.flash('success_msg', 'Lnkedin link deleted');
                 res.redirect('back');
               });
             }
@@ -550,7 +550,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   twitter: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'twitter link deleted');
+                req.flash('success_msg', 'Twitter link deleted');
                 res.redirect('back');
               });
             }
@@ -563,7 +563,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   instagram: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'lnkedin link deleted');
+                req.flash('success_msg', 'Instagram link deleted');
                 res.redirect('back');
               });
             }
@@ -576,7 +576,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   spotify: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'spotify link deleted');
+                req.flash('success_msg', 'Spotify link deleted');
                 res.redirect('back');
               });
             }
@@ -589,7 +589,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   pinterest: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'pinterest link deleted');
+                req.flash('success_msg', 'Pinterest link deleted');
                 res.redirect('back');
               });
             }
@@ -602,7 +602,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   skype: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'skype link deleted');
+                req.flash('success_msg', 'Skype link deleted');
                 res.redirect('back');
               });
             }
@@ -615,7 +615,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   whatsapp: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'whatsapp link deleted');
+                req.flash('success_msg', 'Whatsapp link deleted');
                 res.redirect('back');
               });
             }
@@ -628,7 +628,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   youtube: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'youtube link deleted');
+                req.flash('success_msg', 'Youtube link deleted');
                 res.redirect('back');
               });
             }
@@ -641,7 +641,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   safari: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'safari link deleted');
+                req.flash('success_msg', 'Safari link deleted');
                 res.redirect('back');
               });
             }
@@ -654,7 +654,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   doc: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'doc link deleted');
+                req.flash('success_msg', 'Doc link deleted');
                 res.redirect('back');
               });
             }
@@ -667,7 +667,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   paypal: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'paypal link deleted');
+                req.flash('success_msg', 'Paypal link deleted');
                 res.redirect('back');
               });
             }
@@ -680,7 +680,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   shop: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'shop link deleted');
+                req.flash('success_msg', 'Shop link deleted');
                 res.redirect('back');
               });
             }
@@ -693,7 +693,7 @@ router.get('/delete-social-media/:type', auth, /*#__PURE__*/function () {
                   mailbox: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'mailbox link deleted');
+                req.flash('success_msg', 'Mailbox link deleted');
                 res.redirect('back');
               });
             }
@@ -728,7 +728,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   facebook: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'facebook link added');
+                req.flash('success_msg', 'Facebook link added');
                 res.redirect('back');
               });
             }
@@ -741,7 +741,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   linkedin: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'lnkedin link added');
+                req.flash('success_msg', 'Lnkedin link added');
                 res.redirect('back');
               });
             }
@@ -754,7 +754,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   twitter: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'twitter link added');
+                req.flash('success_msg', 'Twitter link added');
                 res.redirect('back');
               });
             }
@@ -767,7 +767,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   instagram: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'lnkedin link added');
+                req.flash('success_msg', 'Lnkedin link added');
                 res.redirect('back');
               });
             }
@@ -780,7 +780,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   spotify: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'spotify link added');
+                req.flash('success_msg', 'Spotify link added');
                 res.redirect('back');
               });
             }
@@ -793,7 +793,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   pinterest: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'pinterest link added');
+                req.flash('success_msg', 'Pinterest link added');
                 res.redirect('back');
               });
             }
@@ -806,7 +806,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   skype: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'skype link added');
+                req.flash('success_msg', 'Skype link added');
                 res.redirect('back');
               });
             }
@@ -819,7 +819,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   whatsapp: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'whatsapp link added');
+                req.flash('success_msg', 'Whatsapp link added');
                 res.redirect('back');
               });
             }
@@ -832,7 +832,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   youtube: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'youtube link added');
+                req.flash('success_msg', 'Youtube link added');
                 res.redirect('back');
               });
             }
@@ -845,7 +845,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   safari: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'safari link added');
+                req.flash('success_msg', 'Safari link added');
                 res.redirect('back');
               });
             }
@@ -858,7 +858,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   doc: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'doc link added');
+                req.flash('success_msg', 'Doc link added');
                 res.redirect('back');
               });
             }
@@ -871,7 +871,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   paypal: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'paypal link added');
+                req.flash('success_msg', 'Paypal link added');
                 res.redirect('back');
               });
             }
@@ -884,7 +884,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   shop: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'shop link added');
+                req.flash('success_msg', 'Shop link added');
                 res.redirect('back');
               });
             }
@@ -897,7 +897,7 @@ router.post('/update-social-medial', auth, /*#__PURE__*/function () {
                   mailbox: link
                 }
               }).then(function () {
-                req.flash('success_msg', 'mailbox link added');
+                req.flash('success_msg', 'Mailbox link added');
                 res.redirect('back');
               });
             }
