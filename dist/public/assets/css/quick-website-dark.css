@@ -37036,5 +37036,16 @@ Advanced example - Customized layout
     border-bottom-left-radius: 5px;
 }
 
+.btn-edit-photo {
+    position: absolute;
+    top: -13px;
+    right: -16px;
+    border-radius: 21px;
+    padding-right: 5px;
+    padding-left: 4px;
+}
+#file {
+    display: none;
+}
 
 /*# sourceMappingURL=quick-website-dark.css.map */

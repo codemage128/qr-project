@@ -65,8 +65,12 @@
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
-                        <a href="/" class="avatar rounded-circle">
-                          <img alt="Image placeholder" src="<%= user.profilePicture %>">
+                        <form>
+                          <input type="file" id="file" name="file"/>
+                        </form>
+                        <a href="javascript:void();" class="avatar rounded-circle" id="editPhoto">
+                          <img alt="Image placeholder" src="<%= user.profilePicture %>" id="profilePhoto">
+                          <span class="btn-inner--icon btn-edit-photo"><i data-feather="edit-2"></i></span>
                         </a>
                       </div>
                       <div class="col ml-md-n2">
@@ -76,6 +80,9 @@
                         </a>
                         <small class="d-block text-muted">
                           <%= user.email %>
+                        </small>
+                        <small class="d-block text-muted">
+                          <%= user.phone %>
                         </small>
                       </div>
                       <div class="col-auto">
@@ -702,6 +709,30 @@
           }
           $('#connect').modal('show');
         });
+
+        $('#editPhoto').click(function(){
+          $('#file').click();
+        })
+
+        $('#file').change(function(){
+          var file = $(this)[0].files[0];
+            var formData = new FormData();
+            formData.append('file', file);
+            $.ajax({
+               type: 'POST',
+               url: '/user/uploadimage',
+               data: formData,
+               dataType: 'json',
+               contentType: false,
+               processData: false,
+               success: function (data) {
+                  // $("#profilePhoto").val(data);
+                  window.location.reload();
+               }
+            })
+        })
+
+
       </script>
 
       <%- include('layout/footer.ejs')%>
