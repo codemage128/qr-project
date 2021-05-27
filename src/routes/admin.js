@@ -56,12 +56,12 @@ const admin = function (req, res, next) {
 
 router.get('/admin/dashboard', auth, admin, async (req, res, next) => {
 
-    
+
 
     let users = await User.countDocuments({});
     let tattoos = await Qr.countDocuments({});
     res.locals.page_name = "admin/dashboard";
-    res.render('./admin/dashboard',{
+    res.render('./admin/dashboard', {
         users: users,
         tattoos: tattoos
     });
@@ -93,8 +93,8 @@ router.get('/admin/user/admin', auth, admin, async (req, res, next) => {
 router.get('/admin/tattoos', auth, admin, async (req, res, next) => {
     let code = req.query.code;
     let qrs = await Qr.find({});
-    if(code){
-        qrs = await Qr.find({code:{ $regex: code, $options: '$i' }});
+    if (code) {
+        qrs = await Qr.find({ code: { $regex: code, $options: '$i' } });
     }
     res.locals.page_name = "admin/tattoos"
     res.render('./admin/tattoos', {
@@ -179,6 +179,41 @@ router.get('/tattoo-download/:id', auth, admin, async (req, res, next) => {
         });
         // res.redirect('back');
     });
+})
+
+router.post('/tattoo/create-tattoo', auth, admin, async (req, res, next) => {
+    let startCode = parseInt(req.body.startCode);
+    let endCode = parseInt(req.body.endCode);
+    let payload = {
+        image: "",
+        code: "",
+        link: "https://skanz.live",
+        single: 0,
+        printed: false
+    }
+    if(startCode < endCode){
+        for (var i = startCode; i <= endCode; i++) {
+            payload.code = "A" + String(i).padStart(6, '0');
+
+            let qrcodes = await Qr.find({code: payload.code});
+            if(qrcodes.length == 0){
+                let promise = new Promise((resolve, reject) => {
+                    let segs = "http://c.skanz.live/" + payload.code;
+                    QRCode.toDataURL(segs, function (err, url) {
+                        resolve(url);
+                    })
+                });
+                let url = await promise;
+                payload.image = url;
+                let qrcode = await Qr.create(payload);
+            } else {
+                req.flash('error_msg',  payload.code + " already exist");
+            }
+        }
+    } else {
+        req.flash('error_msg', "Start code can't be equal or large than end code");
+    }
+    res.redirect('back');
 })
 
 module.exports = router;

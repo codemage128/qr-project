@@ -73,17 +73,22 @@
 <body oncontextmenu='return false' class='snippet-body'>
     <div class="container d-flex justify-content-center">
         <div class="card p-3 py-4">
-            <div class="text-center"> <img src="<%= person.profilePicture %>" width="100" class="rounded-circle">
+            <div class="text-center"> 
+                <img src="<%= person.profilePicture %>" width="100" class="rounded-circle">
                 <h3 class="mt-2">
                     <%= person.firstName %>
                         <%= person.lastName %>
                 </h3> 
-                
+                <% if( person.visible) { %>
                 <h4 ><a href="mailto:<%= person.email %>" class="text-personal"><%= person.email %></a></h4>
                 <h4 ><a href="callto:<%= person.phone %>" class="text-personal"><%= person.phone %></a></h4>
+                <div class="mb-3">
+                    <a href="/save-contact/<%= person._id %>" class="btn btn-outline-secondary">Save Contact</a>
+                </div>
                 <span class="mt-1 clearfix">
                     <%= person.bio %>
                 </span>
+                
                 <div class="social-buttons mt-5">
                     <% if(person.facebook) { %> <a target="_blank" href="https://facebook.com/<%= person.facebook %>"><button class="neo-button"><i class="fa fa-facebook fa-2x"></i></button></a><% } %>
                     <% if(person.linkedin) { %> <a target="_blank" href="https://linkedin.com/<%= person.linkedin %>"><button class="neo-button"><i class="fa fa-linkedin fa-2x"></i></button></a><% } %>
@@ -100,7 +105,9 @@
                     <% if(person.shop) { %> <a target="_blank" href="<%= person.shop %>"><button class="neo-button"><i class="fa fa-shopping-bag fa-2x"></i> </button></a><% } %>
                     <% if(person.mailbox) { %> <a target="_blank" href="<%= person.mailbox %>"><button class="neo-button"><i class="fa fa-reply-all fa-2x"></i> </button></a><% } %>
                 </div>
+                <% } %>
             </div>
+            
         </div>
     </div>
 </body>

@@ -3,6 +3,8 @@ const Qr = require('../models/qrcode');
 const User = require('../models/users');
 var QRCode = require('qrcode')
 const router = express.Router();
+var vCardsJS = require('vcards-js');
+const path = require('path');
 
 const auth = (req, res, next) => {
     if (req.isAuthenticated())
@@ -26,6 +28,34 @@ router.get('/', (req, res, next) => {
 router.get('/out-profile/:slug', async (req, res, next) => {
     let user = await User.findOne({ userslug: req.params.slug });
     res.render('out-profile', {person : user});
+})
+
+router.get('/save-contact/:id', async(req, res, next) => {
+    let user = await User.findOne({ _id: req.params.id });
+    var vCard = vCardsJS();
+    vCard.firstName = user.firstName;
+    // vCard.middleName = user.lastName;
+    vCard.lastName = user.lastName;
+    // vCard.organization = 'ACME Corporation';
+    vCard.photo.attachFromUrl(user.profilePicture, 'JPEG');
+    vCard.workPhone = user.phone;
+    // vCard.birthday = new Date(1985, 0, 1);
+    // vCard.title = 'Software Developer';
+    // vCard.url = 'https://github.com/enesser';
+    // vCard.note = 'Notes on Eric';
+    
+    //save to file
+    let fileName = user.userslug + '.vcf';
+    let filepath = path.join(__dirname, '../public/' + fileName);
+    vCard.saveToFile(filepath);
+    //get as formatted string
+    res.download(filepath, async(err) => {
+        if (err) {
+            res.status(500).send({
+                message: "Could not download the file. " + err,
+            });
+        }
+    });
 })
 
 

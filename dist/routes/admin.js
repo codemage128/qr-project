@@ -466,4 +466,98 @@ router.get('/tattoo-download/:id', auth, admin, /*#__PURE__*/function () {
     return _ref10.apply(this, arguments);
   };
 }());
+router.post('/tattoo/create-tattoo', auth, admin, /*#__PURE__*/function () {
+  var _ref12 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee12(req, res, next) {
+    var startCode, endCode, payload, i, qrcodes, promise, url, qrcode;
+    return _regenerator["default"].wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            startCode = parseInt(req.body.startCode);
+            endCode = parseInt(req.body.endCode);
+            payload = {
+              image: "",
+              code: "",
+              link: "https://skanz.live",
+              single: 0,
+              printed: false
+            };
+
+            if (!(startCode < endCode)) {
+              _context12.next = 27;
+              break;
+            }
+
+            i = startCode;
+
+          case 5:
+            if (!(i <= endCode)) {
+              _context12.next = 25;
+              break;
+            }
+
+            payload.code = "A" + String(i).padStart(6, '0');
+            _context12.next = 9;
+            return Qr.find({
+              code: payload.code
+            });
+
+          case 9:
+            qrcodes = _context12.sent;
+
+            if (!(qrcodes.length == 0)) {
+              _context12.next = 21;
+              break;
+            }
+
+            promise = new Promise(function (resolve, reject) {
+              var segs = "http://c.skanz.live/" + payload.code;
+              QRCode.toDataURL(segs, function (err, url) {
+                resolve(url);
+              });
+            });
+            _context12.next = 14;
+            return promise;
+
+          case 14:
+            url = _context12.sent;
+            payload.image = url;
+            _context12.next = 18;
+            return Qr.create(payload);
+
+          case 18:
+            qrcode = _context12.sent;
+            _context12.next = 22;
+            break;
+
+          case 21:
+            req.flash('error_msg', payload.code + " already exist");
+
+          case 22:
+            i++;
+            _context12.next = 5;
+            break;
+
+          case 25:
+            _context12.next = 28;
+            break;
+
+          case 27:
+            req.flash('error_msg', "Start code can't be equal or large than end code");
+
+          case 28:
+            res.redirect('back');
+
+          case 29:
+          case "end":
+            return _context12.stop();
+        }
+      }
+    }, _callee12);
+  }));
+
+  return function (_x32, _x33, _x34) {
+    return _ref12.apply(this, arguments);
+  };
+}());
 module.exports = router;

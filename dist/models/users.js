@@ -39,6 +39,10 @@ var userSchema = new Schema({
   },
   password: String,
   // social media link
+  visible: {
+    type: Boolean,
+    "default": true
+  },
   facebook: String,
   linkedin: String,
   twitter: String,

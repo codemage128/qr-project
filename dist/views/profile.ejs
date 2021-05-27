@@ -16,13 +16,13 @@
         </div>
         <div class="modal-body">
           <!-- Text -->
-          <p class="text-sm text-white mb-3">
+          <p class="text-sm text-white mb-3 modal-text">
             Please type the link what you want.
           </p>
           <form action="/update-social-medial" method="POST">
             <div class="row">
               <div class="col">
-                <input type="text" class="form-control" placeholder="Insert Link" name="link" id="link"
+                <input type="text" class="form-control" name="link" id="link"
                   aria-describedby="basic-addon1">
                 <input type="hidden" id="type" name="type"/>
               </div>
@@ -39,6 +39,59 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="editUser" data-backdrop="false"
+            aria-labelledby="modal-cookies" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Text -->
+                        <form action="/user/update-info" method="POST">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                      <label class="form-control-label">About</label>
+                                      <textarea class="form-control" name="bio" rows="5"><%= user.bio %></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">First name</label>
+                                        <input class="form-control" type="text" name="firstName" value="<%= user.firstName %>" required
+                                            placeholder="Enter first name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Last name</label>
+                                        <input class="form-control" type="text" name="lastName" value="<%= user.lastName %>" required
+                                            placeholder="Enter last name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-control-label">Email</label>
+                                        <input class="form-control" type="email" name="email" value="<%= user.email %>" required
+                                            placeholder="Enter email">
+                                    </div>
+                                    <div class="form-group">
+                                      <label class="form-control-label">Phone Number</label>
+                                      <input class="form-control" type="text" name="phone" value="<%= user.phone %>" required
+                                          placeholder="+1-123-456-7890">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col text-right">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning mr-2 mt-3">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Buttons -->
+                    </div>
+                </div>
+            </div>
+        </div>
 
   <section class="slice slice-sm bg-section-secondary">
     <div class="container">
@@ -58,10 +111,21 @@
                 <%- include('particials/msg.ejs') %>
               </div>
             </div>
+            <form action="/update-user-visible" method="POST" id="updateVisible">
+              <input type="hidden" name="visible" id="visible" />
+            </form>
             <div class="row">
               <div class="col-xl-6">
                 <div class="card card-fluid">
                   <div class="card-header">
+                    <div class="row align-items-end mb-3 justify-content-end">
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input userVisible" id="userVisible" <% if(user.visible === true ){%> checked <% } %>>
+                            <label class="custom-control-label" for="userVisible">Visible</label>
+                        </div>
+                      </div>
+                    </div>
                     <div class="row align-items-center">
                       <div class="col-auto">
                         <!-- Avatar -->
@@ -74,7 +138,7 @@
                         </a>
                       </div>
                       <div class="col ml-md-n2">
-                        <a href="#!" class="d-block h6 mb-0">
+                        <a href="/out-profile/<%= user.userslug %>" target="_blank" class="d-block h6 mb-0">
                           <%= user.firstName %>
                             <%= user.lastName %>
                         </a>
@@ -86,19 +150,21 @@
                         </small>
                       </div>
                       <div class="col-auto">
-                        <a href="/user/edit" type="button" class="btn btn-xs btn-warning btn-icon rounded-pill">
+                        <button type="button" class="btn btn-xs btn-warning btn-icon rounded-pill" data-toggle="modal"
+                        data-target="#editUser">
                           <span class="btn-inner--icon"><i data-feather="edit-2"></i></span>
                           <span class="btn-inner--text">Edit</span>
-                        </a>
+                        </button>
                       </div>
                     </div>
+                    
                   </div>
                   <div class="card-body">
                     <div class="row">
-                      <div class="col-12  mb-3">
-                        <span class="h5 text-sm">
+                      <div class="col-12 mb-3">
+                        <div class="h5 text-sm">
                           <%= user.bio%>
-                        </span>
+                        </div>
                       </div>
                       <div class="col-12 text-center">
                         <span class="h5 mb-0">
@@ -643,6 +709,7 @@
         </div>
       </div>
     </div>
+
   </section>
   <!-- Core JS  -->
   <%- include('layout/landing-foot.ejs') %>
@@ -650,22 +717,27 @@
 
       <script>
         $('.btn-connect').click(function () {
+          var modalText = "Please type the link what you want"
           var name = $(this).data('name')
           if (name == "facebook") {
             $('#connect_name').attr('src', '/assets/img/svg/social/facebook.svg')
             $('#type').val('facebook')
+            modalText = "Please type the profile name of the Facebook"
           }
           if (name == "linkedin") {
             $('#connect_name').attr('src', '/assets/img/svg/social/linkedin.svg')
             $('#type').val('linkedin')
+            modalText = "Please type the profile name of the Linkedin"
           }
           if (name == "twitter") {
             $('#connect_name').attr('src', '/assets/img/svg/social/twitter.svg')
             $('#type').val('twitter')
+            modalText = "Please type the profile name of the Twitter"
           }
           if (name == "instagram") {
             $('#connect_name').attr('src', '/assets/img/svg/social/instagram.svg')
             $('#type').val('instagram')
+            modalText = "Please type the profile name of the Instagram"
           }
           if (name == "spotify") {
             $('#connect_name').attr('src', '/assets/img/svg/social/spotify.svg')
@@ -707,6 +779,7 @@
             $('#connect_name').attr('src', '/assets/img/svg/brands/google-inbox.svg')
             $('#type').val('google-inbox')
           }
+          $('.modal-text').text(modalText);
           $('#connect').modal('show');
         });
 
@@ -731,8 +804,17 @@
                }
             })
         })
-
-
+        $('.userVisible').on("change", function () {
+          var switchStatus = false;
+          if ($(this).is(':checked')) {
+            switchStatus = $(this).is(':checked');
+          }
+          else {
+            switchStatus = $(this).is(':checked');
+          }
+          $('#visible').val(switchStatus);
+          $('#updateVisible').submit();
+        })
       </script>
 
       <%- include('layout/footer.ejs')%>

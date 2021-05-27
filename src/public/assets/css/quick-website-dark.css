@@ -37043,6 +37043,7 @@ Advanced example - Customized layout
     border-radius: 21px;
     padding-right: 5px;
     padding-left: 4px;
+    background-color: #e29e15 !important;
 }
 #file {
     display: none;
