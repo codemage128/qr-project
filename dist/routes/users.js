@@ -132,4 +132,31 @@ router.post('/update-user-visible', auth, /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }());
+router.post('/update-link-visible', auth, /*#__PURE__*/function () {
+  var _ref4 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(req, res, next) {
+    var data;
+    return _regenerator["default"].wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            data = JSON.parse(req.body.visibledata);
+            User.updateOne({
+              _id: req.user.id
+            }, data).then(function (data) {
+              req.flash('success_msg', 'Link status has been updated.');
+              res.redirect('back');
+            });
+
+          case 2:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function (_x10, _x11, _x12) {
+    return _ref4.apply(this, arguments);
+  };
+}());
 module.exports = router;

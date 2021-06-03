@@ -114,6 +114,10 @@
             <form action="/update-user-visible" method="POST" id="updateVisible">
               <input type="hidden" name="visible" id="visible" />
             </form>
+            <form action="/update-link-visible" method="POST" id="updatelinkVisible">
+              <input type="hidden" name="visibledata" id="visibledata" />
+            </form>
+
             <div class="row">
               <div class="col-xl-6">
                 <div class="card card-fluid">
@@ -177,9 +181,16 @@
                     <!-- Start social media it should be in here -->
                     <div class="row mt-3 text-right">
                       <div class="col">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input" id="totalvisible">
+                            <label class="custom-control-label" for="totalvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col">
                         <a href="/delete-social-media/reset" class="btn btn-secondary btn-xs"
                           data-name="reset">Reset</a>
                       </div>
+
                     </div>
                     <% if(user.facebook) { %>
                     <div class="row mt-3 align-items-center">
@@ -187,6 +198,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/social/facebook.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="facebookvisible" <% if(user.facebookFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="facebookvisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -205,6 +222,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="linkedinvisible" <% if(user.linkedinFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="linkedinvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -219,6 +242,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/social/twitter.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="twittervisible" <% if(user.twitterFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="twittervisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -237,6 +266,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="instagramvisible" <% if(user.instagramFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="instagramvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -251,6 +286,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/social/spotify.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="spotifyvisible" <% if(user.spotifyFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="spotifyvisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -269,6 +310,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="pinterestvisible" <% if(user.pinterestFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="pinterestvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -283,6 +330,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/social/skype.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="skypevisible" <% if(user.skypeFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="skypevisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -301,6 +354,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="whatsappvisible" <% if(user.whatsappFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="whatsappvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -315,6 +374,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/social/youtube.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="youtubevisible" <% if(user.youtubeFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="youtubevisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -333,6 +398,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="safarivisible" <% if(user.safariFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="safarivisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -347,6 +418,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/brands/google-docs.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="docvisible" <% if(user.docFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="docvisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -365,6 +442,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="paypalvisible" <% if(user.paypalFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="paypalvisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -381,6 +464,12 @@
                         </h6>
                       </div>
                       <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="shovisible" <% if(user.shopFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="shovisible"></label>
+                        </div>            
+                      </div>
+                      <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
                       </div>
                       <div class="col-auto">
@@ -395,6 +484,12 @@
                         <h6 class="text-sm mb-0">
                           <img src="/assets/img/svg/brands/google-inbox.svg" class="social-svg" />
                         </h6>
+                      </div>
+                      <div class="col-auto">
+                        <div class="custom-control custom-switch">
+                          <input type="checkbox" class="custom-control-input social-visible" id="mailboxvisible" <% if(user.mailboxFlag === true){%> checked <% } %>>
+                            <label class="custom-control-label" for="mailboxvisible"></label>
+                        </div>            
                       </div>
                       <div class="col-auto">
                         <a href="javascript:void();" class="btn-connect text-sm" data-name="facebook">Update</a>
@@ -422,6 +517,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.facebook) { %>
+                          <% if(user.facebookFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="facebook">Connect</a>
@@ -437,6 +535,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.linkedin) { %>
+                          <% if(user.linkedinFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                         <a href="javascript:void();" class="text-sm btn-connect" data-name="linkedin">Connect</a>
@@ -452,6 +553,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.twitter) { %>
+                          <% if(user.twitterFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                         <a href="javascript:void();" class="text-sm btn-connect" data-name="twitter">Connect</a>
@@ -467,6 +571,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.instagram) { %>
+                          <% if(user.instagramFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="instagram">Connect</a>
@@ -482,6 +589,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.spotify) { %>
+                          <% if(user.spotifyFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="spotify">Connect</a>
@@ -497,6 +607,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.pinterest) { %>
+                          <% if(user.pinterestFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="pinterest">Connect</a>
@@ -512,6 +625,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.skype) { %>
+                          <% if(user.skypeFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="skype">Connect</a>
@@ -527,6 +643,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.whatsapp) { %>
+                          <% if(user.whatsappFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="whatsapp">Connect</a>
@@ -542,6 +661,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.youtube) { %>
+                          <% if(user.youtubeFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="youtube">Connect</a>
@@ -557,6 +679,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.safari) { %>
+                          <% if(user.safariFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="safari">Connect</a>
@@ -572,6 +697,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.doc) { %>
+                          <% if(user.docFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="google-docs">Connect</a>
@@ -587,6 +715,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.paypal) { %>
+                          <% if(user.paypalFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="paypal">Connect</a>
@@ -602,6 +733,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.shop) { %>
+                          <% if(user.shopFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="microsoft-store">Connect</a>
@@ -617,6 +751,9 @@
                       </div>
                       <div class="col-auto">
                         <% if(user.mailbox) { %>
+                          <% if(user.mailboxFlag === true) { %>
+                            <span class="badge badge-soft-warning">Visible</span>
+                          <% } %>
                           <span class="text-sm">Connected</span>
                         <% } else { %>
                           <a href="javascript:void();" class="text-sm btn-connect" data-name="google-inbox">Connect</a>
@@ -815,6 +952,92 @@
           $('#visible').val(switchStatus);
           $('#updateVisible').submit();
         })
+        $('.social-visible').on('change', function(){
+          var id = $(this).attr('id');
+          var status = false;
+          if ($(this).is(':checked')) {
+            status = $(this).is(':checked');
+          }
+          else {
+            status = $(this).is(':checked');
+          }
+          var facebookFlag = '<%= user.facebookFlag %>';
+          var linkedinFlag = '<%= user.linkedinFlag%>';
+          var twitterFlag = '<%= user.twitterFlag %>';
+          var instagramFlag = '<%= user.instagramFlag %>';
+          var spotifyFlag = '<%= user.spotifyFlag %>';
+          var pinterestFlag = '<%= user.pinterestFlag %>';
+          var skypeFlag = '<%= user.skypeFlag %>';
+          var whatsappFlag = '<%= user.whatsappFlag %>';
+          var youtubeFlag = '<%= user.youtubeFlag %>';
+          var safariFlag = '<%= user.safariFlag %>';
+          var docFlag = '<%= user.docFlag %>';
+          var paypalFlag = '<%= user.paypalFlag %>';
+          var shopFlag = '<%= user.shopFlag %>';
+          var mailboxFlag = '<%= user.mailboxFlag %>';
+
+          if(id == 'facebookvisible'){
+            facebookFlag = status;
+          }
+          if(id == 'linkedinvisible'){
+            linkedinFlag = status;
+          }
+          if(id == 'twittervisible'){
+            twitterFlag = status;
+          }
+          if(id == 'instagramvisible'){
+            instagramFlag = status;
+          }
+          if(id == 'pinterestvisible'){
+            pinterestFlag = status;
+          }
+          if(id == 'spotifyvisible'){
+            spotifyFlag = status;
+          }
+          if(id == 'skypevisible'){
+            skypeFlag = status;
+          }
+          if(id == 'whatsappvisible'){
+            whatsappFlag = status;
+          }
+          if(id == 'youtubevisible'){
+            youtubeFlag = status;
+          }
+          if(id == 'safarivisible'){
+            safariFlag = status;
+          }
+          if(id == 'docvisible'){
+            docFlag = status;
+          }
+          if(id == 'paypalvisible'){
+            paypalFlag = status;
+          }
+          if(id == 'shovisible'){
+            shopFlag = status;
+          }
+          if(id == 'mailboxvisible'){
+            mailboxFlag = status;
+          }
+          
+          var data = {
+            "facebookFlag": facebookFlag,
+            "linkedinFlag": linkedinFlag,
+            "twitterFlag": twitterFlag,
+            "instagramFlag": instagramFlag,
+            "spotifyFlag": spotifyFlag,
+            "pinterestFlag": pinterestFlag,
+            "skypeFlag": skypeFlag,
+            "whatsappFlag": whatsappFlag,
+            "youtubeFlag": youtubeFlag,
+            "safariFlag": safariFlag,
+            "docFlag": docFlag,
+            "paypalFlag": paypalFlag,
+            "shopFlag": shopFlag,
+            "mailboxFlag": mailboxFlag,
+          }
+          $('#visibledata').val(JSON.stringify(data));
+          $('#updatelinkVisible').submit();
+        });
       </script>
 
       <%- include('layout/footer.ejs')%>

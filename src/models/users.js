@@ -40,20 +40,75 @@ const userSchema = new Schema({
     default: true
   },
   facebook: String,
+  facebookFlag: {
+    type: Boolean,
+    default: true,
+  },
   linkedin: String,
+  linkedinFlag:  {
+    type: Boolean,
+    default: true,
+  },
   twitter: String,
+  twitterFlag:  {
+    type: Boolean,
+    default: true,
+  },
   instagram: String,
+  instagramFlag:  {
+    type: Boolean,
+    default: true,
+  },
   spotify: String,
+  spotifyFlag:  {
+    type: Boolean,
+    default: true,
+  },
   pinterest: String,
+  pinterestFlag:  {
+    type: Boolean,
+    default: true,
+  },
   skype: String,
+  skypeFlag:  {
+    type: Boolean,
+    default: true,
+  },
   whatsapp: String,
+  whatsappFlag:  {
+    type: Boolean,
+    default: true,
+  },
   youtube: String,
+  youtubeFlag:  {
+    type: Boolean,
+    default: true,
+  },
   safari: String,
+  safariFlag:  {
+    type: Boolean,
+    default: true,
+  },
   doc: String,
+  docFlag:  {
+    type: Boolean,
+    default: true,
+  },
   paypal: String,
+  paypalFlag:  {
+    type: Boolean,
+    default: true,
+  },
   shop: String,
+  shopFlag:  {
+    type: Boolean,
+    default: true,
+  },
   mailbox: String,
-
+  mailboxFlag:  {
+    type: Boolean,
+    default: true,
+  },
 }, { timestamps: true });
 
 userSchema.pre("save", function (next) {

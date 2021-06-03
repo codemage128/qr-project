@@ -58,4 +58,13 @@ router.post('/update-user-visible', auth, async (req, res, next) => {
    }).catch(error => next(error));
 })
 
+router.post('/update-link-visible', auth, async(req, res, next) => {
+   let data = JSON.parse(req.body.visibledata);
+   User.updateOne({_id: req.user.id}, data).then(data => {
+      req.flash('success_msg', 'Link status has been updated.');
+      res.redirect('back');
+   })
+   
+})
+
 module.exports = router

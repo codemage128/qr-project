@@ -87,7 +87,8 @@ router.get('/save-contact/:id', /*#__PURE__*/function () {
             vCard.lastName = user.lastName; // vCard.organization = 'ACME Corporation';
 
             vCard.photo.attachFromUrl(user.profilePicture, 'JPEG');
-            vCard.workPhone = user.phone; // vCard.birthday = new Date(1985, 0, 1);
+            vCard.workPhone = user.phone;
+            vCard.email = user.email; // vCard.birthday = new Date(1985, 0, 1);
             // vCard.title = 'Software Developer';
             // vCard.url = 'https://github.com/enesser';
             // vCard.note = 'Notes on Eric';
@@ -122,7 +123,7 @@ router.get('/save-contact/:id', /*#__PURE__*/function () {
               };
             }());
 
-          case 12:
+          case 13:
           case "end":
             return _context3.stop();
         }

@@ -39,6 +39,7 @@ router.get('/save-contact/:id', async(req, res, next) => {
     // vCard.organization = 'ACME Corporation';
     vCard.photo.attachFromUrl(user.profilePicture, 'JPEG');
     vCard.workPhone = user.phone;
+    vCard.email = user.email;
     // vCard.birthday = new Date(1985, 0, 1);
     // vCard.title = 'Software Developer';
     // vCard.url = 'https://github.com/enesser';
